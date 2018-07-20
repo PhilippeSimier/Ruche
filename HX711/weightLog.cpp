@@ -23,6 +23,8 @@
 #include "hx711.h"
 #include "SimpleIni.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
+
 using namespace std;
 using namespace sql;
 
@@ -37,7 +39,7 @@ int main() {
 
 // Lecture du fichier de configuration
 
-    ini.Load("/home/pi/Capteurs_I2C/HX711/configuration.ini");
+    ini.Load(CONFIGURATION);
 
     connexion_locale["hostName"] = (sql::SQLString)ini.GetValue<string>("BDlocale", "host", "127.0.0.1");
     connexion_locale["userName"] = (sql::SQLString)ini.GetValue<string>("BDlocale", "user", "ruche");

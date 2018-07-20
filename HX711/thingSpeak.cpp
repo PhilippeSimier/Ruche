@@ -22,6 +22,8 @@
 #include "SimpleIni.h"
 #include "HTTPDownloader.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
+
 using namespace std;
 
 int main()
@@ -32,7 +34,7 @@ int main()
     ostringstream url;
 
     // Lecture du fichier de configuration
-    if(!ini.Load("/home/pi/Capteurs_I2C/HX711/configuration.ini"))
+    if(!ini.Load(CONFIGURATION))
     {
         cout << "\"error\":\"Impossible d'ouvrir le fichier configuration.ini\"" << endl;
         return -1;

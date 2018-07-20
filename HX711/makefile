@@ -1,12 +1,19 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson main
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson weightLog thingSpeak main
 
 all: $(EXEC)
+
+# compilation du programme thingSpeak
+thingSpeak: thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o spi.o
+	$(CXX) thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o spi.o -lcurl -o thingSpeak
+
+# compilation du programme weightLog
+weightLog: weightLog.cpp SimpleIni.o hx711.o spi.o 
+	$(CXX) weightLog.cpp SimpleIni.o hx711.o spi.o -lmysqlcppconn -o weightLog
 
 # compilation du programme etalonnage 
 etalonnage: etalonnage.cpp SimpleIni.o hx711.o
 	$(CXX) etalonnage.cpp SimpleIni.o hx711.o spi.o -o etalonnage
-
 
 # compilation du programme tarage
 tarage: tarage.cpp SimpleIni.o hx711.o
@@ -28,6 +35,10 @@ balanceJson: balanceJson.cpp SimpleIni.o hx711.o
 # compilation du programme main
 main: main.cpp SimpleIni.o hx711.o
 	$(CXX) main.cpp SimpleIni.o hx711.o spi.o -o main
+
+# compilation de la classe  HTTPDownloader
+HTTPDownloader.o: HTTPDownloader.cpp HTTPDownloader.h
+	$(CXX) -c HTTPDownloader.cpp -o HTTPDownloader.o 
 
 # compilation de la classe SimpleIni
 SimpleIni.o: SimpleIni.cpp SimpleIni.h

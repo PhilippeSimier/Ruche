@@ -14,6 +14,8 @@
 #include "hx711.h"
 #include "SimpleIni.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
+
 using namespace std;
 
 int main()
@@ -31,7 +33,7 @@ int main()
     int   precision = 1;
 
     // Lecture du fichier de configuration
-    ini.Load("configuration.ini");
+    ini.Load(CONFIGURATION);
     scale  = ini.GetValue<float>("balance", "scale", 1.0 );
     offset = ini.GetValue<int>("balance", "offset", 0);
     gain   = ini.GetValue<int>("balance", "gain", 128);

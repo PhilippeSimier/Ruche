@@ -14,6 +14,7 @@
 #include "hx711.h"
 #include "SimpleIni.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int main()
     SimpleIni ini;
     int gain;
 
-    if(!ini.Load("/home/pi/Capteurs_I2C/HX711/configuration.ini"))
+    if(!ini.Load(CONFIGURATION))
     {
         cout << "Impossible d'ouvrir le fichier configuration.ini !!" << endl;
         return -1;

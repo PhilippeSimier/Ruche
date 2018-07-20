@@ -15,6 +15,7 @@
 #include "hx711.h"
 #include "SimpleIni.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ int main()
     cout << "Content-type: application/json" << endl << endl;
     cout << "{" << endl;
 
-    if(!ini.Load("/home/pi/Capteurs_I2C/HX711/configuration.ini"))
+    if(!ini.Load(CONFIGURATION))
     {
         cout << "\"success\": false, " << endl;
         cout << "\"error\":\"Impossible d'ouvrir le fichier configuration.ini\"" << endl;

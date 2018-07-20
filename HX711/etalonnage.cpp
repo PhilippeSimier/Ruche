@@ -1,5 +1,5 @@
 /**
- *  @file     main.cpp
+ *  @file     etalonnage.cpp
  *  @author   Philippe SIMIER (Touchard Wahington le Mans)
  *  @license  BSD (see license.txt)
  *  @date     6 juin 2018
@@ -15,6 +15,7 @@
 #include "hx711.h"
 #include "SimpleIni.h"
 
+#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ int main()
     string unite;
     int precision;
 
-    if(!ini.Load("configuration.ini"))
+    if(!ini.Load(CONFIGURATION))
     {
         cout << "Impossible d'ouvrir le fichier configuration.ini !!" << endl;
         return -1;
