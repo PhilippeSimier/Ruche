@@ -32,7 +32,7 @@ Réaliser le câblage suivant le schéma ci-dessus
     root@raspberry:~/home/pi/Capteurs_I2C/HX711 $ make install
     root@raspberry:~/home/pi/Capteurs_I2C/HX711 $ make clean
 ```
-**Configuration et Etalonage** de la balance
+**Configuration et Etalonnage** de la balance
 
 L'étalonnage  est  l'établissement de la relation entre une valeur connue et la valeur mesurée dans des conditions de mesure précises. En d'autres termes, l'étalonnage consiste à prendre un poids connu (p. ex. 1 kg) et d'établir la relation pour que la valeur affichée à l'écran corresponde à la valeur connue.
 
