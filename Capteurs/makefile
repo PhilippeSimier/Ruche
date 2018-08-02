@@ -4,8 +4,8 @@ EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson weightLog thingSpeak mai
 all: $(EXEC)
 
 # compilation du programme thingSpeak
-thingSpeak: thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o spi.o
-	$(CXX) thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o spi.o -lcurl -o thingSpeak
+thingSpeak: thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o spi.o bme280.o i2c.o
+	$(CXX) thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o bme280.o spi.o i2c.o -lcurl -o thingSpeak
 
 # compilation du programme weightLog
 weightLog: weightLog.cpp SimpleIni.o hx711.o spi.o 
@@ -44,13 +44,21 @@ HTTPDownloader.o: HTTPDownloader.cpp HTTPDownloader.h
 SimpleIni.o: SimpleIni.cpp SimpleIni.h
 	$(CXX) -c SimpleIni.cpp -o SimpleIni.o
 
+# compilation de la classe bme280
+bme280.o: bme280.cpp bme280.h i2c.o
+	$(CXX) -c bme280.cpp -o bme280.o
+
 # compilation de la classe hx711
-hx711.o:  hx711.cpp hx711.h spi.o
+hx711.o: hx711.cpp hx711.h spi.o
 	$(CXX) -c hx711.cpp -o hx711.o
 
 # compilation de spi
 spi.o: spi.c spi.h
 	$(CXX) -c spi.c -o spi.o
+
+# compilation de le classe i2c
+i2c.o: i2c.cpp i2c.h
+	$(CXX) -c i2c.cpp -o i2c.o
 
 .PHONY: clean mrproper
 
@@ -70,7 +78,7 @@ install:
 	chmod +s /usr/lib/cgi-bin/tarageCGI
 	cp scaleCGI /usr/lib/cgi-bin/scaleCGI
 	chmod +s /usr/lib/cgi-bin/scaleCGI
-	chmod 777 configuration.ini
+
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
