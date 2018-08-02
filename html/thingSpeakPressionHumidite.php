@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <?php 
-    require_once('definition.inc.php');
+    session_start();
+	require_once('definition.inc.php');
     $ini  = parse_ini_file(CONFIGURATION, true);
 ?>
 
@@ -11,7 +12,7 @@
 	<!-- Bootstrap CSS version 4.1.1 -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script> 
+	<script src="/scripts/bootstrap.min.js"></script> 
     <link rel="stylesheet" href="css/ruche.css" />
 	
 
@@ -28,7 +29,7 @@
     channelKeys.push({channelNumber:<?php echo $ini['thingSpeak']['channel']; ?>, 
 	                  name:'Ruche',
 					  key:'<?php echo $ini['thingSpeak']['key']; ?>',
-                      fieldList:[{field:1,axis:'P'},{field:2,axis:'O'}]});
+                      fieldList:[{field:3,axis:'P'},{field:4,axis:'O'}]});
 
     
     // user's timezone offset
@@ -192,21 +193,13 @@ $(document).ready(function()
 			}
 		},
 		rangeSelector: {
-			buttons: [{
-				count: 30, type: 'minute', text: '30M'
-			    }, {
-				count: 12, type: 'hour', text: '12H'
-                }, {
-				count: 1, type: 'day', text: 'D'
-                }, {
-				count: 1, type: 'week', text: 'W'
-                }, {
-				count: 1, type: 'month', text: 'M'
-                }, {
-				count: 1, type: 'year', text: 'Y'
-			    }, {
-				type: 'all', text: 'All'
-			    }],
+			buttons: [
+			    {count: 1, type: 'day', text: 'D'}, 
+				{count: 1, type: 'week', text: 'W'},
+				{count: 1, type: 'month', text: 'M'}, 
+				{count: 1, type: 'year', text: 'Y'},
+				{type: 'all', text: 'All'}
+			],
 			inputEnabled: true,
 			selected: 1
 		},

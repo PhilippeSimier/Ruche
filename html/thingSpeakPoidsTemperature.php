@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+
 
 <?php 
-    require_once('definition.inc.php');
+    session_start();
+	
+	require_once('definition.inc.php');
     $ini  = parse_ini_file(CONFIGURATION, true);
 ?>
-
+<!DOCTYPE html>
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
@@ -192,21 +194,13 @@ $(document).ready(function()
 			}
 		},
 		rangeSelector: {
-			buttons: [{
-				count: 30, type: 'minute', text: '30M'
-			    }, {
-				count: 12, type: 'hour', text: '12H'
-                }, {
-				count: 1, type: 'day', text: 'D'
-                }, {
-				count: 1, type: 'week', text: 'W'
-                }, {
-				count: 1, type: 'month', text: 'M'
-                }, {
-				count: 1, type: 'year', text: 'Y'
-			    }, {
-				type: 'all', text: 'All'
-			    }],
+			buttons: [
+			    {count: 1, type: 'day', text: 'D'}, 
+				{count: 1, type: 'week', text: 'W'},
+				{count: 1, type: 'month', text: 'M'}, 
+				{count: 1, type: 'year', text: 'Y'},
+				{type: 'all', text: 'All'}
+			],
 			inputEnabled: true,
 			selected: 1
 		},

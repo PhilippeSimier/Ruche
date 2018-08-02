@@ -1,8 +1,9 @@
 <?PHP
 
     // Ce Fichier contient la definition des constantes
-	// dÃ©finition du fichier de configuration.ini
+	// définition du fichier de configuration.ini
 
 	define ("CONFIGURATION","/home/pi/Ruche/configuration.ini");
+    
 
 ?>

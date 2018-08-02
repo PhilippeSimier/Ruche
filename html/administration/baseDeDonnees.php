@@ -1,6 +1,8 @@
 <?php
-require_once('ini/ini.php');
-require_once('definition.inc.php');
+include "authentification/authcheck.php" ;
+
+require_once('../ini/ini.php');
+require_once('../definition.inc.php');
 
 //------------si des données  sont reçues on les enregistrent dans le fichier configuration.ini ---------
 if( !empty($_POST['envoyer'])){
@@ -54,18 +56,20 @@ else
 
     <title>Configuration</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+	
+    <link rel="stylesheet" href="/css/ruche.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script> -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/ruche.css" />
+	<script src="/scripts/bootstrap.min.js"></script>
+    
 		
 </head>
 <body>
 
-<?php require_once 'menu.php'; ?>
+<?php require_once '../menu.php'; ?>
 
-<div class="container" style="padding-top: 35px;">
+<div class="container" style="padding-top: 65px;">
     
 
 		<form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" name="configuration" >
@@ -95,6 +99,7 @@ else
 							<label for="BDlocale_bdd" class="font-weight-bold">Bdd : </label>
 							<input id="BDlocale_bdd" type="int"  name="BDlocale_bdd" class="form-control" <?php echo 'value="' . $_POST['BDlocale_bdd'] . '"'; ?> />
 						</div>
+						<a class="nav-link" href="/phpmyadmin/">phpMyAdmin local</a>
 			
 				</div>
 			</div>	
@@ -122,6 +127,7 @@ else
 							<label for="BDdistante_bdd" class="font-weight-bold">Bdd : </label>
 							<input id="BDdistante_bdd" type="int"  name="BDdistante_bdd" class="form-control" <?php echo 'value="' . $_POST['BDdistante_bdd'] . '"'; ?> />
 						</div>
+						<a class="nav-link" <?php echo 'href="http://' . $_POST['BDdistante_host'] . '/phpmyadmin/"'; ?>>phpMyAdmin distant</a>
 				</div>
 			</div>
 		
@@ -130,7 +136,7 @@ else
 			<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
 		</div>
 		</form>
-		<?php require_once 'piedDePage.php'; ?>
+		<?php require_once '../piedDePage.php'; ?>
 </div>
 	
 </body>

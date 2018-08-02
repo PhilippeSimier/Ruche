@@ -1,6 +1,9 @@
 <?php
-require_once('ini/ini.php');
-require_once('definition.inc.php');
+include "authentification/authcheck.php" ;
+	
+
+require_once('../ini/ini.php');
+require_once('../definition.inc.php');
 
 //------------si des données  sont reçues on les enregistrent dans le fichier configuration.ini ---------
 if( !empty($_POST['envoyer'])){
@@ -78,14 +81,13 @@ else
 
     <title>Configuration</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/ruche.css" />
+    
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script>
+	<script src="/scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKUqx5vjYkrX15OOMAxFbOkGjDfAPL1J8"></script>
-	<script src="scripts/gmaps.js"></script>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/ruche.css" />
-
+	<script src="/scripts/gmaps.js"></script>
     
 
 		
@@ -239,7 +241,7 @@ else
 </head>
 <body>
 
-<?php require_once 'menu.php'; ?>
+<?php require_once '../menu.php'; ?>
 
 <div class="container" style="padding-top: 65px;">
     
@@ -297,7 +299,7 @@ else
 		<div class="row">
 			
 		</div>
-		<?php require_once 'piedDePage.php'; ?>
+		<?php require_once '../piedDePage.php'; ?>
 </div>
 	
 </body>

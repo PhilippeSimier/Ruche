@@ -9,7 +9,6 @@
     Installation: sudo chown root balanceJson
                   sudo chmod +s balanceJson
                   sudo cp balanceJson /usr/lib/cgi-bin/balanceJson
-                  sudo cp configuration.ini /usr/lib/cgi-bin/configuration.ini
 
     \version	v1.0 - First release
 */

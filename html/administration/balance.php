@@ -1,8 +1,10 @@
 <?php
 // https://www.mt.com/mt_ext_files/Editorial/Generic/4/Operator_Manual_IND425_Editorial-Generic_1102076714093_files/22011482A.pdf
 
-require_once('ini/ini.php');
-require_once('definition.inc.php');
+include "authentification/authcheck.php" ;
+
+require_once('../ini/ini.php');
+require_once('../definition.inc.php');
 
 //------------si des données  sont reçues on les enregistrent dans le fichier configuration.ini ---------
 if( !empty($_POST['envoyer'])){
@@ -43,75 +45,66 @@ else
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Balance</title>
+    <title>Conf. Balance</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/ruche.css" />
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script> -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/ruche.css" />
+	<script src="/scripts/bootstrap.min.js"></script>     
+    
 
-    <!-- Style pour la boite (div id popin) coins arrondis bordure blanche ombre -->
-        <style type="text/css">
-		.popin {
-				background-color: #fff;
-				border-radius: 8px;
-				box-shadow: 0 0 20px #999;
-				padding: 10px;
-				margin: 10px;
-
-		}
-
+    <style type="text/css">
+		
 		.h1 {
 			font-size: 80px;
 		}
 
-		</style>
+	</style>
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script type="text/javascript">
-			var  enable = true;
-			function affiche( data ) {               // fonction pour afficher les données reçues
+	<script type="text/javascript">
+		var  enable = true;
+		function affiche( data ) {               // fonction pour afficher les données reçues
 				//console.log(data);                   // affichage de data dans la console
-				if (enable && data.success){
-					$('#Weight').text(data.Weight + ' ' + data.unite);
-				}
+			if (enable && data.success){
+				$('#Weight').text(data.Weight + ' ' + data.unite);
 			}
+		}
 
-			function requete_ajax(){
-				// requete Ajax méthode getJSON
-				if (enable){
+		function requete_ajax(){
+			// requete Ajax méthode getJSON
+			if (enable){
 				
 				$.getJSON(
 					"/cgi-bin/balanceJson", // Le fichier cible côté serveur. data au format Json
 					affiche
 				);
-				}
 			}
+		}
 
-			$(document).ready(function(){
-			    	$.getJSON("/cgi-bin/balanceJson", affiche); // affichage des données quand la page est dispo
-				setInterval(requete_ajax, 1200);  // appel de la fonction requete_ajax toutes les 10 secondes
+		$(document).ready(function(){
+		   	$.getJSON("/cgi-bin/balanceJson", affiche); // affichage des données quand la page est dispo
+			setInterval(requete_ajax, 1200);  // appel de la fonction requete_ajax toutes les 10 secondes
 
-				$("#zero").click(function(){
+			$("#zero").click(function(){
 					
-					if (confirm("Confirmez-vous la correction de zéro ?")) { 
-						enable = false;
-						$('#Weight').text("RAZ");
-						$.getJSON("/cgi-bin/tarageCGI", function(data){
-							console.log(data);
-							if(data.success == true){
-								enable = true;
-								$('input[name=offset]').val(data.offset);
-								$('input[name=offset]').css("backgroundColor", "#00ff00");
-							}
-							else{
-								window.alert(data.error);
-							}	
+				if (confirm("Confirmez-vous la correction de zéro ?")) { 
+					enable = false;
+					$('#Weight').text("RAZ");
+					$.getJSON("/cgi-bin/tarageCGI", function(data){
+						console.log(data);
+						if(data.success == true){
+							enable = true;
+							$('input[name=offset]').val(data.offset);
+							$('input[name=offset]').css("backgroundColor", "#00ff00");
+						}
+						else{
+							window.alert(data.error);
+						}	
 							
-						});
-					}
-			   });
+					});
+				}
+			});
 			   
 			   $("#calibrage").click(function(){
 					var poids = prompt('Donnez la valeur du poids étalon','poids');
@@ -136,15 +129,16 @@ else
 				});	
 			   
 			});
-		</script>
+	</script>
 
 </head>
 <body>
-<div class="container" >
+	<?php require_once '../menu.php'; ?>
+	<div class="container" style="padding-top: 65px;" >
 	
-	<?php require_once 'menu.php'; ?>
 	
-	<div class="row" style="padding-top: 35px;">
+	
+	<div class="row" >
         
 	    <div class="col-md-6">
             <div class="popin">
@@ -212,6 +206,6 @@ else
         </div>
 
     </div>
-	<?php require_once 'piedDePage.php'; ?>
+	<?php require_once '../piedDePage.php'; ?>
 </div>	
 </body>

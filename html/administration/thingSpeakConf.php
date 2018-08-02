@@ -1,6 +1,8 @@
 <?php
-require_once('ini/ini.php');
-require_once('definition.inc.php');
+include "authentification/authcheck.php" ;
+
+require_once('../ini/ini.php');
+require_once('../definition.inc.php');
 
 //------------si des données  sont reçues on les enregistrent dans le fichier configuration.ini ---------
 if( !empty($_POST['envoyer'])){
@@ -43,11 +45,13 @@ if( !empty($_POST['envoyer'])){
 
     <title>Configuration thing speak</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/ruche.css" />
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script> -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/ruche.css" />
+	<script src="/scripts/bootstrap.min.js"></script> 
+    
+    
     <script>
 	    function affiche( data, status ) {               // fonction pour afficher les données reçues
 			console.log(data);
@@ -56,7 +60,7 @@ if( !empty($_POST['envoyer'])){
 				$('input[name=name]').val(data.name);
 				$('input[name=name]').attr('readonly', true);
 				$('#channel_description').text(data.description);
-				//$('#channel_description]').attr('readonly', true);
+				
 				$('input[name=latitude]').val(data.latitude);
 				$('input[name=latitude]').attr('readonly', true);
 				$('input[name=longitude]').val(data.longitude);
@@ -78,9 +82,9 @@ if( !empty($_POST['envoyer'])){
 </head>
 <body>
 
-<?php require_once 'menu.php'; ?>
+<?php require_once '../menu.php'; ?>
 
-<div class="container" style="padding-top: 35px;">
+<div class="container" style="padding-top: 65px;">
     
 
 		<form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" name="configuration" >
@@ -107,6 +111,7 @@ if( !empty($_POST['envoyer'])){
 							<input id="offset" type="int"  name="thingSpeak_key" class="form-control" <?php echo 'value="' . $_POST['thingSpeak_key'] . '"'; ?> />
 						</div>
 						
+						<a class="nav-link" href="<?php echo "https://thingspeak.com/channels/".$ini['thingSpeak']['channel']; ?>">thingSpeak</a>
 						
 						
 						<div class="form-group">
@@ -150,14 +155,13 @@ if( !empty($_POST['envoyer'])){
 							<label for="created_at" class="font-weight-bold">Date de création : </label>
 							<input name="created_at" class="form-control" value="" />
 						</div>
-	
 				</div>
 			</div>	
 		</div>
 
 		
 		</form>
-		<?php require_once 'piedDePage.php'; ?>
+		<?php require_once '../piedDePage.php'; ?>
 </div>
 	
 </body>

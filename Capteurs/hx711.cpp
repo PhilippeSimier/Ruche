@@ -88,19 +88,26 @@ int hx711::obtenirValeur()
 
 float hx711::obtenirPoids(int nb)
 {
-    int max = obtenirValeur();
-    int min = max;
-    int som = 0;
 
+    int som = 0;
+    vector<int> valeur;
+
+    // Lecture de nb valeurs
     for (int i=0; i < nb; i++)
     {
-        valeurBrute = obtenirValeur();
-        if (valeurBrute > max) max = valeurBrute;
-        if (valeurBrute < min) min = valeurBrute;
-        som += valeurBrute;
+        valeur.push_back(obtenirValeur());
     }
 
-    valeurBrute = (som - max - min) / (nb-2);
+    // Tri des valeurs grâce à la fonction std::sort
+    sort (valeur.begin(), valeur.end());
+
+    // Somme des valeurs sans les deux extrèmes
+    for (int i=2; i < (nb-2) ; i++)
+    {
+        som += valeur.at(i);
+    }
+
+    valeurBrute = som / (nb-4);
     return (float)(valeurBrute - offset)/scale;
 
 }

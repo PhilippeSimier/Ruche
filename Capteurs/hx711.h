@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
+#include <vector>
+#include <algorithm>
 #include "spi.h"
 
 

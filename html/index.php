@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -79,7 +81,9 @@
 	
 	</div>
 	
-	<?php require_once 'piedDePage.php'; ?>
+	<?php 
+		require_once 'piedDePage.php'; 
+	?>
 
 	</div>
 </body>	
