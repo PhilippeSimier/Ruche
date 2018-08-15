@@ -86,6 +86,7 @@ class i2c
         unsigned char WriteReg8 (int reg, int value);
         unsigned short WriteReg16 (int reg, int value);
 	int WriteBlockData (int reg, int length, int *data);
+        int delay_ms(unsigned long num_ms);
 
     private:
 

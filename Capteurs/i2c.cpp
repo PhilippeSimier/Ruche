@@ -133,3 +133,13 @@
          }
  }
  // retourne le nombre d'octets lu
+
+int i2c::delay_ms(unsigned long num_ms)
+{
+    struct timespec ts;
+
+    ts.tv_sec = num_ms / 1000;
+    ts.tv_nsec = (num_ms % 1000) * 1000000;
+
+    return nanosleep(&ts, NULL);
+}
