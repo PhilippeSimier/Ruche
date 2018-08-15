@@ -41,8 +41,8 @@
 			<h2>La ruche connectée</h2>
 			<p>Gagnez en sérénité ! Suivez vos ruches en direct depuis votre smartphone. Economisez votre temps et vos déplacements.</p>
 			<p>D’une installation facile et rapide, le système se positionne sous n’importe quelle ruche et délivre en temps réel un suivi précis des grandeurs mesurées, 
-			via des vues graphiques sur notre ou votre site internet. 
-			En cas de besoin d’intervention, des alertes par mail, sms ou twiter vous sont émises.</p>
+			via des vues graphiques sur thing Speak ou sur votre site internet.</p> 
+			<p>En cas de besoin d’intervention, des alertes vous seront transmises par mail, sms, ou notification sur votre smartphone. Ce service est assurée par IFTTT (if this then that).</p>
 		</div>
 	</div>
 	
