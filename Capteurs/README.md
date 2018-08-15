@@ -18,7 +18,7 @@ La plupart des cellules de pesage disposent de quatre « jauges de contrainte »
 La tendance actuelle est aux jauges à trame, dites aussi jauges imprimées. Elles sont obtenues à partir d'une lame, formée d'une feuille mince (quelques micromètres) d'un alliage métallique et d'un support isolant (résine synthétique). À mesure que le flexible ploie, les jauges de contrainte se déforment, ce qui modifie le courant électrique qui les traverse. Cette modification est proportionnelle au poids de l'objet pesé. 
 
 
- ![schema cablage HX711](/HX711/images/schema-HX711.png)
+ ![schema cablage HX711](/Capteurs/images/schema-HX711.png)
 Réaliser le câblage suivant le schéma ci-dessus 
 # Installation
 **Prérequis** : Cloner le dépôt
