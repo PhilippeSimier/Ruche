@@ -76,7 +76,7 @@ int main()
     ini.SetValue<float>("balance", "scale", scale);
 
     // Ecriture du fichier de configuration
-    if(!ini.SaveAs("/home/pi/Capteurs_I2C/HX711/configuration.ini"))
+    if(!ini.SaveAs(CONFIGURATION))
     {
         cout << "\"success\": false, " << endl;
         cout << "\"error\":\"Erreur d'écriture du fichier de configuration\"" << endl;

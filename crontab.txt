@@ -20,6 +20,5 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
-*/30 * * * * /home/pi/Ruche/HX711/weightLog >> /home/log/weight.log 2>&1
-*/30 * * * * /home/pi/Ruche/HX711/thingSpeak >> /home/log/thingSpeak 2>&1
-*/30 * * * * /home/pi/Ruche/BME280/thingSpeak >> /home/log/BME280 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/weightLog >> /home/log/weight.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/log/thingSpeak 2>&1

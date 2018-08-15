@@ -98,7 +98,7 @@ int main()
     ini.SetValue<float>("balance", "scale", scale);
 
 
-    if(!ini.SaveAs("configuration.ini"))
+    if(!ini.SaveAs(CONFIGURATION))
     {
         cout << "Impossible d'écrire dans configuration.ini." << endl;
         return -1;
