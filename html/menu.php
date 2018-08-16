@@ -31,9 +31,9 @@
 					Data visualization
 				  </a>
 				  <div class="dropdown-menu">
-					<a class="dropdown-item" href="/thingSpeakPoidsTemperature.php">Poids/Température</a>
-					<a class="dropdown-item" href="/thingSpeakPressionHumidite.php">Pression/Humidité</a>
-					<a class="dropdown-item" href="/thingSpeakChannelEclairement.php">Eclairement</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=1&fieldS=2">Poids/Température</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pression/Humidité</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Eclairement</a>
 				  </div>
 			</li>
 			
