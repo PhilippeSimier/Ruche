@@ -17,6 +17,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <ctime>
 
 #include "hx711.h"
 #include "bme280.h"
@@ -27,6 +28,25 @@
 #define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
 using namespace std;
+
+
+/**
+ * @brief ObtenirDateHeure
+ * @return std::string
+ * @details retourne une chaine de caratères représentant la date courante
+ *          au format Année-mois-jour heure:minute:seconde
+ */
+string ObtenirDateHeure()
+{
+    time_t  t = time(nullptr);
+
+    stringstream ss;
+    ss  <<  put_time( localtime(&t), "%F %T" );
+
+    return ss.str();
+}
+
+
 
 int main()
 {
@@ -65,11 +85,10 @@ int main()
     // cout << url.str() << endl;
 
     long code = requete.get(url.str());
-    cout << "Code HTML : " << code << endl;
     if (code != 200){
-        sleep(30);   // attente de 30s 
+        sleep(30);   // attente de 30s avant nouvel essai 
         code = requete.get(url.str());
-        cout << "Code HTML : " << code << endl;
     }
+    cout << ObtenirDateHeure() << " Code : " << code << endl;
     return 0;
 }
