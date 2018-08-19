@@ -4,8 +4,8 @@ EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson weightLog thingSpeak mai
 all: $(EXEC)
 
 # compilation du programme thingSpeak
-thingSpeak: thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2c.o
-	$(CXX) thingSpeak.cpp HTTPDownloader.o SimpleIni.o hx711.o bme280.o bh1750.o spi.o i2c.o -lcurl -o thingSpeak
+thingSpeak: thingSpeak.cpp rest.o SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2c.o
+	$(CXX) thingSpeak.cpp rest.o SimpleIni.o hx711.o bme280.o bh1750.o spi.o i2c.o -lcurl -o thingSpeak
 
 # compilation du programme weightLog
 weightLog: weightLog.cpp SimpleIni.o hx711.o spi.o 
@@ -36,9 +36,9 @@ balanceJson: balanceJson.cpp SimpleIni.o hx711.o
 main: main.cpp SimpleIni.o hx711.o
 	$(CXX) main.cpp SimpleIni.o hx711.o spi.o -o main
 
-# compilation de la classe  HTTPDownloader
-HTTPDownloader.o: HTTPDownloader.cpp HTTPDownloader.h
-	$(CXX) -c HTTPDownloader.cpp -o HTTPDownloader.o 
+# compilation de la classe  rest
+rest.o: rest.cpp rest.h
+	$(CXX) -c rest.cpp -o rest.o 
 
 # compilation de la classe SimpleIni
 SimpleIni.o: SimpleIni.cpp SimpleIni.h
