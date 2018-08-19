@@ -26,6 +26,11 @@ long rest::get(const std::string& url) {
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
     curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "deflate");
+
+    struct curl_slist *headers = NULL;
+    headers = curl_slist_append(headers, "Cache-Control: no-cache");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
     std::stringstream out;
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
@@ -33,8 +38,7 @@ long rest::get(const std::string& url) {
     CURLcode res = curl_easy_perform(curl);
     /* Check for errors */
     if (res != CURLE_OK) {
-        fprintf(stderr, "curl_easy_perform() failed: %s\n",
-                curl_easy_strerror(res));
+        cerr << "Failed : " << curl_easy_strerror(res) << endl;
     }
     response = out.str();
     long response_code;
