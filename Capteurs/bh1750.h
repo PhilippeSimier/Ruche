@@ -4,7 +4,7 @@
 #include "i2c.h"
 #include <unistd.h>
 
-#define ADRESSE_I2C_DEFAUT              0x23  // adresse I2C par défaut pour bh1750
+#define ADRESSE_I2C_BH1750 0x23  // adresse I2C par défaut pour bh1750
 
 // No active state
 #define BH1750_POWER_DOWN 0x00
@@ -41,7 +41,7 @@ class bh1750
 {
     public:
     // le constructeur
-    bh1750(int i2cAddress=ADRESSE_I2C_DEFAUT);
+    bh1750(int i2cAddress=ADRESSE_I2C_BH1750);
     // le destructeur
     ~bh1750();
     // méthode pour lire la valeur de l'éclairement

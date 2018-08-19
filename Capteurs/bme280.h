@@ -27,7 +27,7 @@
 #include <math.h>
 
 
-#define ADRESSE_I2C_DEFAUT              0x77
+#define ADRESSE_I2C_BME280     0x77
 //Register names:
 
 #define DIG_T1        0x88
@@ -116,7 +116,7 @@ class bme280
 
 public:
     // le constructeur
-    bme280(int i2cAddress=ADRESSE_I2C_DEFAUT);
+    bme280(int i2cAddress=ADRESSE_I2C_BME280);
     // le destructeur
     ~bme280();
 

@@ -7,7 +7,7 @@
     @version  v1.0 - First release
     @detail   Prérequis    : apt-get update
                              apt-get install libcurl4-openssl-dev
-              Compilation  : g++  thingSpeak.cpp HTTPDownloader.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c  -lcurl -o thingSpeak
+              Compilation  : g++  thingSpeak.cpp rest.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c  -lcurl -o thingSpeak
               Execution    : ./main
 */
 
@@ -22,7 +22,7 @@
 #include "bme280.h"
 #include "bh1750.h"
 #include "SimpleIni.h"
-#include "HTTPDownloader.h"
+#include "rest.h"
 
 #define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
@@ -34,7 +34,7 @@ int main()
     bme280 capteur(0x77);
     bh1750 capteur2(0x23);
     SimpleIni ini;
-    HTTPDownloader downloader;
+    rest requete;
     ostringstream url;
 
     // Lecture du fichier de configuration
@@ -62,10 +62,14 @@ int main()
     url << "&field3=" << capteur.obtenirPression0();
     url << "&field4=" << capteur.obtenirHumidite();
     url << "&field5=" << capteur2.obtenirLuminosite_Lux();
-   // cout << url.str() << endl;
+    // cout << url.str() << endl;
 
-    string contenu = downloader.obtenirUrl(url.str());
-    cout << contenu << endl;
-
+    long code = requete.get(url.str());
+    cout << "Code HTML : " << code << endl;
+    if (code != 200){
+        sleep(30);   // attente de 30s 
+        code = requete.get(url.str());
+        cout << "Code HTML : " << code << endl;
+    }
     return 0;
 }
