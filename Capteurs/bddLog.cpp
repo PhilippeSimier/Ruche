@@ -92,7 +92,7 @@ int main() {
         con = driver->connect(connexion_distante);
         // Check de la connexion
         if(con->isValid()){
-            cout  << ObtenirDateHeure() << "BDD distante : ";
+            cout  << ObtenirDateHeure() << " BDD distante : ";
 	}
     }
     catch (sql::SQLException &e)
@@ -110,7 +110,7 @@ int main() {
         {
             // Gestion des exceptions pour afficher les erreurs
 
-            cout << "# ERR: SQLException in " << __FILE__;
+            cout << ObtenirDateHeure() << " # ERR: SQLException in " << __FILE__;
             cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
             cout << "# ERR: " << e.what();
             cout << " (code erreur MySQL: " << e.getErrorCode();
