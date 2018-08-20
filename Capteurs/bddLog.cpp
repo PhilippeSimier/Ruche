@@ -1,13 +1,13 @@
 /*!
-    @file     weightLog.cpp
+    @file     bddLog.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour loger les valeurs de poids dans la base de données
     @date     Juillet 2018
     @version  v1.0 - First release
     @detail    Prérequis    : sudo apt-get install libmysqlcppconn-dev
-               Compilation  : g++  weightLog.cpp -lmysqlcppconn SimpleIni.cpp hx711.cpp spi.c -o weightLog
-               Execution    : ./weightLog
+    Compilation  : g++  bddLog.cpp -lmysqlcppconn SimpleIni.cpp hx711.cpp spi.c bme280.cpp bh1750.cpp i2c.cpp -o bddLog
+    Execution    : ./bddLog
 */
 
 
@@ -21,12 +21,29 @@
 #include <cppconn/prepared_statement.h>
 
 #include "hx711.h"
+#include "bme280.h"
+#include "bh1750.h"
 #include "SimpleIni.h"
 
 #define CONFIGURATION "/home/pi/Ruche/configuration.ini"
 
 using namespace std;
 using namespace sql;
+
+/**
+ * @brief ObtenirDateHeure
+ * @return std::string
+ * @details retourne une chaine de caratères représentant la date courante
+ *          au format Année-mois-jour heure:minute:seconde
+ */
+string ObtenirDateHeure()
+{
+    time_t  t = time(nullptr);
+    stringstream ss;
+    ss  <<  put_time( localtime(&t), "%F %T" );
+    return ss.str();
+}
+
 
 int main() {
 
@@ -36,6 +53,8 @@ int main() {
     sql::Connection *con;
     sql::PreparedStatement *pstmt;
     hx711 balance;
+    bme280 capteur1(0x77);
+    bh1750 capteur2(0x23);
 
 // Lecture du fichier de configuration
 
@@ -60,12 +79,20 @@ int main() {
     balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
     balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
 
+    // Configuration du capteur de pression
+    capteur1.donnerAltitude( ini.GetValue<float>("ruche", "altitude", 0.0 ));
+
+    // Configuration du capteur d'éclairement
+    capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
+
+
+    // Connexion à une base de données
     try {
 	driver = get_driver_instance();
         con = driver->connect(connexion_distante);
         // Check de la connexion
         if(con->isValid()){
-            cout << "connexion établie avec le serveur Mysql distant" << endl;
+            cout  << ObtenirDateHeure() << "BDD distante : ";
 	}
     }
     catch (sql::SQLException &e)
@@ -75,7 +102,7 @@ int main() {
             con = driver->connect(connexion_locale);
             // Check de la connexion
             if(con->isValid()){
-               cout << "connexion établie avec le serveur Mysql local" << endl;
+               cout << ObtenirDateHeure() << " BDD locale";
             }
 
         }
@@ -93,17 +120,20 @@ int main() {
     }
 
 
-        // traitement
-        string sql("INSERT INTO mesures(poids,id_ruche) VALUES(?,?)");
+        // préparation de la requête
+        string sql("INSERT INTO mesures(field1,field2,field3,field4,field5,id_channel) VALUES(?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
-        pstmt->setInt( 2, ini.GetValue<int>("ruche", "id", 0));
+        pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );
+        pstmt->setDouble( 3, capteur1.obtenirPression0() );
+        pstmt->setDouble( 4, capteur1.obtenirHumidite() );
+        pstmt->setDouble( 5, capteur2.obtenirLuminosite_Lux() );
+        pstmt->setInt( 6, ini.GetValue<int>("ruche", "id", 0));
+        // Exécution de la requête
         pstmt->executeUpdate();
 
         delete pstmt;
         delete con;
-
-
 
 
     cout << endl;

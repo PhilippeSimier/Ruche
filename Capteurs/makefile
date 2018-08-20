@@ -1,5 +1,5 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson weightLog thingSpeak main
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeak main
 
 all: $(EXEC)
 
@@ -7,9 +7,9 @@ all: $(EXEC)
 thingSpeak: thingSpeak.cpp rest.o SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2c.o
 	$(CXX) thingSpeak.cpp rest.o SimpleIni.o hx711.o bme280.o bh1750.o spi.o i2c.o -lcurl -o thingSpeak
 
-# compilation du programme weightLog
-weightLog: weightLog.cpp SimpleIni.o hx711.o spi.o 
-	$(CXX) weightLog.cpp SimpleIni.o hx711.o spi.o -lmysqlcppconn -o weightLog
+# compilation du programme bddLog
+bddLog: bddLog.cpp SimpleIni.o hx711.o spi.o  bh1750.o bme280.o i2c.o 
+	$(CXX) bddLog.cpp SimpleIni.o hx711.o spi.o  bme280.o bh1750.o i2c.o -lmysqlcppconn -o bddLog
 
 # compilation du programme etalonnage 
 etalonnage: etalonnage.cpp SimpleIni.o hx711.o
