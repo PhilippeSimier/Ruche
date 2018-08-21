@@ -7,20 +7,25 @@
 ?>
 
 <html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-	<!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Activity</title>
+    <!-- Bootstrap CSS version 4.1.1 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/ruche.css" />
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="/scripts/bootstrap.min.js"></script> 
-    <link rel="stylesheet" href="css/ruche.css" />
-	<title>Activity Thing Speak</title>
-</head>
-<body>
+    
+ </head>
+
+ <body>
 	<?php require_once 'menu.php'; ?>
-	<div class="container" style="padding-top: 56px;">
+	<div class="container" style="padding-top: 65px;">
 		<div class="row">
-			<div class="col-md-6 col-sm-12 col-xs-12">
+			<div class="col-md-9 col-sm-12 col-xs-12">
 				<div class="popin">
 				<?php
 					$file = '/home/pi/Ruche/activity.log';
@@ -39,11 +44,14 @@
 					echo "</p>";
 				?>
 				</div>
-			</div>		
+			</div>	
+
+			
 	
 		</div>
+		<?php require_once 'piedDePage.php'; ?>
 	</div>	
-	<?php require_once 'piedDePage.php'; ?>
+	
 </body>
 </html>
 	
