@@ -20,6 +20,6 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
-*/30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/bdd.log 2>&1
-*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/pi/Ruche/thingSpeak.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/activity.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/pi/Ruche/activity.log 2>&1
 

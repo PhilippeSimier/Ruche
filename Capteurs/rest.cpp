@@ -46,3 +46,36 @@ long rest::get(const std::string& url) {
     return response_code;
 
 }
+
+std::string rest::getErreurServeur(const long statusCode){
+
+    stringstream erreurServeur;
+
+    erreurServeur << statusCode;
+    switch(statusCode)
+    {
+	case 200:
+            erreurServeur << " - OK";
+            break;
+
+        case 403:
+            erreurServeur << " - Forbidden";
+            break;
+
+	case 404:
+	    erreurServeur << " - Not Found";
+            break;
+
+        case 500:
+	    erreurServeur << " - Internal Server Error";
+            break;
+
+        case 503:
+            erreurServeur << " - Service Unavailable";
+            break;
+
+        default:
+            erreurServeur << " - unknow error";
+    }
+    return erreurServeur.str();
+}

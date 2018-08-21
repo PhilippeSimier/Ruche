@@ -55,6 +55,7 @@ int main() {
     hx711 balance;
     bme280 capteur1(0x77);
     bh1750 capteur2(0x23);
+    int nbLigne;
 
 // Lecture du fichier de configuration
 
@@ -102,7 +103,7 @@ int main() {
             con = driver->connect(connexion_locale);
             // Check de la connexion
             if(con->isValid()){
-               cout << ObtenirDateHeure() << " BDD locale";
+               cout << ObtenirDateHeure() << " BDD locale : ";
             }
 
         }
@@ -111,8 +112,8 @@ int main() {
             // Gestion des exceptions pour afficher les erreurs
 
             cout << ObtenirDateHeure() << " # ERR: SQLException in " << __FILE__;
-            cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-            cout << "# ERR: " << e.what();
+            cout << "(" << __FUNCTION__ << ") on line " << __LINE__ ;
+            cout << " # ERR: " << e.what();
             cout << " (code erreur MySQL: " << e.getErrorCode();
             cout << ", EtatSQL: " << e.getSQLState() << " )" << endl;
             return 1;
@@ -130,13 +131,13 @@ int main() {
         pstmt->setDouble( 5, capteur2.obtenirLuminosite_Lux() );
         pstmt->setInt( 6, ini.GetValue<int>("ruche", "id", 0));
         // Exécution de la requête
-        pstmt->executeUpdate();
+        nbLigne = pstmt->executeUpdate();
 
         delete pstmt;
         delete con;
 
 
-    cout << endl;
+    cout << nbLigne << endl;
     return EXIT_SUCCESS;
 }
 

@@ -39,10 +39,8 @@ using namespace std;
 string ObtenirDateHeure()
 {
     time_t  t = time(nullptr);
-
     stringstream ss;
     ss  <<  put_time( localtime(&t), "%F %T" );
-
     return ss.str();
 }
 
@@ -82,13 +80,14 @@ int main()
     url << "&field3=" << capteur.obtenirPression0();
     url << "&field4=" << capteur.obtenirHumidite();
     url << "&field5=" << capteur2.obtenirLuminosite_Lux();
-    // cout << url.str() << endl;
+
 
     long code = requete.get(url.str());
     if (code != 200){
-        sleep(30);   // attente de 30s avant nouvel essai 
+	cout << ObtenirDateHeure() << " Thing speak : " << requete.getErreurServeur(code) << endl;
+        sleep(30);   // attente de 30s avant nouvel essai
         code = requete.get(url.str());
     }
-    cout << ObtenirDateHeure() << " Code : " << code << endl;
+    cout << ObtenirDateHeure() << " Thing speak : " << requete.getErreurServeur(code) << endl;
     return 0;
 }

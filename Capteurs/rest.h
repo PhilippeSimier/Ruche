@@ -19,6 +19,13 @@ class rest {
      */
     long get(const std::string& url);
 
+   /**
+     * return the  error server in std::string
+     * @param long the error code
+     * @return string Code (if success then OK)
+     */
+    std::string getErreurServeur(long statusCode);
+
     private:
     void* curl;
     std::string response;

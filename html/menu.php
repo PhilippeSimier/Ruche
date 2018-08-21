@@ -48,7 +48,10 @@
 					<a class="dropdown-item" href="/dewPoint.php">Dew point</a>
 				  </div>
 			</li>
-		          
+			
+			<li class="nav-item">
+				<a class="nav-link" href="/activity.php" id="nav-sign-in">Activity</a>
+			</li>		
         </ul>
 		
 		<!-- Menu à droite -->
