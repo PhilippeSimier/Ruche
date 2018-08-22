@@ -22,4 +22,4 @@
 # m h  dom mon dow   command
 */30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/activity.log 2>&1
 */30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/pi/Ruche/activity.log 2>&1
-
+5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /home/pi/Ruche/activity.log 2>&1
