@@ -83,7 +83,7 @@ install:
 	chmod +s /usr/lib/cgi-bin/tarageCGI
 	cp scaleCGI /usr/lib/cgi-bin/scaleCGI
 	chmod +s /usr/lib/cgi-bin/scaleCGI
-
+	cp -a /home/pi/Ruche/html/* /var/www/html/
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
