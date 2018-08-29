@@ -25,24 +25,36 @@
 	<?php require_once 'menu.php'; ?>
 	<div class="container" style="padding-top: 65px;">
 		<div class="row">
-			<div class="col-md-9 col-sm-12 col-xs-12">
-				<div class="popin">
-				<?php
-					$file = '/home/pi/Ruche/activity.log';
-				 
-					$file_contents = array_reverse(file($file));
-					$nb = 1;
-					echo "<p>";
-					foreach($file_contents as $line){
-				 
-					  echo $line . "<br />";
-					  $nb++;
-					  if ($nb > 48) {
-						 break; 
-					  }
-					}
-					echo "</p>";
-				?>
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="popin table-responsive">
+				<table class="table table-striped">
+					<thead>
+					  <tr>
+						<th>N°</th>
+						<th>Date Time</th>
+						<th>Process</th>
+					  </tr>
+					</thead>
+					<tbody>
+						<?php
+							$file = '/home/pi/Ruche/activity.log';
+						 
+							$file_contents = array_reverse(file($file));
+							$nb = 1;
+							
+							foreach($file_contents as $line_num => $line){
+								if (preg_match("/\b50[0-5]\b/", $line)) echo '<tr class="table-danger">'; else echo '<tr>';						
+								echo "<td>" .$line_num . "</td><td> " . substr($line, 0, 20) . "</td><td>" . substr($line, 20) . "</td>";
+								$nb++;
+								if ($nb > 48) {
+									break; 
+								}
+								echo "</tr>\n";
+							}
+							
+						?>
+					</tbody>
+				</table>	
 				</div>
 			</div>	
 

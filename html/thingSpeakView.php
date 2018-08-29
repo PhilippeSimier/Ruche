@@ -27,9 +27,9 @@
     
 	// put your ThingSpeak Channel#, Channel Name, and API keys here.
     var channelKeys =[];
-    channelKeys.push({channelNumber:<?php echo $ini['thingSpeak']['channel']; ?>, 
+    channelKeys.push({channelNumber:<?php if (isset($_GET['channel'])) { echo $_GET['channel']; } else {echo $ini['thingSpeak']['channel'];} ?>, 
 	                  name:'Ruche',
-					  key:'<?php echo $ini['thingSpeak']['key']; ?>',
+					  key:'<?php if (isset($_GET['key'])) { echo $_GET['key']; } else { echo $ini['thingSpeak']['key']; }; ?>',
                       fieldList:[<?php if (isset($_GET['fieldP'])) { echo "{field:".$_GET['fieldP'].",axis:'P'}"; } else { echo "{field:1,axis:'P'}"; }; 
 								       if (isset($_GET['fieldS'])) { echo ",{field:".$_GET['fieldS'].",axis:'O'}"; };  
 							    ?>]});
@@ -243,17 +243,17 @@ $(document).ready(function()
 				minute: '%H:%M'
 			},
 			title: {
-				text: 'poids'
+				text: ''
 			}
 		},
 		yAxis: [{
             title: {
-                text: 'Poids'
+                text: 'Main Axis'
             },
             id: 'P'
 		}, {
             title: {
-                text: 'Other'
+                text: 'Other Axis'
             },
             opposite: true,
             id: 'O'

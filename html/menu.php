@@ -31,9 +31,10 @@
 					Data visualization
 				  </a>
 				  <div class="dropdown-menu">
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=1&fieldS=2">Poids/Température</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pression/Humidité</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Eclairement</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=1&fieldS=2">Weight/Temperature</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pressure/humidity</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Illuminance</a>
+					<a class="dropdown-item" href="/thingSpeakView.php?channel=556419&fieldP=3">Dew point</a>
 				  </div>
 			</li>
 			
@@ -43,9 +44,9 @@
 					 Data analysis
 				  </a>
 				  <div class="dropdown-menu">
-					<a class="dropdown-item" href="/dispersionPoidsTemperature.php">Nuage de points Poids/Température</a>
-					<a class="dropdown-item" href="/dispersionTempHumidite.php">Nuage de points Température/Humidité</a>
-					<a class="dropdown-item" href="/dewPoint.php">Dew point</a>
+					<a class="dropdown-item" href="/dispersionPoidsTemperature.php">Scatter plot Weight/Temperature</a>
+					<a class="dropdown-item" href="/dispersionTempHumidite.php">Scatter plot Temperature/Humidity</a>
+					<!--<a class="dropdown-item" href="/dewPoint.php">Dew point</a>-->
 				  </div>
 			</li>
 			
@@ -69,11 +70,12 @@
 						echo $_SESSION['login']; 
 					echo '</a>';
 					echo '<div class="dropdown-menu">';
-					echo '<a class="dropdown-item" href="/administration/ruche.php">Ruche</a>';
-					echo '<a class="dropdown-item" href="/administration/balance.php">Balance</a>';
-					echo '<a class="dropdown-item" href="/administration/baseDeDonnees.php">Bases de données</a>';
+					echo '<a class="dropdown-item" href="/administration/ruche.php">Beehive</a>';
+					echo '<a class="dropdown-item" href="/administration/balance.php">Scale</a>';
+					echo '<a class="dropdown-item" href="/administration/baseDeDonnees.php">Database</a>';
 					echo '<a class="dropdown-item" href="/administration/thingSpeakConf.php">Thing Speak</a>';
 					echo '<a class="dropdown-item" href="https://ifttt.com/my_applets">IFTTT</a>';
+					echo '<a class="dropdown-item" href="/administration/infoSystem.php">System info</a>';
 					echo '<a class="dropdown-item" href="/administration/signout.php" id="nav-sign-in">Sign Out</a>';
 					echo '</div>';
 					echo '</li>';
