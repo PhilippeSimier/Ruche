@@ -33,8 +33,7 @@ Configuration de mysql :
 ```bash
 $ mysql -u root -p
 MariaDB [(none)]> create database data;
-MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%'
-IDENTIFIED BY 'toto';
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%' IDENTIFIED BY 'toto';
 MariaDB [(none)]> flush privileges;
 MariaDB [(none)]> exit
 ```
