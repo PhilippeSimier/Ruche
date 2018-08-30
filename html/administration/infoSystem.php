@@ -66,6 +66,17 @@ require_once('../definition.inc.php');
 	
 					?>
 				</div>
+				
+				<div class="popin">
+				<h2>Bus I2C</h2>
+					<?php
+						
+						$output = shell_exec('i2cdetect -y 1');
+						echo "<pre>$output</pre><p/>";
+	
+					?>
+						
+				</div>
 			</div>	
 				
 			<div class="col-md-6 col-sm-12 col-xs-12">
@@ -73,8 +84,8 @@ require_once('../definition.inc.php');
 				<h2>Température CPU</h2>
 					<?php
 						
-						$output = shell_exec('vcgencmd measure_temp');
-						echo "<pre>$output</pre><p/>";
+						$output = shell_exec('vcgencmd measure_temp | cut -d "=" -f2 | cut -d "\'" -f1');
+						echo "<p style=\" font-size: 80px;\">$output °C<p/>";
 	
 					?>
 						
@@ -84,7 +95,10 @@ require_once('../definition.inc.php');
 					<?php
 						
 						$output = shell_exec('vcgencmd get_camera');
-						echo "<pre>$output</pre><p/>";
+						echo "<p><pre>$output</pre><p/>";
+						echo "<h4>Codecs</h4>";
+						$output = shell_exec('for codec in H264 MPG2 WVC1 MPG4 MJPG WMV9 ; do echo  "$codec:\t$(vcgencmd codec_enabled $codec)" ; done');
+						echo "<p><pre>$output</pre></p>";
 	
 					?>
 						
@@ -96,16 +110,7 @@ require_once('../definition.inc.php');
 		
 		<div class="row">
 			<div class="col-md-6 col-sm-12 col-xs-12">
-				<div class="popin">
-				<h2>Bus I2C</h2>
-					<?php
-						
-						$output = shell_exec('i2cdetect -y 1');
-						echo "<pre>$output</pre><p/>";
-	
-					?>
-						
-				</div>
+				
 			</div>
 		</div>
 		<?php require_once '../piedDePage.php'; ?>
