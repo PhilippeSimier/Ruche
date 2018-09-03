@@ -37,7 +37,7 @@ MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%' IDENTIFIED BY 'tot
 MariaDB [(none)]> flush privileges;
 MariaDB [(none)]> exit
 ```
- avec phpmyadmin importer le fichier **ruche.sql**
+ avec phpmyadmin importer le fichier **data.sql**
 ## Installation 
 ```bash
 $ git clone https://github.com/PhilippeSimier/Ruche.git
