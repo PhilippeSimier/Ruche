@@ -70,8 +70,24 @@ std::string rest::getErreurServeur(const long statusCode){
 	    erreurServeur << " - Internal Server Error";
             break;
 
+        case 501:
+            erreurServeur << " - Not Implemented";
+            break;
+
+        case 502:
+            erreurServeur << " - Bad Gateway";
+            break;
+
         case 503:
             erreurServeur << " - Service Unavailable";
+            break;
+
+        case 504:
+            erreurServeur << " - Gateway Timeout";
+            break;
+
+        case 505:
+            erreurServeur << " - HTTP Version Not Supported";
             break;
 
         default:
