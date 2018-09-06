@@ -34,14 +34,21 @@ public:
     // Prends effet après la prochaine lecture
     // channel A can be set for a 128 or 64 gain; channel B has a fixed 32 gain
     void configurerGain(char gain);
-
+    // Méthode pour fixer le facteur de correction de température
+    void fixerSlope(float _slope);
+    // Méthode pour fixer la temérature de référence
+    void fixerTempRef(float _tempRef);
+    // Méthode pour obtenir le poids corrigé en fct de la températue
+    float obtenirPoidsCorrige(float temp);
 
 private:
 
-    spi_t spi;
-    int   valeurBrute;
-    int   offset;
+    spi_t   spi;
+    int     valeurBrute;
+    int     offset;
     float   scale;
+    float   tempRef;
+    float   slope;
     unsigned char bufferEmission[7];
 
 };
