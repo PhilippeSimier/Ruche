@@ -150,7 +150,7 @@ void hx711::fixerOffset(int _offset)
 
 
 /**
- * @brief hx711::fixerOffset()
+ * @brief hx711::obtenirOffset()
  *
  * @details Permet d'obtenir la valeur de l'offset
  * Cette valeur est obtenue après tarage de la balance
@@ -183,3 +183,47 @@ void hx711::configurerGain(char gain)
 
     }
 }
+
+/**
+ * @brief hx711::fixerSlope()
+ *
+ * @details Permet de définir la valeur de la dérive du poids due à la température ambiante
+ * @param   float la valeur du slope
+ */
+
+void hx711::fixerSlope(float _slope)
+{
+    slope = _slope;
+}
+
+/**
+ * @brief hx711::fixerTempRef()
+ *
+ * @details Permet de définir la valeur de la température de référence 
+ * @param   float la valeur du température de référence
+ */
+
+void hx711::fixerTempRef(float _tempRef)
+{
+    tempRef = _tempRef;
+}
+
+
+/**
+ * @brief hx711::obtenirPoidsCorrige(float temp);
+ *
+ * @details Permet d'obtenir la valeur du poids corrigé en fonction de la températue
+ * @param   float la valeur de la température ambiante
+ */
+
+float hx711::obtenirPoidsCorrige(float temp)
+{
+    float poids = obtenirPoids();
+    float poidsCorrige = poids + slope * (tempRef - temp);
+    return poidsCorrige;
+}
+
+
+
+
+

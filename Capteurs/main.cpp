@@ -31,6 +31,8 @@ int main()
     int   gain;
     string unite;
     int   precision = 1;
+    float slope;
+    float tempRef;
 
     // Lecture du fichier de configuration
     ini.Load(CONFIGURATION);
@@ -39,15 +41,18 @@ int main()
     gain   = ini.GetValue<int>("balance", "gain", 128);
     unite  = ini.GetValue<string>("balance", "unite", "Kg");
     precision = ini.GetValue<int>("balance", "precision", 1);
+    slope = ini.GetValue<float>("balance", "slope", 0.0 );
+    tempRef = ini.GetValue<float>("balance", "tempRef", 20.0 );
 
     // Configuration de la balance
     balance.fixerEchelle(scale);
     balance.fixerOffset(offset);
     balance.configurerGain(gain);
-
+    balance.fixerSlope(slope);
+    balance.fixerTempRef(tempRef);
     while(1)
     {
-	xn = balance.obtenirPoids();
+	xn = balance.obtenirPoidsCorrige(25.0);
         system("clear");
 
 	// calcul de la dérivée
