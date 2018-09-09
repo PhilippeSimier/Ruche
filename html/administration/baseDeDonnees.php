@@ -99,8 +99,11 @@ else
 							<label for="BDlocale_bdd" class="font-weight-bold">Bdd : </label>
 							<input id="BDlocale_bdd" type="int"  name="BDlocale_bdd" class="form-control" <?php echo 'value="' . $_POST['BDlocale_bdd'] . '"'; ?> />
 						</div>
-						<a class="nav-link" href="/phpmyadmin/">phpMyAdmin local</a>
-			
+						<br />
+						<a  class="btn btn-info" role="button" href="/phpmyadmin/">phpMyAdmin local</a>
+						<a  class="btn btn-info" role="button" href = "/administration/export_csv.php?serveurBD=locale">Download CSV</a>
+						<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
+								
 				</div>
 			</div>	
 				
@@ -127,13 +130,16 @@ else
 							<label for="BDdistante_bdd" class="font-weight-bold">Bdd : </label>
 							<input id="BDdistante_bdd" type="int"  name="BDdistante_bdd" class="form-control" <?php echo 'value="' . $_POST['BDdistante_bdd'] . '"'; ?> />
 						</div>
-						<a class="nav-link" <?php echo 'href="http://' . $_POST['BDdistante_host'] . '/phpmyadmin/"'; ?>>phpMyAdmin distant</a>
+						<br />
+						<a class="btn btn-info" role="button" <?php echo 'href="http://' . $_POST['BDdistante_host'] . '/phpmyadmin/"'; ?>>phpMyAdmin distant</a>
+						<a class="btn btn-info" role="button" href = "/administration/export_csv.php?serveurBD=distante">Download CSV</a>
+						<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
 				</div>
 			</div>
 		
 		</div>
 		<div class="row">
-			<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
+			
 		</div>
 		</form>
 		<?php require_once '../piedDePage.php'; ?>
