@@ -9,20 +9,23 @@ Réaliser le câblage suivant sur la carte **snir-hat**
 ## Prérequis Installation
 
 Les paquets suivants doivent être installés
-```bash
- $ sudo apt install apache2
- $ sudo apt install mysql
- $ sudo apt install php
- $ sudo apt install phpmyadmin
- $ sudo apt install libcurl4-openssl-dev
- $ sudo apt install libmysqlcppconn-dev
-```
+
+ 1. apache2
+ 2. mysql
+ 3. php
+ 4. phpmyadmin
+ 5. libcurl4-openssl-dev
+ 6. libmysqlcppconn-dev
+
+
 Configuration de Apache
+
+ 1. Activer le module cgi
+ 2. ajouter www-data au groupe video et i2c
+ 
+Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les packages requis. 
 ```bash
-$ sudo a2enmod cgi
-$ sudo usermod -G video www-data
-$ sudo usermod -a -G i2c www-data
-$ sudo service apache2 restart
+$ ./Raspbian_OS_Setup/RaspbianOSsetup.sh
 ```
 Configuration de mysql :
 
@@ -33,12 +36,15 @@ Configuration de mysql :
 ```bash
 $ mysql -u root -p
 MariaDB [(none)]> create database data;
-MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%' IDENTIFIED BY 'toto';
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%'
+IDENTIFIED BY 'toto';
 MariaDB [(none)]> flush privileges;
 MariaDB [(none)]> exit
 ```
- avec phpmyadmin importer le fichier **data.sql**
+ avec phpmyadmin importer le fichier **ruche.sql**
 ## Installation 
+
+Cloner le dépot puis **make  all** et **make install**
 ```bash
 $ git clone https://github.com/PhilippeSimier/Ruche.git
 $ make all
@@ -64,6 +70,7 @@ ajouter les tâches planifiées suivantes :
 ## Changelog
 
  **04/08/2018 :** Ajout du README . 
+ **10/09/2018 :** Ajout du  script shell RaspbianOSsetup.sh
  
 > **Notes :**
 
