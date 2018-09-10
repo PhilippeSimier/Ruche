@@ -21,6 +21,12 @@ rest::~rest() {
     curl_easy_cleanup(curl);
 }
 
+/**
+ *  @brief methode GET
+ *  @param string  l'URL du serveur
+ *  @return long HTTP status code of 200 if successful. 
+ */
+
 long rest::get(const std::string& url) {
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
@@ -47,6 +53,11 @@ long rest::get(const std::string& url) {
 
 }
 
+/**
+ *  @brief retourne un message explicitant le code de retour
+ *  @param long HTTP status code le code de réponse revoyer par le serveur
+ *  @return string message d'erreur pour thingSpeak
+ */
 std::string rest::getErreurServeur(const long statusCode){
 
     stringstream erreurServeur;
@@ -55,7 +66,40 @@ std::string rest::getErreurServeur(const long statusCode){
     switch(statusCode)
     {
 	case 200:
-            erreurServeur << " - OK";
+            erreurServeur << " - OK Success";
+            break;
+
+        case 201:
+            erreurServeur << " - Invalid field number specified";
+            break;
+
+        case 210:
+            erreurServeur << " - setField() was not called before writeFields()";
+            break;
+
+        case 301:
+            erreurServeur << " - Failed to connect to ThingSpeak";
+            break;
+
+        case 302:
+            erreurServeur << " - Unexpected failure during write to ThingSpeak";
+            break;
+
+        case 303:
+            erreurServeur << " - Unable to parse response";
+            break;
+
+        case 304:
+            erreurServeur << " - Timeout waiting for server to respond";
+            break;
+
+
+        case 400:
+            erreurServeur << " - Incorrect API key (or invalid server address)";
+            break;
+
+        case 401:
+            erreurServeur << " - Point was not inserted (most probable cause is the rate limit of once every 15 seconds)";
             break;
 
         case 403:
@@ -63,7 +107,7 @@ std::string rest::getErreurServeur(const long statusCode){
             break;
 
 	case 404:
-	    erreurServeur << " - Not Found";
+	    erreurServeur << " - Incorrect API key (or invalid server address)";
             break;
 
         case 500:
