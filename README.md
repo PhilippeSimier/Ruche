@@ -51,7 +51,7 @@ Vous pouvez  en tant que **root** utiliser le script shell **mysql_data_setup** 
 ~/Ruche/Capteurs $ make install
 ~/Ruche/Capteurs $ make clean
 ```
-##Configuration **crontab**
+## Configuration **crontab**
 ajouter les tâches planifiées suivantes :
 
  - Exécution de **bddLog** toutes les 30 minutes;
@@ -66,7 +66,7 @@ ajouter les tâches planifiées suivantes :
 5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /home/pi/Ruche/activity.log 2>&1
 
 ```
-##Configuration et Etalonnage de la **balance**
+## Configuration et Etalonnage de la **balance**
 
 La balance doit être étalonnée. Cette procédure consiste à prendre un poids connu (p. ex. 5 kg) et d'établir la relation pour que la valeur affichée à l'écran corresponde à la valeur connue.
 Le programme **etalonnage** permet de déterminer les paramètres de cette relation et de les enregistrer dans le fichier **configuration.ini**.
@@ -118,7 +118,7 @@ Eclairement : 222.9 lx
  
  
 
-##Site Web
+## Site Web
 
 Dans un navigateur web ouvrir l'url suivante: 
 http://adresse_IP_du_raspberry
