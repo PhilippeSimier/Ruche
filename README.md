@@ -23,47 +23,110 @@ Configuration de Apache
  1. Activer le module cgi
  2. ajouter www-data au groupe video et i2c
  
-Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les packages requis. 
+Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les packages requis et configurer Apache. 
 ```bash
-$ ./Raspbian_OS_Setup/RaspbianOSsetup.sh
+~ $ git clone https://github.com/PhilippeSimier/Ruche.git
+~ $ cd Ruche/
+~/Ruche $ ./Raspbian_OS_Setup/RaspbianOSsetup.sh
 ```
 Configuration de mysql :
 
  - création d'une base **data**
  - création d'un utilisateur **ruche** avec mdp **toto**
-
+ 
+Vous pouvez  en tant que **root** utiliser le script shell **mysql_data_setup** pour installer la base de données  et créer l'utilisateur 'ruche' requis.
 
 ```bash
-$ mysql -u root -p
-MariaDB [(none)]> create database data;
-MariaDB [(none)]> GRANT ALL PRIVILEGES ON data.* TO ruche@'%'
-IDENTIFIED BY 'toto';
-MariaDB [(none)]> flush privileges;
-MariaDB [(none)]> exit
+/home/pi/Ruche# ./Raspbian_OS_Setup/mysql_Data_setup
 ```
- avec phpmyadmin importer le fichier **ruche.sql**
-## Installation 
+ avec phpmyadmin importer le fichier **data.sql** situé dans le répertoire 
+ /home/pi/Ruche/html/SQL/
+ 
+## Compilation  
 
-Cloner le dépot puis **make  all** et **make install**
+ **make  all** et **make install**
 ```bash
-$ git clone https://github.com/PhilippeSimier/Ruche.git
-$ make all
-$ make install
-$ make clean
+~/Ruche $ cd Capteurs
+~/Ruche/Capteurs $ make all
+~/Ruche/Capteurs $ make install
+~/Ruche/Capteurs $ make clean
 ```
-Configuration **crontab**
+##Configuration **crontab**
 ajouter les tâches planifiées suivantes :
 
- - Exécution de bddLog toutes les 30 minutes;
- - Exécution de thingSpeak toutes les 30 minutes;
- - Exécution de synchronisation toute les 4 heures lorsque minute = 5. 
+ - Exécution de **bddLog** toutes les 30 minutes;
+ - Exécution de **thingSpeak** toutes les 30 minutes;
+ - Exécution de **synchronisation** toute les 4 heures lorsque l'aiguille des minutes est sur 5. 
 
 ```bash
+/home/pi/Ruche# crontab -e
+
 */30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/activity.log 2>&1
 */30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/pi/Ruche/activity.log 2>&1
 5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /home/pi/Ruche/activity.log 2>&1
 
 ```
+##Configuration et Etalonnage de la **balance**
+
+La balance doit être étalonnée. Cette procédure consiste à prendre un poids connu (p. ex. 5 kg) et d'établir la relation pour que la valeur affichée à l'écran corresponde à la valeur connue.
+Le programme **etalonnage** permet de déterminer les paramètres de cette relation et de les enregistrer dans le fichier **configuration.ini**.
+Pour ce faire, en mode console lancer le programme **etalonnage**
+```bash
+~/Ruche $ cd Capteurs/
+~/Ruche/Capteurs $ ./etalonnage
+Quelle est l'unité de mesure ? (g kg lb)
+kg
+Quelle est la précision d'affichage : 1 ou 2 chiffres après la virgule
+2
+Donnez le gain souhaité : 128 ou 64 ? 
+64
+
+```
+Répondez au différentes questions, le programme va ensuite lancer la procédure de tarage, puis va vous demandez de placer un poids étalon sur le plateau de la balance.  Vous devez donner sa valeur. Le programme continue alors sa procédure.
+
+Sans retirer le poids étalon lancer le programme main
+```bash
+~/Ruche/Capteurs $ ./main
+* 15.00
+```
+Vous devriez voir s'afficher sur l'écran la valeur du poids étalon.
+La configuration de la balance est terminée.
+
+## Test des capteurs BME280 et BH1750
+Le test de fonctionnement du capteur BME280 peut être effectué en exécutant le programme : **testBME280**
+```bash
+~/Ruche/Capteurs $ ./testBME280 
+Capteur BME 280 présent sur le bus I2C
+ Température (C)  : 28.0 °C
+ Température (F)  : 82.5 °F
+ Pression         : 1018.9 hPa
+ Humidité         : 42.3 %
+ Pression P0      : 1023.7 hPa
+ Point de rosée   : 14.0 °C
+
+```
+Le test de fonctionnement du capteur BH1750 peut être effectué en exécutant le programme : **testBH1750**
+
+```bash
+~/Ruche/Capteurs $ ./testBH1750
+Capteur d'éclairement
+Eclairement : 222.9 lx
+Eclairement : 222.9 lx
+Eclairement : 222.9 lx
+^C
+```
+ 
+ 
+
+##Site Web
+
+Dans un navigateur web ouvrir l'url suivante: 
+http://adresse_IP_du_raspberry
+
+
+--------
+
+  
 
 
 
