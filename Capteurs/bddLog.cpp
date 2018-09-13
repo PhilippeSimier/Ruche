@@ -122,7 +122,7 @@ int main() {
 
 
         // préparation de la requête
-        string sql("INSERT INTO mesures(field1,field2,field3,field4,field5,id_channel) VALUES(?,?,?,?,?,?)");
+        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,id_channel) VALUES(?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
         pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );

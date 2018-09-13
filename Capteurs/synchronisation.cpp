@@ -92,9 +92,9 @@ int main() {
     }
 
     stmtLocale = conLocale->createStatement();
-    resLocale = stmtLocale->executeQuery("SELECT `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`, `date`, `id_channel` FROM `mesures`");
+    resLocale = stmtLocale->executeQuery("SELECT `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`, `date`, `id_channel` FROM `feeds`");
 
-    string sql("INSERT INTO mesures(field1, field2, field3, field4, field5, field6, field7, field8, date, id_channel) VALUES (?,?,?,?,?,?,?,?,?,?)");
+    string sql("INSERT INTO feeds(field1, field2, field3, field4, field5, field6, field7, field8, date, id_channel) VALUES (?,?,?,?,?,?,?,?,?,?)");
     pstmt = conDistante->prepareStatement(sql);
 
     int nb(0);
@@ -118,7 +118,7 @@ int main() {
        nb++;
     }
 
-    stmtLocale->execute("DELETE FROM `mesures`");
+    stmtLocale->execute("DELETE FROM `feeds`");
 
     cout << ObtenirDateHeure() << " Synchronisation : " << nb << " insertion(s)" << endl;
 

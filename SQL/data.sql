@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Lun 03 Septembre 2018 à 16:09
--- Version du serveur :  10.1.23-MariaDB-9+deb9u1
--- Version de PHP :  7.0.30-0+deb9u1
+-- Généré le :  Jeu 13 Septembre 2018 à 16:33
+-- Version du serveur :  10.1.26-MariaDB-0+deb9u1
+-- Version de PHP :  7.0.27-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -39,13 +39,20 @@ CREATE TABLE `channels` (
   `field8` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `channels`
+--
+
+INSERT INTO `channels` (`id`, `name`, `field1`, `field2`, `field3`, `field4`, `field5`, `field6`, `field7`, `field8`) VALUES
+(1, 'Beehive', 'Weight (kg)', 'Temperature (°C)', 'Pressure (kPa)', 'Humidity (%)', 'Illuminance (lux)', 'Dew point (°C)', '', '');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mesures`
+-- Structure de la table `feeds`
 --
 
-CREATE TABLE `mesures` (
+CREATE TABLE `feeds` (
   `id` int(11) NOT NULL,
   `field1` float DEFAULT NULL,
   `field2` float DEFAULT NULL,
@@ -56,7 +63,11 @@ CREATE TABLE `mesures` (
   `field7` float DEFAULT NULL,
   `field8` float DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_channel` int(11) NOT NULL
+  `id_channel` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `elevation` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -70,9 +81,9 @@ ALTER TABLE `channels`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `mesures`
+-- Index pour la table `feeds`
 --
-ALTER TABLE `mesures`
+ALTER TABLE `feeds`
   ADD PRIMARY KEY (`id`),
   ADD KEY `channel` (`id_channel`);
 
@@ -84,12 +95,12 @@ ALTER TABLE `mesures`
 -- AUTO_INCREMENT pour la table `channels`
 --
 ALTER TABLE `channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=539388;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `mesures`
+-- AUTO_INCREMENT pour la table `feeds`
 --
-ALTER TABLE `mesures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `feeds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=483;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
