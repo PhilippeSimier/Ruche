@@ -122,14 +122,15 @@ int main() {
 
 
         // préparation de la requête
-        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,id_channel) VALUES(?,?,?,?,?,?)");
+        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,id_channel) VALUES(?,?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
         pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );
         pstmt->setDouble( 3, capteur1.obtenirPression0() );
         pstmt->setDouble( 4, capteur1.obtenirHumidite() );
         pstmt->setDouble( 5, capteur2.obtenirLuminosite_Lux() );
-        pstmt->setInt( 6, ini.GetValue<int>("ruche", "id", 0));
+        pstmt->setDouble( 6, capteur1.obtenirPointDeRosee() );
+        pstmt->setInt( 7, ini.GetValue<int>("ruche", "id", 0));
         // Exécution de la requête
         nbLigne = pstmt->executeUpdate();
 

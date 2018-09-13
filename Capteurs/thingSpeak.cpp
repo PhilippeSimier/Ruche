@@ -80,7 +80,7 @@ int main()
     url << "&field3=" << capteur.obtenirPression0();
     url << "&field4=" << capteur.obtenirHumidite();
     url << "&field5=" << capteur2.obtenirLuminosite_Lux();
-
+    url << "&field6=" << capteur.obtenirPointDeRosee();
 
     long code = requete.get(url.str());
     if (code != 200){
