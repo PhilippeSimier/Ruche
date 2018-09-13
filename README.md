@@ -82,7 +82,7 @@ Donnez le gain souhaité : 128 ou 64 ?
 64
 
 ```
-Répondez au différentes questions, le programme va ensuite lancer la procédure de tarage, puis va vous demandez de placer un poids étalon sur le plateau de la balance.  Vous devez donner sa valeur. Le programme continue alors sa procédure.
+Répondez aux différentes questions, le programme va ensuite lancer la procédure de tarage, puis va vous demandez de placer un poids étalon sur le plateau de la balance.  Vous devez donner sa valeur. Le programme continue alors sa procédure.
 
 Sans retirer le poids étalon lancer le programme main
 ```bash
