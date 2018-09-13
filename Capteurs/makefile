@@ -84,6 +84,7 @@ install:
 	cp scaleCGI /usr/lib/cgi-bin/scaleCGI
 	chmod +s /usr/lib/cgi-bin/scaleCGI
 	cp -a /home/pi/Ruche/html/* /var/www/html/
+	sudo mv /home/pi/Ruche/configuration.ini.default /home/pi/Ruche/configuration.ini
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
