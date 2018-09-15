@@ -29,18 +29,17 @@ Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les p
 ~ $ cd Ruche/
 ~/Ruche $ ./Raspbian_OS_Setup/RaspbianOSsetup.sh
 ```
-Configuration de mysql :
+## Création de la base de données data
 
  - création d'une base **data**
  - création d'un utilisateur **ruche** avec mdp **toto**
+ - création des tables channel et feeds
  
 Vous pouvez  en tant que **root** utiliser le script shell **mysql_data_setup** pour installer la base de données  et créer l'utilisateur 'ruche' requis.
 
 ```bash
 /home/pi/Ruche# ./Raspbian_OS_Setup/mysql_Data_setup
 ```
- avec phpmyadmin importer le fichier **data.sql** situé dans le répertoire 
- /home/pi/Ruche/html/SQL/
  
 ## Compilation  
 

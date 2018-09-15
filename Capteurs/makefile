@@ -1,7 +1,12 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeak main
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeak synchronisation testBalance
 
 all: $(EXEC)
+
+# compilation du programme synchronisation
+synchronisation: synchronisation.cpp SimpleIni.o
+	$(CXX) synchronisation.cpp -lmysqlcppconn SimpleIni.o -o synchronisation 
+
 
 # compilation du programme thingSpeak
 thingSpeak: thingSpeak.cpp rest.o SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2c.o
@@ -32,9 +37,9 @@ scaleCGI: scaleCGI.cpp SimpleIni.o hx711.o
 balanceJson: balanceJson.cpp SimpleIni.o hx711.o
 	$(CXX) balanceJson.cpp SimpleIni.o hx711.o spi.o -o balanceJson
 
-# compilation du programme main
-main: main.cpp SimpleIni.o hx711.o
-	$(CXX) main.cpp SimpleIni.o hx711.o spi.o -o main
+# compilation du programme testBalance
+testBalance: testBalance.cpp SimpleIni.o hx711.o
+	$(CXX) testBalance.cpp SimpleIni.o hx711.o spi.o -o testBalance
 
 # compilation de la classe  rest
 rest.o: rest.cpp rest.h
