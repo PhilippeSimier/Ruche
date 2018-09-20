@@ -83,9 +83,9 @@ Donnez le gain souhaité : 128 ou 64 ?
 ```
 Répondez aux différentes questions, le programme va ensuite lancer la procédure de tarage, puis va vous demandez de placer un poids étalon sur le plateau de la balance.  Vous devez donner sa valeur. Le programme continue alors sa procédure.
 
-Sans retirer le poids étalon lancer le programme main
+Sans retirer le poids étalon lancer le programme testBalance
 ```bash
-~/Ruche/Capteurs $ ./main
+~/Ruche/Capteurs $ ./testBalance
 * 15.00
 ```
 Vous devriez voir s'afficher sur l'écran la valeur du poids étalon.
