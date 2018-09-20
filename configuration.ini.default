@@ -41,3 +41,8 @@ name1 = Weight/temperature
 id2 = 333444
 name2 = Humidity/temperature
 
+[matlabAnalysis]
+id1 = 558210
+name1 = Dérivée du poids
+id2 = 552430
+name2 = Moyenne journalière

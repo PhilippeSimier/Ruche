@@ -35,7 +35,7 @@
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pressure/humidity</a>
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Illuminance</a>
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=6">Dew point</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?channel=558210&fieldP=1">Derived from the weight</a>
+					
 				  </div>
 			</li>
 			
@@ -52,6 +52,12 @@
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
 					if (isset($ini['matlab']['id3']))
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
+					if (isset($ini['matlabAnalysis']['id1']))
+						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id1'] . '&fieldP=1">'. $ini['matlabAnalysis']['name1'] . '</a>';
+					if (isset($ini['matlabAnalysis']['id2']))
+						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id2'] . '&fieldP=1">'. $ini['matlabAnalysis']['name2'] . '</a>';
+					if (isset($ini['matlabAnalysis']['id3']))
+						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id3'] . '&fieldP=1">'. $ini['matlabAnalysis']['name3'] . '</a>';
 					?>
 				  </div>
 			</li>
