@@ -79,6 +79,9 @@ int main() {
     balance.fixerEchelle( ini.GetValue<float>("balance", "scale", 1.0 ));
     balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
     balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
+    balance.fixerSlope( ini.GetValue<float>("balance", "slope", 0.0 ));
+    balance.fixerTempRef( ini.GetValue<float>("balance", "tempRef", 25.0 ));
+
 
     // Configuration du capteur de pression
     capteur1.donnerAltitude( ini.GetValue<float>("ruche", "altitude", 0.0 ));
@@ -120,9 +123,9 @@ int main() {
         }
     }
 
-
+        float temperature = capteur1.obtenirTemperatureEnC();
         // préparation de la requête
-        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,id_channel) VALUES(?,?,?,?,?,?,?)");
+        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel) VALUES(?,?,?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
         pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );
@@ -130,7 +133,8 @@ int main() {
         pstmt->setDouble( 4, capteur1.obtenirHumidite() );
         pstmt->setDouble( 5, capteur2.obtenirLuminosite_Lux() );
         pstmt->setDouble( 6, capteur1.obtenirPointDeRosee() );
-        pstmt->setInt( 7, ini.GetValue<int>("ruche", "id", 0));
+        pstmt->setDouble( 7, balance.obtenirPoidsCorrige(temperature) );
+        pstmt->setInt( 8, ini.GetValue<int>("ruche", "id", 0));
         // Exécution de la requête
         nbLigne = pstmt->executeUpdate();
 
