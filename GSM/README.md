@@ -131,7 +131,7 @@ le modem doit répondre OK
 
 ## Envoyer un SMS
 
-A la première sous tension du modem le code pin doit être entré. Pour ce faire saisir la commande at suivante :
+A la première mise sous tension du modem le code pin doit être entré. Pour ce faire saisir la commande at suivante si le code pin est 0000:
 ```
 AT+CPIN=0000
 +CPIN: READY
