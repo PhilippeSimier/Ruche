@@ -17,9 +17,9 @@ Bus 001 Device 002: ID 0424:9512 Standard Microsystems Corp. LAN9500 Ethernet 10
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
 Un composant supplémentaire doit apparaître: 
-**Device 004: ID 0403:6010**  c'est un dual USB-UART/FIFO
+**Device 004: ID 0403:6010**
 
-Listez les devices ttyUSB
+Lister les devices ttyUSB
 ```bash
 pi@PI1003:~ $ ls /dev/ttyUSB*
 /dev/ttyUSB0  /dev/ttyUSB1
