@@ -9,9 +9,20 @@ Toutes les commandes de libGammu peuvent être utilisées en ligne de commande.
 
 ```bash
 pi@PI1003:~ $ sudo apt install gammu
+pi@PI1003:~ $ sudo apt-get install libgammu-dev
 ```
 
 ## Configurer gammu
+Sur Linux, le fichier de configuration est recherché dans l'ordre suivant:
+
+```bash
+$XDG_CONFIG_HOME/gammu/config
+~/.config/gammu/config
+~/.gammurc
+/etc/gammurc
+```
+
+Vous pouvez utiliser **gammu-config** ou **gammu-detect** pour générer un fichier de configuration ou démarrer à partir d'un exemple entièrement documenté.
 
 ```bash
 pi@PI1003:~ $ sudo gammu-config
