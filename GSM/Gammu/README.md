@@ -83,7 +83,13 @@ Sending SMS 1/1....waiting for network answer..OK, message reference=254
 
 Gammu SMSD
 
-Gammu SMS Daemon is a program that periodically scans GSM modem for received messages, stores them in defined storage and also sends messages enqueued in this storage. It is perfect tool for managing big amounts of received or sent messages and automatically process them. 
+Gammu SMSD  est un programme Daemon qui analyse périodiquement le modem GSM pour lire les messages reçus, les stocker dans un répertoire défini et envoyer également des messages placés dans ce répertoire. C'est l'outil idéal pour gérer de grandes quantités de messages reçus ou envoyés et les traiter automatiquement.
+
+Démarrez SMSD en tant que démon sous Linux:
+
+```bash
+gammu-smsd --config /etc/gammu-smsdrc --pid /var/run/gammu-smsd.pid --daemon
+```
 
 ```bash
 more /etc/gammu-smsdrc 
