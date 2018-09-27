@@ -144,7 +144,7 @@ le modem répond **OK** puis un instant plus tard **Call Ready**
 
 Passage en mode texte 
 ```
-AT+CMGF=1                                                                                                        
+AT+CMGF=1
 OK
 ```
 Envoyer un message SMS saisir la commande AT+CMGS="0689744200" puis enter
