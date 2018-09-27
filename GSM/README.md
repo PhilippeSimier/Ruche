@@ -148,7 +148,7 @@ AT+CMGF=1
 OK
 ```
 Envoyer un message SMS saisir la commande AT+CMGS="0689744200" puis enter
-le modem répond en affichant le prompt > saisir le message enter pour passer à la ligne, puis ctrl Z  pour envoyer. (terminés par Ctrl+Z, 0x1A, 26). Le modem répond alors =CMGS: 252 puis OK.
+le modem répond en affichant le prompt > saisir le message enter pour passer à la ligne, puis ctrl Z  pour envoyer. (Ctrl+Z, 0x1A, 26). Le modem répond alors =CMGS: 252 puis OK.
 ```
 AT+CMGS="0689744236"
 > mon premier message SMS avec le modem GSM
@@ -175,7 +175,7 @@ OK
 ## Changelog
 
  **04/08/2018 :** Ajout du README . 
- **10/09/2018 :** Ajout du  script shell RaspbianOSsetup.sh
+ **27/09/2018 :** Ajout du  README.md
  
 > **Notes :**
 
