@@ -69,6 +69,16 @@ SIM IMSI             : 208019006134389
 ```
 Comme le montre l'écran ci-dessus nous obtenons différentes informations sur le constructeur, le modèle,  le firmware, le numero IMEI etc...
 
+## Débloquer la carte SIM avec le code PIN
+
+Pour envoyer ou recevoir des sms, la première chose à faire est de débloquer la carte SIM avec le code PIN requis. Ici, nous utilisons une carte SIM  avec le code pin est 0000.
+
+```bash
+pi@raspberrypi3:~ $ gammu entersecuritycode PIN 0000
+```
+
+Au bout de quelques secondes vous devriez voir la led rouge passer d'un clignotement rapide à un clignotement lent.
+
 ## Envoyer un SMS
 
 ```bash
