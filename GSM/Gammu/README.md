@@ -26,7 +26,7 @@ Ce fichier utilise la syntaxe de fichier ini.
 Vous pouvez utiliser **gammu-config** ou **gammu-detect** pour générer un fichier de configuration ou démarrer à partir d'un exemple entièrement documenté.
 
 ```bash
-pi@PI1003:~ $ sudo gammu-config
+pi@PI1003:~ $ gammu-config
                                                                                 
                ┌───────────────────────────────────────────────┐                
                │ Current Gammu configuration                   │                
@@ -57,7 +57,7 @@ le format du log **textdate**
 
 A ce stade il est possible de vérifier si le modem est bien reconnu par gammu.
 ```bash
-pi@PI1003:~ $ sudo gammu identify
+pi@PI1003:~ $ gammu identify
 
 Device               : /dev/ttyUSB0
 Manufacturer         : Quectel_Ltd
@@ -72,7 +72,7 @@ Comme le montre l'écran ci-dessus nous obtenons différentes informations sur l
 ## Envoyer un SMS
 
 ```bash
-pi@PI1003:~ $ sudo gammu sendsms TEXT 0689744236 -text "gammu message"
+pi@PI1003:~ $ gammu sendsms TEXT 0689744236 -text "gammu message"
 
 If you want break, press Ctrl+C...
 Sending SMS 1/1....waiting for network answer..OK, message reference=254
