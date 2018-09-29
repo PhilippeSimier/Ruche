@@ -1,4 +1,4 @@
-﻿# Envoyer un SMS avec GAMMU
+﻿# Envoyer et recevoir un SMS avec GAMMU
 
 **Gammu** est un outil en ligne de commande qui permet la gestion de nombreux modem GSM.
 Toutes les commandes de libGammu peuvent être utilisées en ligne de commande. 
@@ -88,8 +88,29 @@ If you want break, press Ctrl+C...
 Sending SMS 1/1....waiting for network answer..OK, message reference=254
 
 ```
+## Recevoir un SMS
 
-##Configurer le daemon gammu 
+Afin de voir vos sms reçus vous pouvez rentrer la commande suivante:
+
+```bash
+pi@raspberrypi3:~ $ gammu getallsms
+Location 1, folder "Boîte de réception", SIM memory, Inbox folder
+SMS message
+SMSC number          : "+33689004000"
+Envoyé              : sam. 29 sept. 2018 22:09:22  +0200
+Coding               : Default GSM alphabet (no compression)
+Remote number        : "+33689744236"
+État                : UnRead
+
+J'ai manqué votre appel.
+
+
+
+1 SMS parts in 1 SMS sequences
+
+
+```
+## Configurer le daemon gammu 
 
 Gammu SMSD
 
