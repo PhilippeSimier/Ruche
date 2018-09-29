@@ -54,17 +54,17 @@ Une fenêtre de configuration apparaît pour configurer les paramètres de la co
 ```
 Sélectionner **Serial port setup** avec les flèches bas et haut du clavier
 ```bash
-    +-----------------------------------------------------------------+
-    | A -    Serial Device      : /dev/ttyUSB0                        |
-    | B - Lockfile Location     : /var/lock                           |
-    | C -   Callin Program      :                                     |
-    | D -  Callout Program      :                                     |
-    | E -    Bps/Par/Bits       : 115200 8N1                          |
-    | F - Hardware Flow Control : No                                  |
-    | G - Software Flow Control : No                                  |
-    |                                                                 |
-    |    Change which setting?                                        |
-    +-----------------------------------------------------------------+
+    +-------------------------------------------------------------+
+    | A -    Serial Device      : /dev/ttyUSB0                    |
+    | B - Lockfile Location     : /var/lock                       |
+    | C -   Callin Program      :                                 |
+    | D -  Callout Program      :                                 |
+    | E -    Bps/Par/Bits       : 115200 8N1                      |
+    | F - Hardware Flow Control : No                              |
+    | G - Software Flow Control : No                              |
+    |                                                             |
+    |    Change which setting?                                    |
+    +-------------------------------------------------------------+
             | Screen and keyboard      |
             | Save setup as dfl        |
             | Save setup as..          |
@@ -126,12 +126,12 @@ Port /dev/ttyUSB0, 10:58:00
 Press CTRL-A Z for help on special keys
 
 ```
-envoyer at
+envoyer AT
 le modem doit répondre OK
 
 ## Envoyer un SMS
 
-A la première mise sous tension du modem le code pin doit être entré. Pour ce faire saisir la commande at suivante si le code pin est 0000:
+A Chaque remise mise sous tension du modem le code pin doit être entré. Pour ce faire saisir la commande at suivante si le code pin est 0000:
 ```
 AT+CPIN=0000
 +CPIN: READY
@@ -157,11 +157,26 @@ AT+CMGS="0689744236"
                                                                                                          
 OK
 ```
+Si vous obtenez la réponse erreur suivante,  
+```
++CME ERROR: 11
+```
+le code pin est requis (SIM PIN required)
 
+## Tableau des codes erreurs carte SIM 
+|   Erreur  |      Description |
+|-----------|------------------|
+|CME ERROR: 10	| SIM not inserted |
+|CME ERROR: 11	| 	SIM PIN required |
+|CME ERROR: 12	| 	SIM PUK required |
+|CME ERROR: 13	| 	SIM failure |
+|CME ERROR: 14	| 	SIM busy |
+|CME ERROR: 15	| 	SIM wrong |
+|CME ERROR: 16	| 	Incorrect password |
+|CME ERROR: 17	| 	SIM PIN2 required |
+|CME ERROR: 18	| 	SIM PUK2 required |
 
-
-
- 
+ [gsm error](http://www.micromedia-int.com/fr/gsm-2/669-cme-error-gsm-equipment-related-errors)
  
 
 
