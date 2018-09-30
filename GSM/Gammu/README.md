@@ -110,27 +110,10 @@ J'ai manqué votre appel.
 
 
 ```
-## Configurer le daemon gammu 
 
-Gammu SMSD
-
-Gammu SMSD  est un programme Daemon qui analyse périodiquement le modem GSM pour lire les messages reçus, les stocker dans un répertoire défini et envoyer également des messages placés dans ce répertoire. C'est l'outil idéal pour gérer de grandes quantités de messages reçus ou envoyés et les traiter automatiquement.
-
-Démarrez SMSD en tant que démon sous Linux:
-
-```bash
-gammu-smsd --config /etc/gammu-smsdrc --pid /var/run/gammu-smsd.pid --daemon
-```
-
-```bash
-more /etc/gammu-smsdrc 
-```
-[lien vers leedom](https://github.com/mbuffat/Jeedom-Gammu) 
+[lien vers Jeedom](https://github.com/mbuffat/Jeedom-Gammu) 
 
  
- 
-
-
 
 --------
 
