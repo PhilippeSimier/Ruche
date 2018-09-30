@@ -1,4 +1,4 @@
-﻿# Envoyer un SMS avec GAMMU
+﻿# Envoyer et recevoir un SMS avec GAMMU
 
 **Gammu** est un outil en ligne de commande qui permet la gestion de nombreux modem GSM.
 Toutes les commandes de libGammu peuvent être utilisées en ligne de commande. 
@@ -26,7 +26,7 @@ Ce fichier utilise la syntaxe de fichier ini.
 Vous pouvez utiliser **gammu-config** ou **gammu-detect** pour générer un fichier de configuration ou démarrer à partir d'un exemple entièrement documenté.
 
 ```bash
-pi@PI1003:~ $ sudo gammu-config
+pi@PI1003:~ $ gammu-config
                                                                                 
                ┌───────────────────────────────────────────────┐                
                │ Current Gammu configuration                   │                
@@ -57,7 +57,7 @@ le format du log **textdate**
 
 A ce stade il est possible de vérifier si le modem est bien reconnu par gammu.
 ```bash
-pi@PI1003:~ $ sudo gammu identify
+pi@PI1003:~ $ gammu identify
 
 Device               : /dev/ttyUSB0
 Manufacturer         : Quectel_Ltd
@@ -69,17 +69,48 @@ SIM IMSI             : 208019006134389
 ```
 Comme le montre l'écran ci-dessus nous obtenons différentes informations sur le constructeur, le modèle,  le firmware, le numero IMEI etc...
 
+## Débloquer la carte SIM avec le code PIN
+
+Pour envoyer ou recevoir des sms, la première chose à faire est de débloquer la carte SIM avec le code PIN requis. Ici, nous utilisons une carte SIM  avec le code pin est 0000.
+
+```bash
+pi@raspberrypi3:~ $ gammu entersecuritycode PIN 0000
+```
+
+Au bout de quelques secondes vous devriez voir la led rouge passer d'un clignotement rapide à un clignotement lent.
+
 ## Envoyer un SMS
 
 ```bash
-pi@PI1003:~ $ sudo gammu sendsms TEXT 0689744236 -text "gammu message"
+pi@PI1003:~ $ gammu sendsms TEXT 0689744236 -text "gammu message"
 
 If you want break, press Ctrl+C...
 Sending SMS 1/1....waiting for network answer..OK, message reference=254
 
 ```
+## Recevoir un SMS
 
-##Configurer le daemon gammu 
+Afin de voir vos sms reçus vous pouvez rentrer la commande suivante:
+
+```bash
+pi@raspberrypi3:~ $ gammu getallsms
+Location 1, folder "Boîte de réception", SIM memory, Inbox folder
+SMS message
+SMSC number          : "+33689004000"
+Envoyé              : sam. 29 sept. 2018 22:09:22  +0200
+Coding               : Default GSM alphabet (no compression)
+Remote number        : "+33689744236"
+État                : UnRead
+
+J'ai manqué votre appel.
+
+
+
+1 SMS parts in 1 SMS sequences
+
+
+```
+## Configurer le daemon gammu 
 
 Gammu SMSD
 
