@@ -12,6 +12,11 @@ Pour émettre des sms, la Raspberry Pi doit pouvoir se connecter au réseau GSM 
 
 Une LED jaune appelée STAT est utilisée pour indiquer l'état de l'appareil. Lorsqu'elle est allumée, l'appareil est opérationnel. Elle signale également que l'initialisation du module interne est terminée et que le module est prêt à fonctionner.
 
+La connexion au Raspberry se fait par l'intermédiaire d'un adaptateur USB. L'adaptateur fournit l'interface nécessaire à la connexion série via une connexion USB.
+
+![adaptateur USB](/GSM/click-usb-adapter)
+
+
 ## Test & Installation
 Avant de connecter le modem GSM exécuter **lsusb** 
 ```bash
