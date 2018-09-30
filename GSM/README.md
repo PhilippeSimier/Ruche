@@ -14,7 +14,7 @@ Une LED jaune appelée STAT est utilisée pour indiquer l'état de l'appareil. L
 
 La connexion au Raspberry se fait par l'intermédiaire d'un adaptateur USB. L'adaptateur fournit l'interface nécessaire à la connexion série via une connexion USB.
 
-![adaptateur USB](/GSM/click-usb-adapter)
+![adaptateur USB](/GSM/click-usb-adapter.png)
 
 
 ## Test & Installation
