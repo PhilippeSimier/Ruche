@@ -40,7 +40,7 @@ service = files
 logfile = syslog
 # Increase for debugging information
 debuglevel = 0
-RunOnReceive = /var/spool/gammu/SMSDreceive.sh
+RunOnReceive = /root/SMSDreceive.sh
 pin = 0000
 
 # Paths where messages are stored
@@ -105,6 +105,26 @@ root@raspberrypi3:/home/pi# gammu-smsd-inject TEXT 0689744236 -unicode -text "Zk
 
 Chaque fois que SMSD reçoit un message et le stocke dans le service backend, il peut lancer l'exécution de votre propre programme pour effectuer tout traitement sur le message reçu.
 
+Exemple :
+```bash
+#!/bin/sh
+# script exécuter par le démon Gammu lors de la reception d'un SMS
+# variables d'environnement
+# SMS_1_CLASS
+# SMS_1_NUMBER= numero tel
+# SMS_1_TEXT= message
+# SMS_MESSAGES = le nbre de SMS reçus
+# en argument le fichier contenant le SMS
+
+echo "---------------------------------------" >> /root/sms.log
+echo "$(date) : $SMS_MESSAGES  SMS(s) recu(s)" >> /root/sms.log
+echo "from : $SMS_1_NUMBER" >> /root/sms.log
+echo "message : $SMS_1_TEXT" >> /root/sms.log
+echo "fichier contenant le SMS : $1" >> /root/sms.log
+
+exit 0
+
+```
 
 ## Changelog
 
