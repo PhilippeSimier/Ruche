@@ -66,7 +66,7 @@ pi@raspberrypi3:/etc $ sudo service gammu-smsd start
 pi@raspberrypi3:/etc $ sudo systemctl stop gammu-smsd.service
 ```
 
-##Redémarrer le démon smsd
+## Redémarrer le démon smsd
 ```bash
 pi@raspberrypi3:/etc $ sudo systemctl restart gammu-smsd.service
 ```
