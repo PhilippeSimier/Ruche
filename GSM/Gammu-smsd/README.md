@@ -126,6 +126,8 @@ exit 0
 
 ```
 
+[Plus d'infos sur le site officiel GAMMU](https://wammu.eu/docs/manual/smsd/run.html)
+
 ## Changelog
 
  **30/09/2018 :** Ajout du README . 
