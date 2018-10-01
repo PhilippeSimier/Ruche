@@ -28,24 +28,24 @@ Vous pouvez utiliser **gammu-config** ou **gammu-detect** pour générer un fich
 ```bash
 pi@PI1003:~ $ gammu-config
                                                                                 
-               ┌───────────────────────────────────────────────┐                
-               │ Current Gammu configuration                   │                
-               │                                               │                
-               │  P Port                 (/dev/ttyUSB0)        │                
-               │  C Connection           (at115200)            │                
-               │  M Model                (at)                  │                
-               │  D Synchronize time     (yes)                 │                
-               │  F Log file             (/home/pi/gammu.log)  │                
-               │  O Log format           (textdate)            │                
-               │  L Use locking          ()                    │                
-               │  G Gammu localisation   ()                    │                
-               │  H Help                                       │                
-               │  S Save                                       │                
-               │                                               │                
-               │                                               │                
-               │          <Ok>              <Cancel>           │                
-               │                                               │                
-               └───────────────────────────────────────────────┘                                                                                   
+               ┌───────────────────────────────────────────────┐
+               │ Current Gammu configuration                   │      
+               │                                               │
+               │  P Port                 (/dev/ttyUSB0)        │ 
+               │  C Connection           (at115200)            │
+               │  M Model                (at)                  │
+               │  D Synchronize time     (yes)                 │ 
+               │  F Log file             (/home/pi/gammu.log)  │ 
+               │  O Log format           (textdate)            │
+               │  L Use locking          ()                    │
+               │  G Gammu localisation   ()                    │
+               │  H Help                                       │
+               │  S Save                                       │
+               │                                               │
+               │                                               │
+               │          <Ok>              <Cancel>           │
+               │                                               │
+               └───────────────────────────────────────────────┘ 
 ```
 les paramètres suivant doivent être renseignés, le Port  **/dev/ttyUSB0**
 la vitesse de la transmission:  **at115200**
