@@ -1,10 +1,9 @@
 <?php
-
-
+    $ini  = parse_ini_file("sendSMS.ini", true);
     $data = array();
 
     // Contrôle de la clé
-    if ( !isset($_GET['key']) || $_GET['key'] != 'azerty') {
+    if ( !isset($_GET['key']) || $_GET['key'] != $ini['api']['key']) {
         $data = array(
             'error' => "Not authorised",
             'error_code' => 403,
