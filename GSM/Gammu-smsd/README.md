@@ -128,6 +128,26 @@ exit 0
 
 [Plus d'infos sur le site officiel GAMMU](https://wammu.eu/docs/manual/smsd/run.html)
 
+## Envoyer un SMS depuis un script php
+
+```php
+<?php
+
+    $ligne  = "gammu-smsd-inject TEXT 0612345678 -text \"Test de l'envoi SMS avec API\"";
+    $output = shell_exec($ligne);
+    echo "<p>output : </p><pre>" . $output . "</pr>";
+?>
+```
+L’utilisateur apache (www-data) doit avoir accès à  /dev/ttyUSB0
+Pour ce faire ajouter **www-data** au groupe **dialout**
+```bash
+    sudo usermod -a -G dialout www-data
+```
+www-data doit pouvoir exécuter gammu-smsd-inject avec les droits du propriétaire  :    *chmod +s*
+```bash
+root@raspberrypi3:/home/pi# chmod 4755 gammu-smsd-inject
+``` 
+
 ## Changelog
 
  **30/09/2018 :** Ajout du README . 
