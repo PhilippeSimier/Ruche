@@ -101,6 +101,12 @@ Injecter un **message texte Unicode**:
 root@raspberrypi3:/home/pi# gammu-smsd-inject TEXT 0689744236 -unicode -text "Zkouška sirén été Anaïs"
 ```
 
+Injecter le contenu d'un **fichier text** :
+Le contenu d'un fichier texte peut être envoyé sur l'entrée standard de gammu-smsd-inject. 
+```bash
+root@raspberrypi3:/home/pi/# cat textSMS | gammu-smsd-inject TEXT 0689744235 -unicode -len 400
+```
+
 ## Recevoir un SMS et effectuer un traitement
 
 Chaque fois que SMSD reçoit un message et le stocke dans le service backend, il peut lancer l'exécution de votre propre programme pour effectuer tout traitement sur le message reçu.
