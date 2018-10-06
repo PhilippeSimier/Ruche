@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 			    <div class="popin responsive-video" >
-			        <iframe class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #fff; height:100%" src="
+			        <iframe class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #fff; height:630px" src="
 				<?php echo "https://thingspeak.com/apps/matlab_visualizations/" . $_GET['id'] . "?height=600" ?>
 				">
 				</iframe>

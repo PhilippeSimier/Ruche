@@ -40,7 +40,7 @@ service = files
 logfile = syslog
 # Increase for debugging information
 debuglevel = 0
-RunOnReceive = /root/SMSDreceive.sh
+RunOnReceive = /home/pi/Ruche/SMSDreceive.sh
 pin = 0000
 
 # Paths where messages are stored
@@ -63,12 +63,12 @@ pi@raspberrypi3:/etc $ sudo service gammu-smsd start
 
 ## Stoper le démon smsd
 ```bash
-pi@raspberrypi3:/etc $ sudo systemctl stop gammu-smsd.service
+pi@raspberrypi3:/etc $ sudo service gammu-smsd stop
 ```
 
 ## Redémarrer le démon smsd
 ```bash
-pi@raspberrypi3:/etc $ sudo systemctl restart gammu-smsd.service
+pi@raspberrypi3:/etc $ sudo service gammu-smsd stop restart 
 ```
 
 
@@ -111,7 +111,8 @@ root@raspberrypi3:/home/pi/# cat textSMS | gammu-smsd-inject TEXT 0689744235 -un
 
 Chaque fois que SMSD reçoit un message et le stocke dans le service backend, il peut lancer l'exécution de votre propre programme pour effectuer tout traitement sur le message reçu.
 
-Exemple :
+Exemple  de script: 
+pi@raspberrypi3:~# nano /home/pi/Ruche/SMSDreceive.sh
 ```bash
 #!/bin/sh
 # script exécuter par le démon Gammu lors de la reception d'un SMS
@@ -122,13 +123,26 @@ Exemple :
 # SMS_MESSAGES = le nbre de SMS reçus
 # en argument le fichier contenant le SMS
 
-echo "---------------------------------------" >> /root/sms.log
-echo "$(date) : $SMS_MESSAGES  SMS(s) recu(s)" >> /root/sms.log
-echo "from : $SMS_1_NUMBER" >> /root/sms.log
-echo "message : $SMS_1_TEXT" >> /root/sms.log
-echo "fichier contenant le SMS : $1" >> /root/sms.log
+echo "---------------------------------------" >> /home/pi/Ruche/sms.log
+echo "$(date) : $SMS_MESSAGES  SMS(s) recu(s)" >> /home/pi/Ruche/sms.log
+echo "from : $SMS_1_NUMBER" >> /home/pi/Ruche/sms.log
+echo "message : $SMS_1_TEXT" >> /home/pi/Ruche/sms.log
+echo "fichier contenant le SMS : $1" >> /home/pi/Ruche/sms.log
 
 exit 0
+
+```
+**Attention** Le script doit être exécutable par **gammu**,  il doit donc être exécutable, +x,  il doit avoir pour propriétaire gammu et appartenir au groupe gammu.
+Ne pas oublier d'ouvrir les droits en écriture pour de répertoire Ruche.
+```bash
+pi@raspberrypi3:~/Ruche $ chmod +x SMSDreceive.sh
+pi@raspberrypi3:~/Ruche $ sudo chown gammu SMSDreceive.sh
+pi@raspberrypi3:~/Ruche $ sudo chgrp gammu SMSDreceive.sh
+pi@raspberrypi3:~/Ruche $ ls -l
+total 4
+-rwxr-xr-x 1 gammu gammu 578 oct.   6 11:10 SMSDreceive.sh
+pi@raspberrypi3:~ $ cd ..
+pi@raspberrypi3:~ $ chmod 777 Ruche/
 
 ```
 
