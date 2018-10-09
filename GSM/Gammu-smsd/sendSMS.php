@@ -1,49 +1,89 @@
 <?php
     $ini  = parse_ini_file("sendSMS.ini", true);
-    $data = array();
-
-    // Contrôle de la clé
-    if ( !isset($_GET['key']) || $_GET['key'] != $ini['api']['key']) {
+    
+    // Fonction pour renvoyer un code d'erreur 
+    function erreur($code, $designation){
         $data = array(
-            'error' => "Not authorised",
-            'error_code' => 403,
-            'error_description' => "Not authorised",
-            'resource' => null
+                'error' => $designation,
+                'error_code' => $code,
+                'error_description' => $designation
         );
-        header('HTTP/1.0 403 Forbidden');
+        header('HTTP/1.1 ' . $code . ' ' . $designation);
         header('content-type:application/json');
 	echo json_encode($data);
-        exit;
+    
     }
 
-    if( !isset($_GET['message']) || !isset($_GET['number'])) {
-        $data = array(
-            'error' => "Missing data",
-            'error_code' => 403,
-            'error_description' => "Missing data",
-            'resource' => null
-        );
-        header('HTTP/1.0 403 Forbidden');
-        header('content-type:application/json');
-        echo json_encode($data);
-        exit;
+    // Contrôle de la présence du paramètre key
+    
+    if ( isset($_GET['key'])){
+        $key =  urldecode((string)$_GET['key']);
+    }
+    elseif (isset($_POST['key'])) {
+        $key = (string)$_POST['key'];
+    }
+    else{
+        erreur(403, "Forbidden" );
+        exit();
+    }
+    
+    // Contrôle de la présence du paramètre number
+    if ( isset($_GET['number'])){
+        $number = (string)$_GET['number'];
+    }
+    elseif (isset($_POST['number'])) {
+        $number = (string)$_POST['number'];
+    }
+    else{
+        erreur(400, "Bad Request" );
+        exit();
+    }
+    
+    // Contrôle de la présence du paramètre message
+    if ( isset($_GET['message'])){
+        $message = urldecode((string)$_GET['message']);
+    }
+    elseif (isset($_POST['message'])) {
+        $message = (string)$_POST['message'];
+    }
+    else{
+        erreur(400, "Bad Request" );
+        exit();
+    }
+    
+    
+    // Contrôle de la clé
+    if ( $key != $ini['api']['key']) {
+        erreur(403, "Forbidden" );
+        exit();
+    }
+    
+    // Contrôle du numéro de téléphone
+    if (strlen($number)<8 || !is_numeric($number)){
+        erreur(400, "Bad Request");
+        exit();
+    }
+    
+    // Contrôle du message
+    if (strlen($message)<1 || strlen($message)> 160){
+        erreur(400, "Bad Request");
+        exit();        
     }
 
-    $message = urldecode((string)$_GET['message']);
-    $number = (string)$_GET['number'];
+   
 
     $ligne  = "gammu-smsd-inject TEXT " . $number . " -text \"" . $message .  "\"";
-//    echo $ligne;
 
+  
     $output = shell_exec($ligne);
-//    echo "<p>output</p><pre>" . $output . "</pr>";
+
     $data = array(
-            'status' => "200 OK",
+            'status' => "202 Accepted",
             'numero' => $number,
             'message' => $message
         );
 
-    header('HTTP/1.0 200 OK');
+    header('HTTP/1.1 202 Accepted');
     header('content-type:application/json');
     echo json_encode($data);
 
