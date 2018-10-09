@@ -75,17 +75,25 @@
     $ligne  = "gammu-smsd-inject TEXT " . $number . " -text \"" . $message .  "\"";
 
   
-    $output = shell_exec($ligne);
+    exec($ligne, $output, $return);
 
-    $data = array(
-            'status' => "202 Accepted",
-            'numero' => $number,
-            'message' => $message
-        );
+    if ($return == 0){
+        $data = array(
+                'status' => "202 Accepted",
+                'numero' => $number,
+                'message' => $message,
 
-    header('HTTP/1.1 202 Accepted');
-    header('content-type:application/json');
-    echo json_encode($data);
+            );
 
+        header('HTTP/1.1 202 Accepted');
+        header('content-type:application/json');
+        echo json_encode($data);
+    }
+    else{
+        erreur(500, "Internal Server Error");
+        
+    }    
+    
+        
 
 ?>
