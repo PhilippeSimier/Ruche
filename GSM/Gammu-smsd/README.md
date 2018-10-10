@@ -168,6 +168,22 @@ www-data doit pouvoir exécuter gammu-smsd-inject avec les droits du propriétai
 root@raspberrypi3:/home/pi# chmod 4755 gammu-smsd-inject
 ``` 
 
+## Obtenir le niveau du signal
+
+```bash
+pi@raspberrypi3:~ $ sudo gammu-smsd-monitor -n 1 -d 1 | grep NetworkSignal
+NetworkSignal: 60
+```
+
+## Obtenir l'IMEI
+L'imei est un numéro permettant d'identifier de manière unique un modem GSM.
+```bash
+pi@PI1003:~ $ sudo gammu-smsd-monitor -n 1 -d 1 | grep IMEI
+IMEI: 863071014745125
+
+```
+
+
 ## Changelog
 
  **30/09/2018 :** Ajout du README . 
