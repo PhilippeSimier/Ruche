@@ -165,7 +165,10 @@ Pour ce faire ajouter **www-data** au groupe **dialout**
 ```
 www-data doit pouvoir exécuter gammu-smsd-inject avec les droits du propriétaire  :    *chmod +s*
 ```bash
-root@raspberrypi3:/home/pi# chmod 4755 gammu-smsd-inject
+root@raspberrypi3:/# cd /usr/bin/
+root@raspberrypi3:/usr/bin# chmod +s gammu-smsd-inject
+root@raspberrypi3:/usr/bin# chmod +s gammu-smsd-monitor
+
 ``` 
 
 ## Obtenir le niveau du signal
