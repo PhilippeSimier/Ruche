@@ -1,79 +1,75 @@
 <?php
     $ini  = parse_ini_file("sendSMS.ini", true);
     
-    // Fonction pour renvoyer un code d'erreur 
-    function erreur($code, $designation){
+    // Fonction pour renvoyer une réponse suite à une erreur 
+    function erreur($httpStatus, $message, $detail){
         $data = array(
-                'error' => $designation,
-                'error_code' => $code,
-                'error_description' => $designation
+                'status' => $httpStatus,
+                'message' => $message,
+                'detail' => $detail
         );
-        header('HTTP/1.1 ' . $code . ' ' . $designation);
+        header('HTTP/1.1 ' . $httpStatus . ' ' . $message);
         header('content-type:application/json');
 	echo json_encode($data);
     
     }
 
-    // Contrôle de la présence du paramètre key
-    
-    if ( isset($_GET['key'])){
-        $key =  urldecode((string)$_GET['key']);
+    // Contrôle de la présence du paramètre key en GET ou POST
+    $key = filter_input(INPUT_GET, 'key');
+    if($key === NULL){
+        $key = filter_input(INPUT_POST, 'key');
     }
-    elseif (isset($_POST['key'])) {
-        $key = (string)$_POST['key'];
-    }
-    else{
-        erreur(403, "Forbidden" );
-        exit();
+    if($key === NULL){
+        erreur(400, "Bad Request", "The request cannot be fulfilled due to bad syntax." );
+        return;  
     }
     
     // Contrôle de la présence du paramètre number
-    if ( isset($_GET['number'])){
-        $number = (string)$_GET['number'];
+    $number = filter_input(INPUT_GET, 'number');
+    
+    if($number === NULL){
+        $number = filter_input(INPUT_POST, 'number');
     }
-    elseif (isset($_POST['number'])) {
-        $number = (string)$_POST['number'];
-    }
-    else{
-        erreur(400, "Bad Request" );
-        exit();
-    }
+    if($number === NULL){
+        erreur(400, "Bad Request", "The request cannot be fulfilled due to bad syntax." );
+        return;  
+    }    
     
     // Contrôle de la présence du paramètre message
-    if ( isset($_GET['message'])){
-        $message = urldecode((string)$_GET['message']);
+    $message = filter_input(INPUT_GET, 'message');
+    
+    if($message === NULL){
+        $message = filter_input(INPUT_POST, 'message');
+        
     }
-    elseif (isset($_POST['message'])) {
-        $message = (string)$_POST['message'];
-    }
-    else{
-        erreur(400, "Bad Request" );
-        exit();
+    if($message === NULL){
+        erreur(400, "Bad Request", "The request cannot be fulfilled due to bad syntax." );
+        return;  
     }
     
-    
+       
     // Contrôle de la clé
     if ( $key != $ini['api']['key']) {
-        erreur(403, "Forbidden" );
-        exit();
+        erreur(401, "Authorization Required", "Please provide proper authentication details." );
+        return;
     }
     
     // Contrôle du numéro de téléphone
     if (strlen($number)<8 || !is_numeric($number)){
-        erreur(400, "Bad Request");
-        exit();
+        erreur(400, "Bad Request", "The request cannot be fulfilled due to bad number.");
+        return;
     }
     
     // Contrôle du message
     if (strlen($message)<1 || strlen($message)> 160){
-        erreur(400, "Bad Request");
-        exit();        
+        erreur(413, "Request Entity Too Large", "Your request is too large. Please reduce the size and try again.");
+        return;        
     }
 
    
 
     $ligne  = "gammu-smsd-inject TEXT " . $number . " -text \"" . $message .  "\"";
-
+    
   
     exec($ligne, $output, $return);
 
@@ -90,10 +86,8 @@
         echo json_encode($data);
     }
     else{
-        erreur(500, "Internal Server Error");
+        erreur(500, "Internal Server Error", "Internal Server Error");
         
     }    
     
-        
-
-?>
+       
