@@ -53,7 +53,8 @@ int main()
     // Configuration du capteur d'éclairement
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
 
-    string key = ini.GetValue<string>("thingSpeak", "key", " ");
+    string key = ini.GetValue<string>("thingSpeak", "key2", " ");
+    trame << "'https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
     trame << "&field1=" << balance.obtenirPoids();
     float temperature = capteur.obtenirTemperatureEnC();
@@ -63,6 +64,7 @@ int main()
     trame << "&field5=" << capteur2.obtenirLuminosite_Lux();
     trame << "&field6=" << capteur.obtenirPointDeRosee();
     trame << "&field7=" << balance.obtenirPoidsCorrige(temperature);
+    trame << "'";
 
     cout << trame.str() << endl;
     return 0;
