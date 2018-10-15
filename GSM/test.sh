@@ -8,7 +8,7 @@
 # SMS_MESSAGES = le nbre de SMS reçus
 # en argument le fichier contenant le SMS
 
-SMS_1_TEXT='https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7X&field1=0&field2=25&field3=1024'
+SMS_1_TEXT='https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7X&field1=1&field2=24,5&field3=1024'
 
 curl --request GET \
   --url $SMS_1_TEXT \

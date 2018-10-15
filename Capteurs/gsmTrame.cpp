@@ -3,11 +3,11 @@
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour logger les mesures -> thingSpeak via réseau GSM
-    @date     Octobre 2018
-    @version  v1.0 - First release
+    @date     15 Octobre 2018
+    @version  v1.1 - First release
     @detail   Prérequis    : apt-get gammu gammu-smsd
               Compilation  : g++  gsmTrame.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o gsmTrame
-              Execution    : ./gsmTrame
+              Execution    : ./gsmTrame | 
 */
 
 #include <iostream>
@@ -54,17 +54,17 @@ int main()
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
 
     string key = ini.GetValue<string>("thingSpeak", "key2", " ");
-    trame << "'https://api.thingspeak.com/update?";
+    trame << "https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
-    trame << "&field1=" << balance.obtenirPoids();
+    trame << "&field1=" << fixed << setprecision (2) << balance.obtenirPoids();
     float temperature = capteur.obtenirTemperatureEnC();
-    trame << "&field2=" << temperature;
-    trame << "&field3=" << capteur.obtenirPression0();
-    trame << "&field4=" << capteur.obtenirHumidite();
-    trame << "&field5=" << capteur2.obtenirLuminosite_Lux();
-    trame << "&field6=" << capteur.obtenirPointDeRosee();
-    trame << "&field7=" << balance.obtenirPoidsCorrige(temperature);
-    trame << "'";
+    trame << "&field2=" << fixed << setprecision (2) << temperature;
+    trame << "&field3=" << fixed << setprecision (2) << capteur.obtenirPression0();
+    trame << "&field4=" << fixed << setprecision (2) << capteur.obtenirHumidite();
+    trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
+    trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
+    trame << "&field7=" << fixed << setprecision (2) << balance.obtenirPoidsCorrige(temperature);
+
 
     cout << trame.str() << endl;
     return 0;
