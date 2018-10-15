@@ -129,6 +129,8 @@ echo "from : $SMS_1_NUMBER" >> /home/pi/Ruche/sms.log
 echo "message : $SMS_1_TEXT" >> /home/pi/Ruche/sms.log
 echo "fichier contenant le SMS : $1" >> /home/pi/Ruche/sms.log
 
+curl --request GET  --url $SMS_1_TEXT  --header 'cache-control: no-cache' >> /root/sms.log 2>&1
+
 exit 0
 
 ```
