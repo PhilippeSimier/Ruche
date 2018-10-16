@@ -2,12 +2,12 @@
     @file     gsmTrame.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
-    @brief    Programme pour logger les mesures -> thingSpeak via réseau GSM
+    @brief    Programme pour construire l'url (Update channel data with HTTP GET) API thingSpeak
     @date     15 Octobre 2018
     @version  v1.1 - First release
     @detail   Prérequis    : apt-get gammu gammu-smsd
               Compilation  : g++  gsmTrame.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o gsmTrame
-              Execution    : ./gsmTrame | 
+              Execution    : ./gsmTrame  write_api_key | envoyer
 */
 
 #include <iostream>
@@ -25,13 +25,17 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     hx711 balance;
     bme280 capteur(0x77);
     bh1750 capteur2(0x23);
     SimpleIni ini;
     ostringstream trame;
+
+    if (argc != 2){
+        return 1;
+    }
 
     // Lecture du fichier de configuration
     if(!ini.Load(CONFIGURATION))
@@ -53,7 +57,8 @@ int main()
     // Configuration du capteur d'éclairement
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
 
-    string key = ini.GetValue<string>("thingSpeak", "key2", " ");
+    //string key = ini.GetValue<string>("thingSpeak", "key2", " ");
+    string key(argv[1]);
     trame << "https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
     trame << "&field1=" << fixed << setprecision (2) << balance.obtenirPoids();
