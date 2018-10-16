@@ -40,13 +40,16 @@ int main(){
 
     rest requete;
     string url;
-    cin >> url;
+    int count = 0;
 
+    cin >> url;
     long code = requete.get(url);
-    if (code != 200){
+
+    while (code != 200 && count < 2){
 	cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
         sleep(30);   // attente de 30s avant nouvel essai
         code = requete.get(url);
+	count++;
     }
     cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
     return 0;
