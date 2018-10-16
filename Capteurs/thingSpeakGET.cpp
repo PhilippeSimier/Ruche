@@ -1,13 +1,13 @@
 /*!
-    @file     gsmTrame.cpp
+    @file     thingSpeakGET.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour construire l'url (Update channel data with HTTP GET) API thingSpeak
     @date     15 Octobre 2018
     @version  v1.1 - First release
     @detail   Prérequis    : apt-get gammu gammu-smsd
-              Compilation  : g++  gsmTrame.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o gsmTrame
-              Execution    : ./gsmTrame  write_api_key | envoyer
+              Compilation  : g++  thingSpeakGET.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o thingSpeakGET
+              Execution    : ./thingSpeakGET  write_api_key | envoyerURL
 */
 
 #include <iostream>
