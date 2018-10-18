@@ -8,4 +8,4 @@
 # en argument le fichier contenant le SMS
 
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
-echo "$DATE : $SMS_1_TEXT" >> /home/pi/Ruche/activity.log
+echo "$DATE gsm $SMS_1_TEXT" >> /home/pi/Ruche/activity.log
