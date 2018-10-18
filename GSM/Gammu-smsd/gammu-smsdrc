@@ -1,0 +1,22 @@
+# Configuration file for Gammu SMS Daemon
+
+[gammu]
+
+port = /dev/ttyUSB0
+connection = at
+GammuLoc = fr_FR.UTF8
+gammucoding = utf8
+
+[smsd]
+service = files
+logfile = syslog
+# Increase for debugging information
+debuglevel = 0
+RunOnReceive = /home/pi/Ruche/SMSDreceive.sh
+pin = 1234
+
+# Paths where messages are stored
+inboxpath = /var/spool/gammu/inbox/
+outboxpath = /var/spool/gammu/outbox/
+sentsmspath = /var/spool/gammu/sent/
+errorsmspath = /var/spool/gammu/error/
