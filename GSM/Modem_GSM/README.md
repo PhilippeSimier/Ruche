@@ -1,8 +1,8 @@
 ﻿# Modem GSM
 
-Pour émettre des sms, la Raspberry Pi doit pouvoir se connecter au réseau GSM d'un opérateur. Pour ce faire, nous allons utiliser un modem GSM et une carte SIM avec un abonnement comprenant des appels limités à 2h mais permettant l'envoi de sms et de mms illimités. La plupart des opérateurs proposent des forfaits de ce genre pour 2€ par mois.
+Pour émettre des sms, la Raspberry Pi doit pouvoir se connecter au réseau GSM d'un opérateur. Pour ce faire, nous utilisons un modem GSM et une carte SIM avec un abonnement comprenant des appels limités à 2h mais permettant l'envoi de sms et de mms illimités. La plupart des opérateurs proposent des forfaits de ce genre pour 2€ par mois.
 
-![Modem GSM](/GSM/gsm-2-click.png)
+![Modem GSM](/GSM/Modem_GSM/gsm-2-click.png)
 
  L'activité sur le réseau est indiquée par la LED rouge NET, avec la signification suivante:
  - Continuellement éteint : l'appareil n'est pas alimenté.
@@ -14,7 +14,7 @@ Une LED jaune appelée STAT est utilisée pour indiquer l'état de l'appareil. L
 
 La connexion au Raspberry se fait par l'intermédiaire d'un adaptateur USB. L'adaptateur fournit l'interface nécessaire à la connexion série via une connexion USB.
 
-![adaptateur USB](/GSM/click-usb-adapter.png)
+![adaptateur USB](/GSM/Modem_GSM/click-usb-adapter.png)
 
 
 ## Test & Installation
