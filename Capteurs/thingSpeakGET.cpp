@@ -25,6 +25,22 @@
 
 using namespace std;
 
+/**
+ * @brief ObtenirDateHeure
+ * @return std::string
+ * @details retourne une chaine de caratères représentant la date courante
+ *          au format Année-mois-jour heure:minute:seconde
+ */
+string ObtenirDateHeure()
+{
+    time_t  t = time(nullptr);
+    stringstream ss;
+    ss  <<  put_time( gmtime(&t), "%F" ) << "%20" <<  put_time( gmtime(&t), "%T" );
+    return ss.str();
+}
+
+
+
 int main(int argc, char *argv[])
 {
     hx711 balance;
@@ -57,7 +73,6 @@ int main(int argc, char *argv[])
     // Configuration du capteur d'éclairement
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
 
-    //string key = ini.GetValue<string>("thingSpeak", "key2", " ");
     string key(argv[1]);
     trame << "https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
@@ -69,7 +84,7 @@ int main(int argc, char *argv[])
     trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
     trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
     trame << "&field7=" << fixed << setprecision (2) << balance.obtenirPoidsCorrige(temperature);
-
+    trame << "&created_at=" << ObtenirDateHeure();
 
     cout << trame.str() << endl;
     return 0;

@@ -39,16 +39,17 @@ string ObtenirDateHeure()
 int main(){
 
     rest requete;
-    string url;
+    string req;
     int count = 0;
 
-    cin >> url;
-    long code = requete.get(url);
+    cin >> req;
+
+    long code = requete.get(req);
 
     while (code != 200 && count < 2){
 	cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
         sleep(30);   // attente de 30s avant nouvel essai
-        code = requete.get(url);
+        code = requete.get(req);
 	count++;
     }
     cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
