@@ -38,8 +38,17 @@ La réponse reçue sera envoyée en retour à l'expéditeur.
 ```bash
 echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
 ```
-#### le script complet SMSDreceive:
+#### le script complet SMSDreceive côté Gateway:
 ```bash
+#!/bin/sh
+# script exécuter par le démon Gammu lors de la reception d'un SMS
+# variables d'environnement
+# SMS_1_CLASS
+# SMS_1_NUMBER= numero tel
+# SMS_1_TEXT= message
+# SMS_MESSAGES = le nbre de SMS reçus
+# en argument le fichier contenant le SMS
+
 echo "---------------------------------------" >> /root/sms.log
 echo "$(date) : $SMS_MESSAGES  SMS(s) recu(s)" >> /root/sms.log
 echo "from : $SMS_1_NUMBER" >> /root/sms.log
@@ -53,6 +62,21 @@ echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
 
 exit 0 
 ```
+#### le script complet SMSDreceive côté Connected Beehive:
+```bash
+#!/bin/sh
+# script exécuter par le démon Gammu lors de la reception d'un SMS
+# variables d'environnement
+# SMS_1_CLASS
+# SMS_1_NUMBER= numero tel
+# SMS_1_TEXT= message
+# SMS_MESSAGES = le nbre de SMS reçus
+# en argument le fichier contenant le SMS
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+echo "$DATE gsm $SMS_1_TEXT" >> /home/pi/Ruche/activity.log
+```
+
 ## Changelog
 
  **22/10/2018 :** Ajout du README . 
