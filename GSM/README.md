@@ -11,30 +11,30 @@ La norme GPRS spécifie le support de transmission de données en mode paquet su
 La passerelle est  composée d'une raspberry pi et d'un modem GSM. Elle joue le rôle d'intermédiaire en se plaçant entre une ruche connectée et la platforme IOT thingSpeak  pour permettre  leurs échanges. La passerelle fonctionne comme un proxy.
 
 ## Protocole de transmission 
-L'envoi des données vers la plateforme thingspeak se fait en http avec une requête  GET.  Lorsque la ruche n'est pas directement connectée au réseau ethernet la requête est envoyée vers la passerelle sous la forme d'un ou plusieurs SMS . 
-Les requêtes http ou https reçues  par la passerelle dans les SMS sont  réexpédiées tel-quel sur le réseau ethernet et les réponses obtenues  sont renvoyées à l'expéditeur  qui en à fait la demande, également sous la forme de SMS. 
+L'envoi des données vers la plateforme thingspeak se fait en http avec une requête  GET.  Lorsque la ruche n'est pas directement connectée au réseau ethernet la requête est envoyée vers la passerelle sous la forme d'un ou plusieurs SMS suivant sa longueur. 
+La requête http reçue  par la passerelle dans le ou les SMS est  réexpédiée tel-quel sur le réseau ethernet et la réponse obtenue  est renvoyée à l'expéditeur  qui en a fait la demande, également sous la forme de SMS. 
   
 ![process transmission ](/GSM/TransmissionSMS.PNG)
 
-Le processus thingspeakGET collecte les valeurs mesurées par les capteurs pour préparer la requête à envoyer à la plate-forme thingSpeak. 
+Le processus thingspeakGET collecte les valeurs mesurées par les capteurs pour préparer la requête à envoyer à la plate-forme thingSpeak. Sa destination est   **https://api.thingspeak.com/update** 
 ```bash
 pi@raspberrypi:~/Ruche/Capteurs $ ./thingSpeakGET BUNNFRUOOIJ4HM7X
 https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7X&field1=-3.74&field2=18.67&field3=1032.96&field4=62.30&field5=327.50&field6=11.35&field7=-3.68&created_at=2018-10-22%2013:55:38
 ```
-Cette requête est transmise sur l'entrée  de gammu-smsd-inject  qui transmet son   contenu sous forme de SMS.
-Le pipe effectue la connexion entre la sortie de thingspeakGET (création de la requête) et l'entrée de gammu-smsd-inject(envoi de SMS), comme l'illustre la figure ci-dessus.
+Cette requête est transmise sur l'entrée  de gammu-smsd-inject  qui la transmet  sous forme de SMS. La longueur de la requête étant de 183 caractères, 2 SMS seront nécessaires pour la transmettre.
+Le pipe effectue cette connexion entre la sortie **1** de thingspeakGET (création de la requête) et l'entrée **0** de gammu-smsd-inject(envoi de SMS), comme l'illustre la figure ci-dessus.
 ```bash
 */30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET BUNNFRUOOIJ4HM7X | gammu-smsd-inject TEXT 0788887777 -len 183
 ```
-du côté de la gateway, lorsque les SMS sont reçus, le script SMSDreceive est exécuté. Sa fonction est de reconstituer la requête en concaténant les SMS reçus :
+Côté  gateway, lorsque les SMS sont reçus, le script SMSDreceive est exécuté pour reconstituer la requête en concaténant les SMS reçus : 
 ```bash
 REQUETE=$SMS_1_TEXT$SMS_2_TEXT
 ```
-puis de lancer l'exécution du programme envoyerURL.
+puis la requête reconstituée  est transmise sur l'entrée standard du programme envoyerURL .
 ```bash
 retour=`echo "$REQUETE" | /root/envoyerURL`
 ```
-La réponse reçue sera envoyée en retour à l'expéditeur.
+La réponse reçue du serveur thingspeak sera envoyée en retour à l'expéditeur.
 ```bash
 echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
 ```
