@@ -14,7 +14,7 @@ La passerelle est  composée d'une raspberry pi et d'un modem GSM. Elle joue le 
 L'envoi des données vers la plateforme thingspeak se fait en http avec une requête  GET.  Lorsque la ruche n'est pas directement connectée au réseau ethernet la requête est envoyée vers la passerelle sous la forme d'un ou plusieurs SMS . 
 Les requêtes http ou https reçues  par la passerelle dans les SMS sont  réexpédiées tel-quel sur le réseau ethernet et les réponses obtenues  sont renvoyées à l'expéditeur  qui en à fait la demande, également sous la forme de SMS. 
   
-![process transmission ](/GSM/TransmissionSMS.png)
+![process transmission ](/GSM/TransmissionSMS.PNG)
 
 ## Changelog
 
