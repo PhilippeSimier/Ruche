@@ -14,11 +14,48 @@ La passerelle est  composée d'une raspberry pi et d'un modem GSM. Elle joue le 
 L'envoi des données vers la plateforme thingspeak se fait en http avec une requête  GET.  Lorsque la ruche n'est pas directement connectée au réseau ethernet la requête est envoyée vers la passerelle sous la forme d'un ou plusieurs SMS . 
 Les requêtes http ou https reçues  par la passerelle dans les SMS sont  réexpédiées tel-quel sur le réseau ethernet et les réponses obtenues  sont renvoyées à l'expéditeur  qui en à fait la demande, également sous la forme de SMS. 
   
-![process transmission ](/GSM/TransmissionSMS.PNG)
+![process transmission ](/GSM/TransmissionSMS.png)
 
+Le processus thingspeakGET collecte les valeurs mesurées par les capteurs pour préparer la requête à envoyer à la plate-forme thingSpeak. 
+```bash
+pi@raspberrypi:~/Ruche/Capteurs $ ./thingSpeakGET BUNNFRUOOIJ4HM7X
+https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7X&field1=-3.74&field2=18.67&field3=1032.96&field4=62.30&field5=327.50&field6=11.35&field7=-3.68&created_at=2018-10-22%2013:55:38
+```
+Cette requête est transmise sur l'entrée  de gammu-smsd-inject  qui transmet son   contenu sous forme de SMS.
+Le pipe effectue la connexion entre la sortie de thingspeakGET (création de la requête) et l'entrée de gammu-smsd-inject(envoi de SMS), comme l'illustre la figure ci-dessus.
+```bash
+*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET BUNNFRUOOIJ4HM7X | gammu-smsd-inject TEXT 0788887777 -len 183
+```
+du côté de la gateway, lorsque les SMS sont reçus, le script SMSDreceive est exécuté. Sa fonction est de reconstituer la requête en concaténant les SMS reçus :
+```bash
+REQUETE=$SMS_1_TEXT$SMS_2_TEXT
+```
+puis de lancer l'exécution du programme envoyerURL.
+```bash
+retour=`echo "$REQUETE" | /root/envoyerURL`
+```
+La réponse reçue sera envoyée en retour à l'expéditeur.
+```bash
+echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
+```
+#### le script complet SMSDreceive:
+```bash
+echo "---------------------------------------" >> /root/sms.log
+echo "$(date) : $SMS_MESSAGES  SMS(s) recu(s)" >> /root/sms.log
+echo "from : $SMS_1_NUMBER" >> /root/sms.log
+REQUETE=$SMS_1_TEXT$SMS_2_TEXT
+echo "message : $REQUETE" >> /root/sms.log
+
+retour=`echo "$REQUETE" | /root/envoyerURL`
+echo $retour >> /root/sms.log
+
+echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
+
+exit 0 
+```
 ## Changelog
 
- **19/10/2018 :** Ajout du README . 
+ **22/10/2018 :** Ajout du README . 
  
  
 > **Notes :**
