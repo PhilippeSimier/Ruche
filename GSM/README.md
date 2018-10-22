@@ -8,8 +8,13 @@ La norme GPRS spécifie le support de transmission de données en mode paquet su
 ## Topologie
 ![topologie transmission GSM ](/GSM/topologie.png)
 
-## Protocole de transmission 
+La passerelle est  composée d'une raspberry pi et d'un modem GSM. Elle joue le rôle d'intermédiaire en se plaçant entre une ruche connectée et la platforme IOT thingSpeak  pour permettre  leurs échanges. La passerelle fonctionne comme un proxy.
 
+## Protocole de transmission 
+L'envoi des données vers la plateforme thingspeak se fait en http avec une requête  GET.  Lorsque la ruche n'est pas directement connectée au réseau ethernet la requête est envoyée vers la passerelle sous la forme d'un ou plusieurs SMS . 
+Les requêtes http ou https reçues  par la passerelle dans les SMS sont  réexpédiées tel-quel sur le réseau ethernet et les réponses obtenues  sont renvoyées à l'expéditeur  qui en à fait la demande, également sous la forme de SMS. 
+  
+![process transmission ](/GSM/TransmissionSMS.png)
 
 ## Changelog
 
