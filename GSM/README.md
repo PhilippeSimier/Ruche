@@ -19,7 +19,7 @@ La requête http reçue  par la passerelle dans le ou les SMS est  réexpédiée
 Le processus thingspeakGET collecte les valeurs mesurées par les capteurs pour préparer la requête à envoyer à la plate-forme thingSpeak. Sa destination est   **https://api.thingspeak.com/update** 
 ```bash
 pi@raspberrypi:~/Ruche/Capteurs $ ./thingSpeakGET BUNNFRUOOIJ4HM7X
-https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7X&field1=-3.74&field2=18.67&field3=1032.96&field4=62.30&field5=327.50&field6=11.35&field7=-3.68&created_at=2018-10-22%2013:55:38
+https://api.thingspeak.com/update?api_key=BUNNFRUOOIJ4HM7Y&field1=-3.74&field2=18.67&field3=1032.96&field4=62.30&field5=327.50&field6=11.35&field7=-3.68&created_at=2018-10-22%2013:55:38
 ```
 Cette requête est transmise sur l'entrée  de gammu-smsd-inject  qui la transmet  sous forme de SMS. La longueur de la requête étant de 183 caractères, 2 SMS seront nécessaires pour la transmettre.
 Le pipe effectue cette connexion entre la sortie **1** de thingspeakGET (création de la requête) et l'entrée **0** de gammu-smsd-inject(envoi de SMS), comme l'illustre la figure ci-dessus.
