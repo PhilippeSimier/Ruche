@@ -1,11 +1,11 @@
 <!----------------------------------------------------------------------------------
-    @fichier  menu.php
+    @fichier  menu.php							    		
     @auteur   Philippe SIMIER (Touchard Washington le Mans)
     @date     Juillet 2018
-    @version  v1.0 - First release
-    @details  menu /Menu pour toutes les pages du site ruche
+    @version  v1.0 - First release						
+    @details  menu /Menu pour toutes les pages du site ruche 
 ------------------------------------------------------------------------------------>
-<?php
+<?php 
     require_once('definition.inc.php');
     $ini  = parse_ini_file(CONFIGURATION, true);
 ?>
@@ -17,12 +17,14 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
+		
+		
+		
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-
+        
 		<ul class="navbar-nav mr-auto">
-
-
+			  
+						
 			<!-- Dropdown Mesures-->
 			<li class="nav-item dropdown">
 				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -33,10 +35,10 @@
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pressure/humidity</a>
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Illuminance</a>
 					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=6">Dew point</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=7&fieldS=1">Corrected Weight</a>
+					
 				  </div>
 			</li>
-
+			
 			<!-- Dropdown Analyses-->
 			<li class="nav-item dropdown">
 				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -84,6 +86,7 @@
 					echo '<a class="dropdown-item" href="/administration/balance.php">Scale</a>';
 					echo '<a class="dropdown-item" href="/administration/baseDeDonnees.php">Database</a>';
 					echo '<a class="dropdown-item" href="/administration/thingSpeakConf.php">Thing Speak</a>';
+					echo '<a class="dropdown-item" href="/administration/formulaireSMS.php">GSM</a>';
 					echo '<a class="dropdown-item" href="https://ifttt.com/my_applets">IFTTT</a>';
 					echo '<a class="dropdown-item" href="/administration/infoSystem.php">System info</a>';
 					echo '<a class="dropdown-item" href="/administration/signout.php" id="nav-sign-in">Sign Out</a>';
