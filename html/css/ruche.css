@@ -28,6 +28,34 @@ background-image: url(/images/fond.svg);
 
 }
 
+#customPopup 
+{
+    position: fixed;
+    display: none;
+    left: 50%;
+    top: 50%;
+    z-index: 2000;
+    padding: 20px;
+    width: 560px;
+    background-color: #fff;
+    color: #202020;
+    border-radius: 8px;
+	box-shadow: 0 0 20px #999;
+}
+
+#grayBack 
+{
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: black;
+     z-index: 1999;
+     opacity: 0.3;
+}
+ 
+
 /* page centrée largeur 1024  fond blanc*/
 #page {
         Background-Color: #FFF;
