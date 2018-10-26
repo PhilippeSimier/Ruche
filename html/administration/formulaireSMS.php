@@ -10,8 +10,8 @@ require_once('../definition.inc.php');
     <head>
         <title>Envoyer un SMS</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 		<link rel="stylesheet" href="/css/ruche.css" />
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -22,40 +22,11 @@ require_once('../definition.inc.php');
         
         <script type="text/javascript">
             
-            function affiche( data ) {               // fonction pour afficher les données reçues
-                console.log(data.level);                   // affichage de data dans la console
+            function affiche( data ) {               // fonction pour afficher le niveau du signal réseau
+                console.log(data.level);             
                 $('#level').text(data.level);
             }
 			
-			// Surcharge de la méthode alert 
-			window.alert = function(alertMessage)
-			{
-				console.log(alertMessage); 
-				// ici on insère dans notre page html notre div gris
-				$("#customPopup").before('<div id="grayBack"></div>');
- 
-				// maintenant, on récupère la largeur et la hauteur de notre popup
-				var popupH = $("#customPopup").height();
-				var popupW = $("#customPopup").width();
- 
-				// ensuite, on crée des marges négatives pour notre popup, chacune faisant
-				// la moitié de la largeur/hauteur du popup
-				$("#customPopup").css("margin-top", "-"  + (popupH / 2  + 40) +  "px");
-				$("#customPopup").css("margin-left", "-" +  popupW / 2 +  "px");
- 
-				// enfin, on fait apparaître en 300 ms notre div gris de fond, et une fois
-				// son apparition terminée, on fait apparaître en fondu notre popup
-				$("#grayBack").css('opacity', 0).fadeTo(300, 0.5, function () { $("#customPopup").fadeIn(500); });
-			
-				$("#alertPanel").text(alertMessage);
-			}
-
-			function hidePopup() {
-				// on fait disparaître le gris de fond rapidement
-				$("#grayBack").fadeOut('fast', function () { $(this).remove() });
-				// on fait disparaître le popup à la même vitesse
-				$("#customPopup").fadeOut('fast', function () { $(this).hide() });
-			}
             
             $(document).ready(function(){
                 // Requete AJAX pour afficher le niveau du signal
@@ -64,13 +35,10 @@ require_once('../definition.inc.php');
 				// A function to run if the request fails.
 				$.ajaxSetup({
 					error: function (x, status, error) {
-						if (x.status == 500) {
-							window.alert("Sorry, error 500");
-							
-						}
-						else {
-							window.alert("message : " + error);
-						}
+						
+						//window.alert("message : " + error);
+						$( "#modal-contenu" ).html( "<p>Sorry error : <em>" + error + "</em></p>" );
+						$('#ModalCenter').modal('show');
 					}
 				});
                 
@@ -87,11 +55,16 @@ require_once('../definition.inc.php');
 						console.log("status : " + status);
 						console.log(response);
 						console.log(error);
-						if (response.status == "202 Accepted")
-							alert("message envoyé");
-						else
-							alert(response.message + "\n" + response.detail);
-						
+						if (response.status == "202 Accepted"){
+							//alert("message envoyé");
+							$( "#modal-contenu" ).html( "<p>Message envoyé. <em>avec succès !</em></p>" );
+							$('#ModalCenter').modal('show');
+						}	
+						else{
+							//alert(response.message + "\n" + response.detail);
+							$( "#modal-contenu" ).html( "<p>" + response.message + " <em>" + response.detail + "</em></p>" );
+							$('#ModalCenter').modal('show');
+						}
 						
 					});
 					event.preventDefault();
@@ -115,7 +88,7 @@ require_once('../definition.inc.php');
         <div class="container" style="padding-top: 65px;">
 			<div class="row">
 				
-				<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="col-md-3 col-sm-12 col-xs-12">
 					<div class="popin">
 						<h2>Send a SMS</h2>
 						<hr>
@@ -141,7 +114,7 @@ require_once('../definition.inc.php');
 				    
 				</div>
 				
-				<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="col-md-3 col-sm-12 col-xs-12">
 					<div class="popin">
 						<h2>Level Network Signal</h2>
 						<hr>
@@ -151,13 +124,26 @@ require_once('../definition.inc.php');
 			</div> 
 			<?php require_once '../piedDePage.php'; ?>
         </div>
-		<!-- Div  pour afficher les messages en retour-->
-			<div id="customPopup">
-				<h3></h3>
-					<p id="alertPanel">Message !</p>
-					<p> </p>
-					<button type="button" class="btn btn-info" onclick="hidePopup();">OK</button>
-						
+		
+		<!-- Modal -->
+		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenter" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="ModalLongTitle">Message !</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body" id="modal-contenu">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
 		</div>
+		
     </body>
 </html>
