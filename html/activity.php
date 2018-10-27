@@ -37,7 +37,7 @@
 					</thead>
 					<tbody>
 						<?php
-							$file = '/home/pi/Ruche/activity.log';
+							$file = '/var/log/Ruche/activity.log';
 						 
 							$file_contents = array_reverse(file($file));
 							$nb = 1;

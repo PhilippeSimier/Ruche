@@ -20,8 +20,8 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
-*/30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/activity.log 2>&1
-*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET 9TA0YDI5T5NLCSVV | /home/pi/Ruche/Capteurs/envoyerURL >> /home/pi/Ruche/activity.log 2>&1
-*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET CVNNFRUOOIJ4HM7X | gammu-smsd-inject TEXT 0788218016
-5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /home/pi/Ruche/activity.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /var/log/Ruche/activity.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET ------------ | /home/pi/Ruche/Capteurs/envoyerURL >> /var/log/Ruche/activity.log 2>&1
+5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /var/log/Ruche/activity.log 2>&1
+*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeakGET ---------- | gammu-smsd-inject TEXT 06XXXXXXXX -len 183
 
