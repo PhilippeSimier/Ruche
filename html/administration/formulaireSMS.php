@@ -88,7 +88,7 @@ require_once('../definition.inc.php');
         <div class="container" style="padding-top: 65px;">
 			<div class="row">
 				
-				<div class="col-md-3 col-sm-12 col-xs-12">
+				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="popin">
 						<h2>Send a SMS</h2>
 						<hr>
@@ -114,7 +114,7 @@ require_once('../definition.inc.php');
 				    
 				</div>
 				
-				<div class="col-md-3 col-sm-12 col-xs-12">
+				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="popin">
 						<h2>Level Network Signal</h2>
 						<hr>
