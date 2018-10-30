@@ -41,8 +41,11 @@
 			<h2>La ruche connectée</h2>
 			<p>Gagnez en sérénité ! Suivez vos ruches en direct depuis votre smartphone. Economisez votre temps et vos déplacements.</p>
 			<p>D’une installation facile et rapide, le système se positionne sous n’importe quelle ruche et délivre en temps réel un suivi précis des grandeurs mesurées, 
-			via des vues graphiques sur thing Speak ou sur votre site internet.</p> 
-			<p>En cas de besoin d’intervention, des alertes vous seront transmises par mail, sms, ou notification sur votre smartphone. Ce service est assurée par IFTTT (if this then that).</p>
+			via des vues graphiques. Ces données sont autant d’indices qui permettent à l’apiculteur de surveiller la production à distance. Plus besoin d’inspecter au petit bonheur
+			la chance ses ruches disséminées dans la nature, dans des endroits souvent d’accès malaisé.</p> 
+			<p> Un SMS le prévient de l’augmentation du poids des ruches témoins, signe du début de la miellée. C'est le moment crucial qui ne dure que de une à trois semaines pour transhumer
+            un rucher complet sur les lieux de la floraison.
+			En cas de besoin d’intervention, des alertes sont transmises par mail, sms, ou notification sur votre smartphone. Ce service est assurée par IFTTT (if this then that).</p>
 		</div>
 	</div>
 	
@@ -50,8 +53,13 @@
 	<div class="row popin">
 	<div class="col-md-4 col-sm-4 col-xs-12">
 		<p style="text-align:center;"><img src="images/picto_masse.png" alt="" width="60" height="60">
-		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Masse</strong>
-		<br><span class="span_ent_defaut"> Evaluation de la santé de la colonie et de l’avancée de la production de miel.</span></p>
+		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Masse</strong></p>
+		<p><span class="span_ent_defaut"> La balance indique le bon moment pour : </span></p>
+		<ul>
+		<li> installer les « hausses » sur lesquelles les abeilles vont travailler </li>
+		<li> retirer les hausses, afin de récolter le fruit de leur butinage.</li>
+		</ul>
+		<p> A la fin de la miellée, une baisse brutale du poids de la ruche – entre 2 et 4 kilos – signale l’essaimage.</p>
 		
 		<p style="text-align:center;"><img src="images/picto_eclairement.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Eclairement</strong>
@@ -60,8 +68,11 @@
 	
 	<div class="col-md-4 col-sm-4 col-xs-12">
 		<p style="text-align:center;"><img src="images/picto_temperature.png" alt="" width="60" height="60">
-		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Température</strong>
-		<br><span class="span_ent_defaut">Suivi de l’état de la ruche (ouverture possible, ajout d’un abreuvoir nécessaire...)</span></p>
+		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Température</strong></p>
+		<p><span class="span_ent_defaut">La température idéale au sein de la ruche est de 35°C. Les abeilles peuvent produire de la chaleur en utilisant leurs muscles. 
+		Cette tension musculaire sans mouvement produit de la chaleur qui réchauffe la partie de la ruche réservée au couvain. 
+		En été, lorsque la température du couvain dépasse les 35 °C, le développement des larves est en danger. 
+		La thermo-régulation est assurée par l'évaporation de l'eau dans la ruche. ainsi que par la ventilation des ouvrières.</span></p>
 		
 		<p style="text-align:center;"><img src="images/picto_humidite.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Humidité</strong>

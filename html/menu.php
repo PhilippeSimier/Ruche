@@ -31,11 +31,40 @@
 					Data visualization
 				  </a>
 				  <div class="dropdown-menu">
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=1&fieldS=2">Weight/Temperature</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=3&fieldS=4">Pressure/humidity</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=5">Illuminance</a>
-					<a class="dropdown-item" href="/thingSpeakView.php?fieldP=6">Dew point</a>
-					
+					<?php
+								$url = "https://api.thingspeak.com/channels.json?api_key=" . $ini['thingSpeak']['userkey'] . "&tag=" . $ini['thingSpeak']['tag'];
+								$curl = curl_init();
+
+								curl_setopt_array($curl, array(
+									  CURLOPT_URL => $url,
+									  CURLOPT_RETURNTRANSFER => true,
+									  CURLOPT_ENCODING => "",
+									  CURLOPT_MAXREDIRS => 10,
+									  CURLOPT_TIMEOUT => 30,
+									  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+									  CURLOPT_CUSTOMREQUEST => "GET",
+									  CURLOPT_HTTPHEADER => array(
+										"cache-control: no-cache"
+									  ),
+								));
+
+								$response = curl_exec($curl);
+								$err = curl_error($curl);
+
+								curl_close($curl);
+
+								if ($err) {
+									echo "cURL Error #:" . $err;
+								} else {
+									$channels = json_decode($response);
+									
+									$count = count($channels);
+									for ($i = 0; $i < $count; $i++) {
+										echo '<a class="dropdown-item channels" href="https://api.thingspeak.com/channels/' . $channels[$i]->{'id'} . '/feed.json?results=0" target="_blank" >' . $channels[$i]->{'name'} . "</a>\n";
+									}
+								}
+					?>
+			
 				  </div>
 			</li>
 			
@@ -52,12 +81,7 @@
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
 					if (isset($ini['matlab']['id3']))
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
-					if (isset($ini['matlabAnalysis']['id1']))
-						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id1'] . '&fieldP=1">'. $ini['matlabAnalysis']['name1'] . '</a>';
-					if (isset($ini['matlabAnalysis']['id2']))
-						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id2'] . '&fieldP=1">'. $ini['matlabAnalysis']['name2'] . '</a>';
-					if (isset($ini['matlabAnalysis']['id3']))
-						echo '<a class="dropdown-item" href="/thingSpeakView.php?channel=' . $ini['matlabAnalysis']['id3'] . '&fieldP=1">'. $ini['matlabAnalysis']['name3'] . '</a>';
+					
 					?>
 				  </div>
 			</li>
@@ -99,3 +123,55 @@
         
 		</div>
     </nav>
+	
+	<!--Fenêtre Modal -->
+		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenter" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="ModalLongTitle">Message !</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body" id="modal-contenu">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+	<script>
+	    function affiche(event){
+			
+			var url = $(this).attr("href");
+			console.log(url);
+			
+			$.getJSON( url , function( data, status, error ) {
+				console.log(data.channel);
+				var contenu = "<ul>";
+				$.each( data.channel, function( key, val ) {
+					if (key.indexOf("field") != -1){
+						contenu += '<li>' + key +  ' : <a href="/thingSpeakView.php?channel=' + data.channel.id + '&fieldP=' + key.substring(5,6) + '">'  + val + "</a></li>";
+					}	
+				});
+				contenu += "</ul>";
+				
+				$("#modal-contenu").html( contenu );
+				var title = data.channel.id + " : " + data.channel.name; 
+				console.log(title);
+				$("#ModalLongTitle").html( title );
+				$("#ModalCenter").modal('show');
+			});
+			
+			event.preventDefault();   // bloque l'action par défaut sur le lien cliqué
+		}
+	
+	    $(document).ready(function(){
+
+			$(".channels").click(affiche);
+		});
+    </script>	
