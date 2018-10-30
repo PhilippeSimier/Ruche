@@ -22,7 +22,7 @@ require_once('../definition.inc.php');
         
         <script type="text/javascript">
             
-            function affiche( data ) {               // fonction pour afficher le niveau du signal réseau
+            function afficheLevel( data ) {               // fonction pour afficher le niveau du signal réseau
                 console.log(data.level);             
                 $('#level').text(data.level);
             }
@@ -30,7 +30,7 @@ require_once('../definition.inc.php');
             
             $(document).ready(function(){
                 // Requete AJAX pour afficher le niveau du signal
-				$.getJSON("/administration/getLevelSignal.php", affiche);
+				$.getJSON("/administration/getLevelSignal.php", afficheLevel);
 				
 				// A function to run if the request fails.
 				$.ajaxSetup({

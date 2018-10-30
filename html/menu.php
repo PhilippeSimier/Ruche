@@ -145,7 +145,7 @@
 		</div>
 		
 	<script>
-	    function affiche(event){
+	    function afficheModal(event){
 			
 			var url = $(this).attr("href");
 			console.log(url);
@@ -172,6 +172,6 @@
 	
 	    $(document).ready(function(){
 
-			$(".channels").click(affiche);
+			$(".channels").click(afficheModal);
 		});
     </script>	
