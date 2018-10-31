@@ -18,8 +18,8 @@ echo "requete : $requete" >> /root/sms.log
 if [ $protocol = "https" -o $protocol = "http" ]; then
     retour=`echo "$requete" | /root/envoyerURL`
     echo $retour >> /root/sms.log
-
     echo $retour | gammu-smsd-inject TEXT $SMS_1_NUMBER -unicode
+    sleep 15
 fi
 exit 0
 
