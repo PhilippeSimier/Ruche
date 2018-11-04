@@ -14,11 +14,17 @@ Les tracés interactifs MATLAB® permettent de visualiser et d'explorer les donn
 
 #### Exemple :
 ![dispersion température/poids ](/matlab/figure1.PNG)
-[Script Matlab associé](/matlab/dispersion_temperature_humidity.m)
+
+[Script Matlab associé](/matlab/dispersion_poids_temperature.m)
 
 ![dispersion température/humidité ](/matlab/figure3.PNG)
 
+[Script Matlab associé](/matlab/dispersion_temperature_humidity.m)
+
 ![histogramme temps/poids ](/matlab/figure2.PNG)
+
+[Script Matlab associé](/matlab/histogramme_temperature.m)
+
 
 
 ## Changelog
