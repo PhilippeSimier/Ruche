@@ -6,16 +6,18 @@ Elle permet aussi notamment de **réagir lors de l’arrivée d’une donnée**,
 
 Les objets/capteurs communiquent  avec la plate-forme ThingSpeak par des requêtes HTTP .  Un système de clés est présent pour assurer la sécurité des données, qui sont ensuite stockées dans une base relationnelle. L’arrivée d’une donnée peut être l’élément déclencheur d’une action : le lancement d’un script Matlab qui fait des opérations mathématiques sur les données par exemple.
 
-[site web](https://thingspeak.com)
+[Site web ThingSpeak](https://thingspeak.com)
 
 ## MATLAB Visualizations
 
 Les tracés interactifs MATLAB® permettent de visualiser et d'explorer les données collectées dans un canal. Pour mettre en évidence les corrélations entre les données, on peut tracer des diagrammes de dispersion. Pour représenter la dispersion  des données on peut tracer des histogrammes.
 
 #### Exemple :
-![dispersion température/poids ](/matlab/figure1.png)
-![dispersion température/humidité ](/matlab/figure3.png)
-![histogramme temps/poids ](/matlab/figure2.png)
+![dispersion température/poids ](/matlab/figure1.PNG)
+
+![dispersion température/humidité ](/matlab/figure3.PNG)
+
+![histogramme temps/poids ](/matlab/figure2.PNG)
 
 
 ## Changelog
