@@ -9,12 +9,11 @@ if( !empty($_POST['envoyer'])){
 
     //  lecture du fichier de configuration
     $array  = parse_ini_file(CONFIGURATION, true);
-    //  Modification des valeurs pour la section [ruche]
 
 	//  Modification des valeurs pour la section [thingSpeak]
-	$array['thingSpeak'] = array ('channel'  => $_POST['thingSpeak_channel'],
-                                  'key' => $_POST['thingSpeak_key'],
-								  'userkey' => $_POST['thingSpeak_userkey']
+	$array['thingSpeak'] = array (
+								  'userkey' => $_POST['thingSpeak_userkey'],
+								  'tag' => $_POST['thingSpeak_tag']
 	                             );
 
     //  Ecriture du fichier de configuration modifié
@@ -29,9 +28,8 @@ if( !empty($_POST['envoyer'])){
 
    $ini  = parse_ini_file(CONFIGURATION, true);
 
-   $_POST['thingSpeak_channel'] = $ini['thingSpeak']['channel'];
-   $_POST['thingSpeak_key'] = $ini['thingSpeak']['key'];
    $_POST['thingSpeak_userkey'] = $ini['thingSpeak']['userkey'];
+   $_POST['thingSpeak_tag'] = $ini['thingSpeak']['tag'];
 
 ?>
 
@@ -51,29 +49,34 @@ if( !empty($_POST['envoyer'])){
 
 
     <script>
-	    function affiche( data, status ) {               // fonction pour afficher les données reçues
-			console.log(data);
-			console.log(status);
-			if (status == 'success'){
-				$('input[name=name]').val(data.name);
-				$('input[name=name]').attr('readonly', true);
-				$('#channel_description').text(data.description);
-
-				$('input[name=latitude]').val(data.latitude);
-				$('input[name=latitude]').attr('readonly', true);
-				$('input[name=longitude]').val(data.longitude);
-				$('input[name=longitude]').attr('readonly', true);
-				$('input[name=elevation]').val(data.elevation);
-				$('input[name=elevation]').attr('readonly', true);
-				var date_creation = new Date(data.created_at);
-				$('input[name=created_at]').val(date_creation.toLocaleString('fr-FR', { timeZone: 'UTC' }));
-				$('input[name=created_at]').attr('readonly', true);
-			}
+	    function affiche(event){
+			
+			var url = $(this).attr("href");
+			console.log(url);
+			
+			$.getJSON( url , function( data, status, error ) {
+				console.log(data.channel);
+				var contenu = "<ul>";
+				$.each( data.channel, function( key, val ) {
+					if (key.indexOf("field") != -1){
+						contenu += '<li>' + key +  ' : <a href="/thingSpeakView.php?channel=' + data.channel.id + '&fieldP=' + key.substring(5,6) + '">'  + val + "</a></li>";
+					}	
+				});
+				contenu += "</ul>";
+				
+				$("#modal-contenu").html( contenu );
+				var title = data.channel.id + " : " + data.channel.name; 
+				console.log(title);
+				$("#ModalLongTitle").html( title );
+				$("#ModalCenter").modal('show');
+			});
+			
+			event.preventDefault();   // bloque l'action par défaut sur le lien cliqué
 		}
+	
+	    $(document).ready(function(){
 
-		$(document).ready(function(){
-
-			$.get("https://api.thingspeak.com/channels/<?php echo $ini['thingSpeak']['channel']; ?>.json?api_key=<?php echo $ini['thingSpeak']['userkey']; ?>", affiche);
+			$(".channels").click(affiche);
 		});
     </script>
 
@@ -84,80 +87,113 @@ if( !empty($_POST['envoyer'])){
 
 <div class="container" style="padding-top: 65px;">
 
-
-        <form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" name="configuration" >
-		<div class="row">
-
-			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="popin">
-				<h2>Thing Speak</h2>
-
-						<div class="form-group">
-							<label for="offset" class="font-weight-bold">User API Key : </label>
-							<input id="offset" type="int"  name="thingSpeak_userkey" class="form-control" <?php echo 'value="' . $_POST['thingSpeak_userkey'] . '"'; ?> />
+					<form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" name="configuration" >
+					<h2>Thing Speak</h2>
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+								
+								<div class="form-group">
+									<label for="offset" class="font-weight-bold">User API Key : </label>
+									<input id="offset" type="int"  name="thingSpeak_userkey" class="form-control" <?php echo 'value="' . $_POST['thingSpeak_userkey'] . '"'; ?> />
+								</div>
+								<div class="form-group">
+									</br>
+									<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
+								</div>
 						</div>
-
-						<div class="form-group">
-
-							<label for="thingSpeak_channel" class="font-weight-bold">Channel ID : </label>
-							<input id="thingSpeak_channel" type="int"  name="thingSpeak_channel" class=" form-control" <?php echo 'value="' . $_POST['thingSpeak_channel'] . '"'; ?> />
+						<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="form-group">
+									<label for="offset" class="font-weight-bold">Tag : </label>
+									<input id="offset" type="int"  name="thingSpeak_tag" class="form-control" <?php echo 'value="' . $_POST['thingSpeak_tag'] . '"'; ?> />
+									
+								</div>
 						</div>
-
-						<div class="form-group">
-							<label for="offset" class="font-weight-bold">Write API Key : </label>
-							<input id="offset" type="int"  name="thingSpeak_key" class="form-control" <?php echo 'value="' . $_POST['thingSpeak_key'] . '"'; ?> />
-						</div>
-
-						<a class="nav-link" href="<?php echo "https://thingspeak.com/channels/".$ini['thingSpeak']['channel']; ?>" target="_blank">thingSpeak</a>
-
-
-						<div class="form-group">
-							</br>
-							<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
-						</div>
+						
+					</div>
+					</form>
 				</div>
-			</div>
-
-			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="popin">
-				<h2>Channel Settings</h2>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+							  <tr>
+								<th>Channel</th>
+								<th>Name</th>
+								<th>Created at</th>
+								<th>Last entry id</th>
+								<th>Write API Key</th>
+							  </tr>
+							</thead>
+							<tbody>
+								<?php
+								$url = "https://api.thingspeak.com/channels.json?api_key=" . $ini['thingSpeak']['userkey'] . "&tag=" . $ini['thingSpeak']['tag'];
+								$curl = curl_init();
 
-						<div class="form-group">
-							<label for="name" class="font-weight-bold">Name: </label>
-							<input name="name" class="form-control" value="" />
-						</div>
+								curl_setopt_array($curl, array(
+									  CURLOPT_URL => $url,
+									  CURLOPT_RETURNTRANSFER => true,
+									  CURLOPT_ENCODING => "",
+									  CURLOPT_MAXREDIRS => 10,
+									  CURLOPT_TIMEOUT => 30,
+									  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+									  CURLOPT_CUSTOMREQUEST => "GET",
+									  CURLOPT_HTTPHEADER => array(
+										"cache-control: no-cache"
+									  ),
+								));
 
-						<div class="form-group">
-							<label for="channel_description" class="font-weight-bold">Description : </label>
-							<textarea class="form-control vertical_resize_only" id="channel_description" name="description" style="margin-top: 0px; margin-bottom: 0px; height: 63px;">
-							</textarea>
-						</div>
+								$response = curl_exec($curl);
+								$err = curl_error($curl);
 
-						<div class="form-group">
-							<label for="latitude" class="font-weight-bold">Latitude : </label>
-							<input name="latitude" class="form-control" value="" />
-						</div>
+								curl_close($curl);
 
-						<div class="form-group">
-							<label for="longitude" class="font-weight-bold">Longitude : </label>
-							<input name="longitude" class="form-control" value="" />
+								if ($err) {
+									echo "cURL Error #:" . $err;
+								} else {
+									$channels = json_decode($response);
+									
+									$count = count($channels);
+									for ($i = 0; $i < $count; $i++) {
+										echo "<tr>\n";
+										echo '<td><a class="nav-link channels" href="https://api.thingspeak.com/channels/' . $channels[$i]->{'id'} . '/feed.json?results=0" target="_blank" >' . $channels[$i]->{'id'} . "</a></td>\n";
+										echo "<td>" . $channels[$i]->{'name'} . "</td>\n";
+										echo "<td>" . $channels[$i]->{'created_at'} . "</td>\n";
+										echo "<td>" . $channels[$i]->{'last_entry_id'} . "</td>\n";
+										echo "<td>" . $channels[$i]->{'api_keys'}[0]->{'api_key'} . "</td>\n";
+										echo "</tr>\n";
+									}
+								}
+								?>
+							</tbody>
+						</table>	
 						</div>
-
-						<div class="form-group">
-							<label for="elevation" class="font-weight-bold">Elevation : </label>
-							<input name="elevation" class="form-control" value="" />
-						</div>
-
-						<div class="form-group">
-							<label for="created_at" class="font-weight-bold">Date de création : </label>
-							<input name="created_at" class="form-control" value="" />
-						</div>
+					</div>	
 				</div>
-			</div>
-		</div>
-
-
-		</form>
+				</div>
 		<?php require_once '../piedDePage.php'; ?>
 </div>
+
+<!-- Modal -->
+		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenter" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="ModalLongTitle">Message !</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body" id="modal-contenu">
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
 </body>

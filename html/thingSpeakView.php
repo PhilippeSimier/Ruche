@@ -27,9 +27,9 @@
     
 	// put your ThingSpeak Channel#, Channel Name, and API keys here.
     var channelKeys =[];
-    channelKeys.push({channelNumber:<?php if (isset($_GET['channel'])) { echo $_GET['channel']; } else {echo $ini['thingSpeak']['channel'];} ?>, 
+    channelKeys.push({channelNumber:<?php if (isset($_GET['channel'])) { echo $_GET['channel']; } else {echo $ini['ruche']['id'];} ?>, 
 	                  name:'Ruche',
-					  key:'<?php if (isset($_GET['key'])) { echo $_GET['key']; } else { echo $ini['thingSpeak']['key']; }; ?>',
+					  key:'<?php if (isset($_GET['key'])) { echo $_GET['key']; }; ?>',
                       fieldList:[<?php if (isset($_GET['fieldP'])) { echo "{field:".$_GET['fieldP'].",axis:'P'}"; } else { echo "{field:1,axis:'P'}"; }; 
 								       if (isset($_GET['fieldS'])) { echo ",{field:".$_GET['fieldS'].",axis:'O'}"; };  
 							    ?>]});
@@ -279,8 +279,8 @@ $(document).ready(function()
 	
 	Highcharts.setOptions({
         lang: {
-            months: ["Janvier "," Février "," Mars "," Avril "," Mai "," Juin "," Juillet "," Août ","Septembre "," Octobre "," Novembre "," Décembre"],
-            weekdays: ["Dimanche "," Lundi "," Mardi "," Mercredi "," Jeudi "," Venderdi "," Samedi"],
+            months: ["Janvier ","Février ","Mars ","Avril ","Mai ","Juin ","Juillet ","Août ","Septembre ","Octobre ","Novembre ","Décembre "],
+            weekdays: ["Dimanche ","Lundi ","Mardi ","Mercredi ","Jeudi ","Vendredi ","Samedi "],
 			shortMonths: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil','Août', 'Sept', 'Oct', 'Nov', 'Déc'],
             decimalPoint: ',',
             resetZoom: 'Reset zoom',
