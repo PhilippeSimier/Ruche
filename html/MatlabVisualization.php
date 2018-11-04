@@ -23,22 +23,13 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 			    <div class="popin responsive-video" >
 			        <iframe class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #fff; height:630px" src="
-				<?php echo "https://thingspeak.com/apps/matlab_visualizations/" . $_GET['id'] . "?height=600" ?>
-				">
-				</iframe>
+					<?php echo "https://thingspeak.com/apps/matlab_visualizations/" . $_GET['id'] . "?height=600" ?>
+					">
+					</iframe>
 			    </div>
 			</div>
 		</div>
-                <div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="popin">
-                                <h3>Graphique de dispersion</h3>
-                                        <p>Les graphiques de dispersion sont utiles pour vérifier l'existance de corrélation entre deux grandeurs physiques. </p>
-                                        <p>Plus le nuage de points est plat et se groupe autour d'une ligne, plus la corrélation est forte. Plus le nuage de points est circulaire ou éparpillé moins la corrélation est probable.</p>
-                                </div>
-                        </div>
-
-		</div>
+                
 	<?php require_once 'piedDePage.php'; ?>
 </body>
 </html>
