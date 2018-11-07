@@ -13,11 +13,11 @@
 	<script src="scripts/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <link rel="stylesheet" href="css/ruche.css" />
-	
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="favicon.png" type="image/png">
-	<link rel="icon" sizes="32x32" href="favicon-32.png" type="image/png">
 
+	<link rel="manifest" href="/manifest.json">
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+	
 </head>
 
 <body>
@@ -43,7 +43,7 @@
 			<p>D’une installation facile et rapide, le système se positionne sous n’importe quelle ruche et délivre en temps réel un suivi précis des grandeurs mesurées, 
 			via des vues graphiques. Ces données sont autant d’indices qui permettent à l’apiculteur de surveiller la production à distance. Plus besoin d’inspecter au petit bonheur
 			la chance ses ruches disséminées dans la nature, dans des endroits souvent d’accès malaisé.</p> 
-			<p> Un SMS le prévient de l’augmentation du poids des ruches témoins, signe du début de la miellée. C'est le moment crucial qui ne dure que de une à trois semaines pour transhumer
+			<p> Un SMS prévient de l’augmentation du poids de la ruche, signe du début de la miellée. C'est le moment crucial qui ne dure que de une à trois semaines pour transhumer
             un rucher complet sur les lieux de la floraison.
 			En cas de besoin d’intervention, des alertes sont transmises par mail, sms, ou notification sur votre smartphone. Ce service est assurée par IFTTT (if this then that).</p>
 		</div>
