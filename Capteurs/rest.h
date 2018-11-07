@@ -26,6 +26,8 @@ class rest {
      */
     std::string getErreurServeur(long statusCode);
 
+    std::string getResponse();
+
     private:
     void* curl;
     std::string response;

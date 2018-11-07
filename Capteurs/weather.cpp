@@ -1,11 +1,11 @@
 /*!
-    @file     envoyerURL.cpp
+    @file     weather.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
-    @brief    Programme pour envoyer une requête en http -> thingSpeak
-    @date     Octobre 2018
+    @brief    Programme pour obtenir la météo sur openWeather
+    @date     7 Novembre 2018
     @version  v1.0 - First release
-    @detail   compilation g++ envoyerURL.cpp rest.cpp -lcurl -o envoyerURL
+    @detail   compilation g++ weather.cpp rest.cpp -lcurl -o weather
 
 */
 
@@ -34,25 +34,22 @@ string ObtenirDateHeure()
     return ss.str();
 }
 
-
-
 int main(){
 
     rest requete;
     string req;
-    int count = 0;
+    string json;
+    int pos = 0;
 
-    cin >> req;
+    req = "http://api.openweathermap.org/data/2.5/weather?id=3003603&appid=328242030385ad104d734bbe61bf3c25&units=metric&lang=fr";
 
     long code = requete.get(req);
+    json = requete.getResponse();
 
-    while (code != 200 && count < 2){
-	cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
-        sleep(30);   // attente de 30s avant nouvel essai
-        code = requete.get(req);
-	count++;
-    }
-    cout << ObtenirDateHeure() << " envoyerURL : " << requete.getErreurServeur(code) << endl;
+    pos = json.find("\"temp\"");
+    cout << json.substr (pos) << endl;
+    cout << ObtenirDateHeure() << " Weather : " << requete.getErreurServeur(code) << endl;
+
     return 0;
 
 }

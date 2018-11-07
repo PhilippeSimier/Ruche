@@ -139,3 +139,9 @@ std::string rest::getErreurServeur(const long statusCode){
     }
     return erreurServeur.str();
 }
+
+std::string rest::getResponse(){
+
+    return response;
+}
+
