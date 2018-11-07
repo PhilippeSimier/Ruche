@@ -15,8 +15,10 @@ if( !empty($_POST['envoyer'])){
     $array['balance'] = array ('scale'  => $_POST['scale'],
                                'offset' => $_POST['offset'],
                                'gain'   => $_POST['gain'],
-			       'unite'  => $_POST['unite'],
-                               'precision' => $_POST['precision']);
+							   'unite'  => $_POST['unite'],
+                               'precision' => $_POST['precision'],
+							   'slope'  => $_POST['slope'],
+							   'tempRef' => $_POST['tempRef']);
 
     //  Ecriture du fichier de configuration modifié
     $ini = new ini (CONFIGURATION);
@@ -34,6 +36,8 @@ else
    $_POST['offset'] = $ini['balance']['offset'];
    $_POST['precision'] = $ini['balance']['precision'];
    $_POST['scale'] = $ini['balance']['scale'];
+   $_POST['slope'] = $ini['balance']['slope'];
+   $_POST['tempRef'] = $ini['balance']['tempRef'];
 }
 
 ?>
@@ -182,22 +186,29 @@ else
 						<input type="int"  name="unite" class="form-control" <?php echo 'value="' . $_POST['unite'] . '"'; ?> />
 					</div>
 					<div class="form-group">
-					<label for="Precision"  class="font-weight-bold">Division : </label>
-					<div class="form-check-inline">
-						<input class="form-check-input" type="radio" id="0" <?php if (isset($_POST['precision']) && $_POST['precision']=='0') echo 'checked="checked"' ?> name="precision"  value="0" />
-						<label class="form-check-label" for="0"> 1 </label>
+						<label for="Precision"  class="font-weight-bold">Division : </label>
+						<div class="form-check-inline">
+							<input class="form-check-input" type="radio" id="0" <?php if (isset($_POST['precision']) && $_POST['precision']=='0') echo 'checked="checked"' ?> name="precision"  value="0" />
+							<label class="form-check-label" for="0"> 1 </label>
+						</div>
+						<div class="form-check-inline">
+							<input class="form-check-input" type="radio" id="1" <?php if (isset($_POST['precision']) && $_POST['precision']=='1') echo 'checked="checked"' ?> name="precision"  value="1" />
+							<label class="form-check-label" for="1"> 1/10 </label>
+						</div>
+						<div class="form-check-inline">	
+							<input class="form-check-input" type="radio" id="2" <?php if (isset($_POST['precision']) && $_POST['precision']=='2') echo 'checked="checked"' ?> name="precision"  value="2" />
+							<label class="form-check-label" for="2"> 1/100 </label>
+							<!-- <label for="unite">Précision : </label> <input type="int"  name="precision" class="form-control" <?php echo 'value="' . $_POST['precision'] . '"'; ?> /> -->
+						</div>
 					</div>
-					<div class="form-check-inline">
-						<input class="form-check-input" type="radio" id="1" <?php if (isset($_POST['precision']) && $_POST['precision']=='1') echo 'checked="checked"' ?> name="precision"  value="1" />
-						<label class="form-check-label" for="1"> 1/10 </label>
+					<div class="form-group">
+						<label for="slope"  class="font-weight-bold">Slope : </label>
+						<input type="text"  name="slope" class="form-control" <?php echo 'value="' . $_POST['slope'] . '"'; ?> />
 					</div>
-					<div class="form-check-inline">	
-						<input class="form-check-input" type="radio" id="2" <?php if (isset($_POST['precision']) && $_POST['precision']=='2') echo 'checked="checked"' ?> name="precision"  value="2" />
-						<label class="form-check-label" for="2"> 1/100 </label>
-						<!-- <label for="unite">Précision : </label> <input type="int"  name="precision" class="form-control" <?php echo 'value="' . $_POST['precision'] . '"'; ?> /> -->
+					<div class="form-group">
+						<label for="tempRef"  class="font-weight-bold">Temperature Reference : </label>
+						<input type="text"  name="tempRef" class="form-control" <?php echo 'value="' . $_POST['tempRef'] . '"'; ?> />
 					</div>
-					</div>
-					
 
 					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
 				</form>	
