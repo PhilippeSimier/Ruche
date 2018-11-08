@@ -30,26 +30,46 @@ string ObtenirDateHeure()
 {
     time_t  t = time(nullptr);
     stringstream ss;
-    ss  <<  put_time( localtime(&t), "%F %T" );
+    ss  <<  put_time( gmtime(&t), "%F" ) << "%20" <<  put_time( gmtime(&t), "%T" );
     return ss.str();
 }
 
-int main(){
+string ObtenirValeur(string response, string key)
+{
+    key = "\"" + key + "\"";
+    response = response.substr (response.find(key) + key.length() + 1);
+    response = response.substr (0, response.find_first_of(",}"));
+    return response;
+}
+
+int main(int argc, char *argv[]){
 
     rest requete;
     string req;
     string json;
-    int pos = 0;
+
+    ostringstream trame;
+
+    if (argc != 2){
+        return 1;
+    }
 
     req = "http://api.openweathermap.org/data/2.5/weather?id=3003603&appid=328242030385ad104d734bbe61bf3c25&units=metric&lang=fr";
 
     long code = requete.get(req);
     json = requete.getResponse();
 
-    pos = json.find("\"temp\"");
-    cout << json.substr (pos) << endl;
-    cout << ObtenirDateHeure() << " Weather : " << requete.getErreurServeur(code) << endl;
+    string key(argv[1]);
+    trame << "https://api.thingspeak.com/update?";
+    trame << "api_key=" << key;
+    trame << "&field1=" <<  ObtenirValeur(json, "temp");
+    trame << "&field2=" <<  ObtenirValeur(json, "pressure");
+    trame << "&field3=" <<  ObtenirValeur(json, "humidity");
+    trame << "&field4=" <<  ObtenirValeur(json, "speed");
+    trame << "&field5=" <<  ObtenirValeur(json, "deg");
+    trame << "&created_at=" << ObtenirDateHeure();
+
+    cout << trame.str() << endl;
 
     return 0;
-
 }
