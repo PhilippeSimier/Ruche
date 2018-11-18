@@ -81,7 +81,8 @@
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
 					if (isset($ini['matlab']['id3']))
 					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
-					
+					if (isset($ini['matlab']['id4']))
+					    echo '<a class="dropdown-item" href="/MatlabVisualization.php?id=' . $ini['matlab']['id4'] . '">' . $ini['matlab']['name4'] . '</a>';
 					?>
 				  </div>
 			</li>
@@ -125,7 +126,7 @@
     </nav>
 	
 	<!--Fenêtre Modal -->
-		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenter" aria-hidden="true">
+		<div class="modal" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenter" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
