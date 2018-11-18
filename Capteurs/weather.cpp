@@ -65,19 +65,20 @@ int main(int argc, char *argv[]){
 	count++;
     }
 
-    json = requete.getResponse();
+    if (code == 200){
+        json = requete.getResponse();
 
-    string key(argv[1]);
-    trame << "https://api.thingspeak.com/update?";
-    trame << "api_key=" << key;
-    trame << "&field1=" <<  ObtenirValeur(json, "temp");
-    trame << "&field2=" <<  ObtenirValeur(json, "pressure");
-    trame << "&field3=" <<  ObtenirValeur(json, "humidity");
-    trame << "&field4=" <<  ObtenirValeur(json, "speed");
-    trame << "&field5=" <<  ObtenirValeur(json, "deg");
-    trame << "&created_at=" << ObtenirDateHeure();
+        string key(argv[1]);
+        trame << "https://api.thingspeak.com/update?";
+        trame << "api_key=" << key;
+        trame << "&field1=" <<  ObtenirValeur(json, "temp");
+        trame << "&field2=" <<  ObtenirValeur(json, "pressure");
+        trame << "&field3=" <<  ObtenirValeur(json, "humidity");
+        trame << "&field4=" <<  ObtenirValeur(json, "speed");
+        trame << "&field5=" <<  ObtenirValeur(json, "deg");
+        trame << "&created_at=" << ObtenirDateHeure();
 
-    cout << trame.str() << endl;
-
+        cout << trame.str() << endl;
+    }
     return 0;
 }
