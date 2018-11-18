@@ -26,7 +26,7 @@ using namespace std;
  * @return std::string
  * @details retourne une chaine de caratères représentant la date courante
  *          au format Année-mois-jour heure:minute:seconde
-
+ */
 string ObtenirDateHeure()
 {
     time_t  t = time(NULL);
@@ -34,7 +34,7 @@ string ObtenirDateHeure()
     ss  <<  put_time( localtime(&t), "%F %T" );
     return ss.str();
 }
-*/
+
 
 
 int main(){
