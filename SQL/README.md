@@ -4,7 +4,7 @@ Un utilisateur (table **users**) possède un ou plusieurs objets ( table **thing
 Chaque objet est associé à un ou plusieurs canaux (table **channels**).  Un canal peut être associé à plusieurs objets. 
 Chacun des canaux est nourri avec des mesures (table **feeds**).
 
-![schema base data](/SQL/Schema.png)
+![schema base data](/SQL/Schema.PNG)
 
 ### Changelog
 
