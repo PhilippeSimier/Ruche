@@ -7,5 +7,5 @@
 	unset($_SESSION['ipaddr']);
 	unset($_SESSION['droits']);
 	
-	header("Location: /index.php");
+	header("Location: ../index.php");
 ?>

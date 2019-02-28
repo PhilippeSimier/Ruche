@@ -13,11 +13,11 @@ require_once('../definition.inc.php');
         
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-		<link rel="stylesheet" href="/css/ruche.css" />
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/ruche.css" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="/scripts/bootstrap.min.js"></script>
+		<script src="../scripts/bootstrap.min.js"></script>
 		
         
         <script type="text/javascript">

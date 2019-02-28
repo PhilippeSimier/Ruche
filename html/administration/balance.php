@@ -51,11 +51,11 @@ else
 
     <title>Conf. Balance</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/ruche.css" />
+    <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/Ruche/css/ruche.css" />
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="/scripts/bootstrap.min.js"></script>     
+	<script src="/Ruche/scripts/bootstrap.min.js"></script>     
     
 
     <style type="text/css">

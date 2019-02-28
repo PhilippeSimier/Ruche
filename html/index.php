@@ -8,15 +8,15 @@
 
     <title>the connected beehive</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="scripts/bootstrap.min.js"></script> -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/ruche.css" />
+	<script src="/Ruche/scripts/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/Ruche/css/ruche.css" />
 
-	<link rel="manifest" href="/manifest.json">
-	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/Ruche/manifest.json">
+	<link rel="icon" type="image/png" href="/Ruche/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/Ruche/favicon-16x16.png" sizes="16x16">
 	
 </head>
 
@@ -26,7 +26,7 @@
 		<div class="col-lg-12">
 			
 			<a href="index.php">
-			<img  style="width:100%;" title="Retour accueil" src="images/bandeau_ruche.png" />
+			<img  style="width:100%;" title="Retour accueil" src="/Ruche/images/bandeau_ruche.png" />
 			</a>
 		</div>
 		
@@ -52,7 +52,7 @@
 	
 	<div class="row popin">
 	<div class="col-md-4 col-sm-4 col-xs-12">
-		<p style="text-align:center;"><img src="images/picto_masse.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_masse.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Masse</strong></p>
 		<p><span class="span_ent_defaut"> La balance indique le bon moment pour : </span></p>
 		<ul>
@@ -61,31 +61,31 @@
 		</ul>
 		<p> A la fin de la miellée, une baisse brutale du poids de la ruche – entre 2 et 4 kilos – signale l’essaimage.</p>
 		
-		<p style="text-align:center;"><img src="images/picto_eclairement.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_eclairement.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Eclairement</strong>
 		<br><span class="span_ent_defaut">la mesure de l'éclairement évalue la période de pollinisation des abeilles dans la journée</span></p>
 	</div>
 	
 	<div class="col-md-4 col-sm-4 col-xs-12">
-		<p style="text-align:center;"><img src="images/picto_temperature.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_temperature.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Température</strong></p>
 		<p><span class="span_ent_defaut">La température idéale au sein de la ruche est de 35°C. Les abeilles peuvent produire de la chaleur en utilisant leurs muscles. 
 		Cette tension musculaire sans mouvement produit de la chaleur qui réchauffe la partie de la ruche réservée au couvain. 
 		En été, lorsque la température du couvain dépasse les 35 °C, le développement des larves est en danger. 
 		La thermo-régulation est assurée par l'évaporation de l'eau dans la ruche. ainsi que par la ventilation des ouvrières.</span></p>
 		
-		<p style="text-align:center;"><img src="images/picto_humidite.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_humidite.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Humidité</strong>
 		<br><span class="span_ent_defaut">Suivi de l’état de la ruche (ouverture possible, ajout d’un abreuvoir nécessaire...)</span></p>
 		
 	</div>
 	
 	<div class="col-md-4 col-sm-4 col-xs-12">
-		<p style="text-align:center;"><img src="images/picto_pression.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_pression.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Pression atmosphérique</strong>
 		<br><span class="span_ent_defaut">Prévision des changements météo influençant le comportement des abeilles.</span></p>
 		
-		<p style="text-align:center;"><img src="images/picto_autres.png" alt="" width="60" height="60">
+		<p style="text-align:center;"><img src="/Ruche/images/picto_autres.png" alt="" width="60" height="60">
 		<br><strong style="font-size:18px;color:#000000;line-height:1.4;">Autres fonctionnalités</strong>
 		<br><span class="span_ent_defaut">Le tableau de bord intègre également un état des capteurs et de la batterie.</span></p>
 	</div>

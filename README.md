@@ -17,6 +17,9 @@ Les paquets suivants doivent être installés
  5. libcurl4-openssl-dev
  6. libmysqlcppconn-dev
 
+si vous êtes sous Rasbian Jessy installer le paquet suivant
+
+ - php5-curl
 
 Configuration de Apache
 
@@ -33,7 +36,7 @@ Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les p
 
  - création d'une base **data**
  - création d'un utilisateur **ruche** avec mdp **toto**
- - création des tables channel et feeds
+ - création des tables users, things, channels et feeds
  
 Vous pouvez  en tant que **root** utiliser le script shell **mysql_data_setup** pour installer la base de données  et créer l'utilisateur 'ruche' requis.
 

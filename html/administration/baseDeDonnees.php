@@ -57,11 +57,11 @@ else
     <title>Configuration</title>
     <!-- Bootstrap CSS version 4.1.1 -->
 	
-    <link rel="stylesheet" href="/css/ruche.css" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/ruche.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="/scripts/bootstrap.min.js"></script>
+	<script src="../scripts/bootstrap.min.js"></script>
     
 		
 </head>
@@ -101,7 +101,7 @@ else
 						</div>
 						<br />
 						<a  class="btn btn-info" role="button" href="/phpmyadmin/">phpMyAdmin local</a>
-						<a  class="btn btn-info" role="button" href = "/administration/export_csv.php?serveurBD=locale">Download CSV</a>
+						<a  class="btn btn-info" role="button" href = "export_csv.php?serveurBD=locale">Download CSV</a>
 						<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
 								
 				</div>
@@ -132,7 +132,7 @@ else
 						</div>
 						<br />
 						<a class="btn btn-info" role="button" <?php echo 'href="http://' . $_POST['BDdistante_host'] . '/phpmyadmin/"'; ?>>phpMyAdmin distant</a>
-						<a class="btn btn-info" role="button" href = "/administration/export_csv.php?serveurBD=distante">Download CSV</a>
+						<a class="btn btn-info" role="button" href = "export_csv.php?serveurBD=distante">Download CSV</a>
 						<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
 				</div>
 			</div>
