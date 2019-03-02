@@ -8,17 +8,17 @@ Réaliser le câblage suivant sur la carte **snir-hat**
 ![schema cablage HX711](/html/images/snirHat.png)
 ## Prérequis Installation
 
-Les paquets suivants doivent être installés
+sous strectch Les paquets suivants doivent être installés 
 
  1. apache2
  2. mysql
  3. php
+ 4. php7.0-curl
  4. phpmyadmin
  5. libcurl4-openssl-dev
  6. libmysqlcppconn-dev
 
-si vous êtes sous Rasbian Jessy installer le paquet suivant
-
+si vous êtes sous **Jessy** installer le paquet suivant
  - php5-curl
 
 Configuration de Apache
