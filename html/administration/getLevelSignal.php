@@ -1,5 +1,6 @@
 <?php
     // Script pour renvoyer le niveau du network signal
+	// Attention vous devez modifier les droits du fichier gammu-smsd-monitor
     // cd /usr/bin
     // chmod +s gammu-smsd-monitor
 

@@ -30,7 +30,7 @@ require_once('../definition.inc.php');
             
             $(document).ready(function(){
                 // Requete AJAX pour afficher le niveau du signal
-				$.getJSON("/administration/getLevelSignal.php", afficheLevel);
+				$.getJSON("getLevelSignal.php", afficheLevel);
 				
 				// A function to run if the request fails.
 				$.ajaxSetup({

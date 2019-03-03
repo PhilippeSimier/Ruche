@@ -67,7 +67,7 @@
     }
 
    
-
+    // Envoi du SMS via la commande gammu-smsd-inject
     $ligne  = "gammu-smsd-inject TEXT " . $number . " -text \"" . $message .  "\"";
     
   
