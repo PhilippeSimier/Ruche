@@ -88,7 +88,9 @@ install:
 	chmod +s /usr/lib/cgi-bin/tarageCGI
 	cp scaleCGI /usr/lib/cgi-bin/scaleCGI
 	chmod +s /usr/lib/cgi-bin/scaleCGI
-	cp -a /home/pi/Ruche/html/* /var/www/html/
+	mkdir /var/www/html/Ruche
+	cp -a /home/pi/Ruche/html/* /var/www/html/Ruche/
+	cp -a /home/pi/Ruche/html/.htaccess /var/www/html/Ruche/
 #	sudo mv /home/pi/Ruche/configuration.ini.default /home/pi/Ruche/configuration.ini
 
 uninstall:
