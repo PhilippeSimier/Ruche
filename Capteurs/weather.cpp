@@ -21,19 +21,21 @@
 
 using namespace std;
 
-/**
- * @brief ObtenirDateHeure
- * @return std::string
- * @details retourne une chaine de caratères représentant la date courante
- *          au format Année-mois-jour heure:minute:seconde
- */
 string ObtenirDateHeure()
 {
-    time_t  t = time(nullptr);
-    stringstream ss;
-    ss  <<  put_time( gmtime(&t), "%F" ) << "%20" <<  put_time( gmtime(&t), "%T" );
-    return ss.str();
+    locale::global(locale("fr_FR.utf8"));
+    time_t t = time(0);
+    char Fchar[100];
+    char Tchar[100];
+    if (strftime(Fchar, sizeof(Fchar), "%F", gmtime(&t))) {
+        if (strftime(Tchar, sizeof(Tchar), "%T", gmtime(&t))) {
+            string F(Fchar);
+            string T(Tchar);
+            return F + "%20" + T;
+        }
+    }
 }
+
 
 string ObtenirValeur(string response, string key)
 {

@@ -27,13 +27,18 @@ using namespace std;
  * @details retourne une chaine de caratères représentant la date courante
  *          au format Année-mois-jour heure:minute:seconde
  */
-string ObtenirDateHeure()
+
+string ObtenirDateHeureBis()
 {
-    time_t  t = time(NULL);
-    stringstream ss;
-    ss  <<  put_time( localtime(&t), "%F %T" );
-    return ss.str();
+    locale::global(locale("fr_FR.utf8"));
+    time_t t = time(0);
+    char mbstr[100];
+    if (strftime(mbstr, sizeof(mbstr), "%F %T", localtime(&t))) {
+        string ss(mbstr);
+        return ss;
+    }
 }
+
 
 
 
@@ -53,7 +58,7 @@ int main(){
         code = requete.get(req);
 	count++;
     }
-    cout << " envoyerURL : " << requete.getErreurServeur(code) << endl;
+    cout << ObtenirDateHeureBis()  << " envoyerURL : " << requete.getErreurServeur(code) << endl;
     return 0;
 
 }

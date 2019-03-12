@@ -76,19 +76,19 @@
 				  <div class="dropdown-menu">
 				    <?php 
 					if (isset($ini['matlab']['id1'])) 
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization.php?id=' . $ini['matlab']['id1'] . '">' . $ini['matlab']['name1'] . '</a>';
+					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id1'] . '">' . $ini['matlab']['name1'] . '</a>';
 				    if (isset($ini['matlab']['id2']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization.php?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
+					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
 					if (isset($ini['matlab']['id3']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization.php?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
+					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
 					if (isset($ini['matlab']['id4']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization.php?id=' . $ini['matlab']['id4'] . '">' . $ini['matlab']['name4'] . '</a>';
+					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id4'] . '">' . $ini['matlab']['name4'] . '</a>';
 					?>
 				  </div>
 			</li>
 			
 			<li class="nav-item">
-				<a class="nav-link" href="/Ruche/activity.php" id="nav-sign-in">Activity</a>
+				<a class="nav-link" href="/Ruche/activity" id="nav-sign-in">Activity</a>
 			</li>		
         </ul>
 		
@@ -98,7 +98,7 @@
 				
 				<?php 
 				if (!isset($_SESSION['login']))
-					echo '<a class="nav-link" href="/Ruche/administration/index.php" id="nav-sign-in">Sign In</a>';
+					echo '<a class="nav-link" href="/Ruche/administration/" id="nav-sign-in">Sign In</a>';
 				else{
 					echo '<li class="nav-item dropdown">';
 					
@@ -107,14 +107,14 @@
 						echo $_SESSION['login']; 
 					echo '</a>';
 					echo '<div class="dropdown-menu">';
-					echo '<a class="dropdown-item" href="/Ruche/administration/ruche.php">Beehive</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/balance.php">Scale</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/baseDeDonnees.php">Database</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/thingSpeakConf.php">Thing Speak</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/formulaireSMS.php">GSM</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/ruche">Beehive</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/balance">Scale</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/baseDeDonnees">Database</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/thingSpeakConf">Thing Speak</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/formulaireSMS">GSM</a>';
 					echo '<a class="dropdown-item" href="https://ifttt.com/my_applets">IFTTT</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/infoSystem.php">System info</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/signout.php" id="nav-sign-in">Sign Out</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/infoSystem">System info</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/signout" id="nav-sign-in">Sign Out</a>';
 					echo '</div>';
 					echo '</li>';
 				}	
@@ -139,6 +139,7 @@
 				...
 			  </div>
 			  <div class="modal-footer">
+			    <button type="button" class="btn btn-primary btn-afficher">Afficher</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			  </div>
 			</div>
@@ -153,26 +154,51 @@
 			
 			$.getJSON( url , function( data, status, error ) {
 				console.log(data.channel);
-				var contenu = "<ul>";
+				var contenu = "<div>";
 				$.each( data.channel, function( key, val ) {
 					if (key.indexOf("field") != -1){
-						contenu += '<li>' + key +  ' : <a href="/Ruche/thingSpeakView.php?channel=' + data.channel.id + '&fieldP=' + key.substring(5,6) + '">'  + val + "</a></li>";
+						contenu += '<div class="form-check">'
+						contenu += '<input class="form-check-input" type="checkbox" value="' + key.substring(5,6) + '" id="'+ key +'">';
+						contenu += '<label class="form-check-label" for="'+ key +'">';
+						contenu += val;
+						contenu += '</label>';
+						contenu += '</div>';
 					}	
 				});
-				contenu += "</ul>";
+				contenu += "</div>";
 				
 				$("#modal-contenu").html( contenu );
 				var title = data.channel.id + " : " + data.channel.name; 
 				console.log(title);
 				$("#ModalLongTitle").html( title );
+				$(".btn-afficher").attr("id", data.channel.id );  // On fixe l'attribut id du button avec l'id du canal
 				$("#ModalCenter").modal('show');
 			});
 			
 			event.preventDefault();   // bloque l'action par défaut sur le lien cliqué
 		}
+		
+		function afficherVue(event){
+			var channel_id = $(this).attr("id");
+			
+			var valeurs = [];
+			$(':checked').each(function() {
+				valeurs.push($(this).val());
+			});
+			
+			console.log(valeurs); 
+			if (valeurs.length > 0)
+				var url = "/Ruche/thingSpeakView.php?channel=" + channel_id + '&fieldP=' + valeurs[0];
+			if (valeurs.length > 1)
+				url += '&fieldS=' + valeurs[1];
+			console.log(url);
+			window.location.href=url;
+			
+		}	
 	
 	    $(document).ready(function(){
 
 			$(".channels").click(afficheModal);
+			$(".btn-afficher").click(afficherVue);
 		});
     </script>	

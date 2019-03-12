@@ -31,17 +31,22 @@ using namespace std;
 using namespace sql;
 
 /**
- * @brief ObtenirDateHeure
+ * @brief ObtenirDateHeureBis   Compatible g++ version < 5
  * @return std::string
  * @details retourne une chaine de caratères représentant la date courante
  *          au format Année-mois-jour heure:minute:seconde
  */
-string ObtenirDateHeure()
+
+
+string ObtenirDateHeureBis()
 {
-    time_t  t = time(nullptr);
-    stringstream ss;
-    ss  <<  put_time( localtime(&t), "%F %T" );
-    return ss.str();
+    locale::global(locale("fr_FR.utf8"));
+    time_t t = time(0);
+    char mbstr[100];
+    if (strftime(mbstr, sizeof(mbstr), "%F %T", localtime(&t))) {
+        string ss(mbstr);
+        return ss;
+    }
 }
 
 
@@ -95,9 +100,8 @@ int main() {
 	driver = get_driver_instance();
         con = driver->connect(connexion_distante);
         // Check de la connexion
-        if(con->isValid()){
-            cout  << ObtenirDateHeure() << " BDD distante : ";
-	}
+            cout  << ObtenirDateHeureBis() << " BDD distante : ";
+
     }
     catch (sql::SQLException &e)
     {
@@ -105,16 +109,15 @@ int main() {
             driver = get_driver_instance();
             con = driver->connect(connexion_locale);
             // Check de la connexion
-            if(con->isValid()){
-               cout << ObtenirDateHeure() << " BDD locale : ";
-            }
+               cout << ObtenirDateHeureBis() << " BDD locale : ";
+
 
         }
         catch (sql::SQLException &e)
         {
             // Gestion des exceptions pour afficher les erreurs
 
-            cout << ObtenirDateHeure() << " # ERR: SQLException in " << __FILE__;
+            cout << ObtenirDateHeureBis() << " # ERR: SQLException in " << __FILE__;
             cout << "(" << __FUNCTION__ << ") on line " << __LINE__ ;
             cout << " # ERR: " << e.what();
             cout << " (code erreur MySQL: " << e.getErrorCode();
