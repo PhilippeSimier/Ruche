@@ -6,6 +6,8 @@ Le boitier se place sous la ruche. Il contient la batterie, le chargeur solaire,
 
 ![boitier](/Boitier/Boitier_Balance_Ruche_2.PNG)
 
+![boitier](/Boitier/Boitier_Balance_Ruche_1.PNG)
+
 [Modèle 3D](https://www.tinkercad.com/things/l4oGmu31n0B-boitier-balance-ruche)
  
 
