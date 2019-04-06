@@ -1,7 +1,11 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery
 
 all: $(EXEC)
+
+# compilation du programme battery
+battery: battery.cpp ina219.o i2c.o
+	$(CXX) battery.cpp ina219.o i2c.o -o battery
 
 # compilation du programme weather
 weather: weather.cpp rest.o
@@ -55,6 +59,10 @@ rest.o: rest.cpp rest.h
 # compilation de la classe SimpleIni
 SimpleIni.o: SimpleIni.cpp SimpleIni.h
 	$(CXX) -c SimpleIni.cpp -o SimpleIni.o
+
+# compilation de la classe ina219
+ina219.o: ina219.cpp ina219.h i2c.o
+	$(CXX) -c ina219.cpp -o ina219.o
 
 # compilation de la classe bme280
 bme280.o: bme280.cpp bme280.h i2c.o
@@ -113,6 +121,7 @@ install:
 	cp envoyerURL /opt/Ruche/bin/envoyerURL
 	cp synchronisation /opt/Ruche/bin/synchronisation
 	cp weather /opt/Ruche/bin/weather
+	cp battery /opt/Ruche/bin/battery
 	cp ../configuration.ini /opt/Ruche/etc/configuration.ini
 
 uninstall:
