@@ -25,7 +25,7 @@
 #include "bh1750.h"
 #include "SimpleIni.h"
 
-#define CONFIGURATION "/home/pi/Ruche/configuration.ini"
+#define CONFIGURATION "/opt/Ruche/etc/configuration.ini"
 
 using namespace std;
 using namespace sql;
