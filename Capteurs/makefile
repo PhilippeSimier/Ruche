@@ -112,10 +112,12 @@ install:
 	cp -a /home/pi/Ruche/html/.htaccess /var/www/html/Ruche/
 
 # Install les fichiers exécutables dans /opt/Ruche/bin/
-# Install les fichier de configuration dans /opt/Ruche/etc/
+# Install les fichiers de configuration dans /opt/Ruche/etc/
+# Install les fichiers de log dans /var/log/Ruche/
 	mkdir -p /opt/Ruche
 	mkdir -p /opt/Ruche/bin
 	mkdir -p /opt/Ruche/etc
+	mkdir -p /var/log/Ruche
 	cp bddLog /opt/Ruche/bin/bddLog
 	cp thingSpeakGET /opt/Ruche/bin/thingSpeakGET
 	cp envoyerURL /opt/Ruche/bin/envoyerURL
