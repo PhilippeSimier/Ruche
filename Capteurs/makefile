@@ -123,6 +123,7 @@ install:
 	cp weather /opt/Ruche/bin/weather
 	cp battery /opt/Ruche/bin/battery
 	cp ../configuration.ini /opt/Ruche/etc/configuration.ini
+	chmod 777 /opt/Ruche/etc/configuration.ini
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
