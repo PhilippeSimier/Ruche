@@ -1,8 +1,8 @@
 # !/bin/bash
 #
-USER=toto
-PASSWORD=toto
-DB_NAME=test
+USER=ruche
+PASSWORD=touchard72
+DB_NAME=data
 
 echo "Creation de la base $DB_NAME ..."
 mysql -e "CREATE DATABASE $DB_NAME"
