@@ -21,14 +21,19 @@ int main()
 {
     system("clear");
     bh1750 capteur;
-
+    float eclairement;
     cout << "Capteur d'éclairement" << endl;
 
     capteur.activer();
     capteur.reset();
- 
+
     while(1){
         capteur.configurer(BH1750_CONTINUOUS_HIGH_RES_MODE_2);
+        eclairement = capteur.obtenirLuminosite_Lux();
+        // passage en résolution 1 lux si l'éclairement dépasse les 27000 Lux
+        if (eclairement > 27000){
+	    capteur.configurer(BH1750_CONTINUOUS_HIGH_RES_MODE);
+        }
 	cout << "Eclairement : " << fixed << setprecision (1) << capteur.obtenirLuminosite_Lux()  << " lx" << endl;
         sleep(1);
 

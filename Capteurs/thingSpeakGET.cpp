@@ -81,6 +81,9 @@ int main(int argc, char *argv[])
 
     // Configuration du capteur d'éclairement
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
+    if (capteur2.obtenirLuminosite_Lux() > 27000){
+        capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE);
+    }
 
     string key(argv[1]);
     trame << "https://api.thingspeak.com/update?";
