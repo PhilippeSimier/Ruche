@@ -57,6 +57,8 @@ int main(int argc, char *argv[])
     bh1750 capteur2(0x23);
     SimpleIni ini;
     ostringstream trame;
+    float temperature = 20.0;
+    bool presenceBME = !capteur.obtenirErreur();
 
     if (argc != 2){
         return 1;
@@ -77,7 +79,10 @@ int main(int argc, char *argv[])
     balance.fixerTempRef( ini.GetValue<float>("balance", "tempRef", 25.0 ));
 
     // Configuration du capteur de pression
-    capteur.donnerAltitude( ini.GetValue<float>("ruche", "altitude", 0.0 ));
+    if (presenceBME){
+        capteur.donnerAltitude( ini.GetValue<float>("ruche", "altitude", 0.0 ));
+        temperature = capteur.obtenirTemperatureEnC();
+    }
 
     // Configuration du capteur d'éclairement
     capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE_2);
@@ -89,12 +94,14 @@ int main(int argc, char *argv[])
     trame << "https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
     trame << "&field1=" << fixed << setprecision (2) << balance.obtenirPoids();
-    float temperature = capteur.obtenirTemperatureEnC();
-    trame << "&field2=" << fixed << setprecision (2) << temperature;
-    trame << "&field3=" << fixed << setprecision (2) << capteur.obtenirPression0();
-    trame << "&field4=" << fixed << setprecision (2) << capteur.obtenirHumidite();
+
+    if (presenceBME){
+        trame << "&field2=" << fixed << setprecision (2) << temperature;
+        trame << "&field3=" << fixed << setprecision (2) << capteur.obtenirPression0();
+        trame << "&field4=" << fixed << setprecision (2) << capteur.obtenirHumidite();
+	trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
+    }
     trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
-    trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
     trame << "&field7=" << fixed << setprecision (2) << balance.obtenirPoidsCorrige(temperature);
     trame << "&created_at=" << ObtenirDateHeure();
 
