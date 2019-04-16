@@ -4,8 +4,8 @@ EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET env
 all: $(EXEC)
 
 # compilation du programme battery
-battery: battery.cpp ina219.o i2c.o
-	$(CXX) battery.cpp ina219.o i2c.o -o battery
+battery: battery.cpp ina219.o i2c.o SimpleIni.o
+	$(CXX) battery.cpp ina219.o i2c.o SimpleIni.o -o battery
 
 # compilation du programme weather
 weather: weather.cpp rest.o
@@ -126,6 +126,8 @@ install:
 	cp battery /opt/Ruche/bin/battery
 	cp ../configuration.ini /opt/Ruche/etc/configuration.ini
 	chmod 777 /opt/Ruche/etc/configuration.ini
+	cp ../battery.ini /opt/Ruche/etc/battery.ini
+	chmod 777 /opt/Ruche/etc/battery.ini
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
