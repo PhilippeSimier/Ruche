@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     ina219 batterie;
     ostringstream trame;
     SimpleIni ini;
-    float capacite = 0.0;
+    float charge = 0.0;
     int t0,t1;
 
     // Lecture du fichier de battery.ini
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	return 2;
     }
     // dernière capacité en Ah enregistrée
-    capacite = ini.GetValue<float>("battery", "capacite", 0.0 );
+    charge = ini.GetValue<float>("battery", "charge", 0.0 );
     // Dernier timestamp enregistré
     t0 = ini.GetValue<int>("battery", "time", 0 );
 
@@ -75,12 +75,12 @@ int main(int argc, char *argv[])
 
         t1 = time(0);
         if ((t1-t0) < 3600)  // deltaT maxi 1 heure utile après un long arrêt
-        	capacite += i * (t1 - t0)/3600;
-        if (capacite < 0) {
-	    capacite = 0;  // La capacité ne peut pas être négative
+        	charge += i * (t1 - t0)/3600;
+        if (charge < 0) {
+	    charge = 0;  // La charge ne peut pas être négative
         }
 
-        ini.SetValue<float>("battery", "capacite", capacite);
+        ini.SetValue<float>("battery", "charge", charge);
         ini.SetValue<int>("battery", "time", t1);
 
 
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         trame << "&field2=" << fixed << setprecision (3) << i;
         trame << "&field3=" << fixed << setprecision (2) << p;
         trame << "&field4=" << fixed << setprecision (2) << soc;
-        trame << "&field5=" << fixed << setprecision (5) << capacite;
+        trame << "&field5=" << fixed << setprecision (5) << charge;
 
         trame << "&created_at=" << ObtenirDateHeure();
 

@@ -1,7 +1,10 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery batteryJson
 
 all: $(EXEC)
+# compilation du programme batteryJson
+batteryJson: batteryJson.cpp ina219.o i2c.o 
+	$(CXX) batteryJson.cpp ina219.o i2c.o -o batteryJson
 
 # compilation du programme battery
 battery: battery.cpp ina219.o i2c.o SimpleIni.o
@@ -105,6 +108,8 @@ install:
 	chmod +s /usr/lib/cgi-bin/tarageCGI
 	cp scaleCGI /usr/lib/cgi-bin/scaleCGI
 	chmod +s /usr/lib/cgi-bin/scaleCGI
+	cp batteryJson /usr/lib/cgi-bin/batteryJson
+	chmod +s /usr/lib/cgi-bin/batteryJson
 
 # Install les fichier pour le site Web
 	mkdir -p /var/www/html/Ruche
