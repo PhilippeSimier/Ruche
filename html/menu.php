@@ -112,7 +112,7 @@
 					echo '<a class="dropdown-item" href="/Ruche/administration/baseDeDonnees">Database</a>';
 					echo '<a class="dropdown-item" href="/Ruche/administration/thingSpeakConf">Thing Speak</a>';
 					echo '<a class="dropdown-item" href="/Ruche/administration/formulaireSMS">GSM</a>';
-					echo '<a class="dropdown-item" href="https://ifttt.com/my_applets">IFTTT</a>';
+					echo '<a class="dropdown-item" href="/Ruche/administration/battery">Battery</a>';
 					echo '<a class="dropdown-item" href="/Ruche/administration/infoSystem">System info</a>';
 					echo '<a class="dropdown-item" href="/Ruche/administration/signout" id="nav-sign-in">Sign Out</a>';
 					echo '</div>';
