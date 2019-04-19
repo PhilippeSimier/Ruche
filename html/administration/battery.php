@@ -78,14 +78,14 @@ else
 		function requete_ajax(){
 			// requete Ajax méthode getJSON
 			$.getJSON(
-				"/cgi-bin/ina219Json", // Le fichier cible côté serveur. data au format Json
+				"/cgi-bin/batteryJson", // Le fichier cible côté serveur. data au format Json
 				affiche
 			);
 			
 		}
 
 		$(document).ready(function(){
-		   	$.getJSON("/cgi-bin/ina219Json", affiche); // affichage des données quand la page est dispo
+		   	$.getJSON("/cgi-bin/batteryJson", affiche); // affichage des données quand la page est dispo
 			setInterval(requete_ajax, 10000);  // appel de la fonction requete_ajax toutes les 10 secondes
 		   
 		});
