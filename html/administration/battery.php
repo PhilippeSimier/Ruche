@@ -128,8 +128,8 @@ else
 					<input type='hidden' name='time' <?php echo 'value="' . $_POST['time'] . '"'; ?> />	
 
 					<div class="form-group">
-						<label for="tension"  class="font-weight-bold">Capacité (Ah) : </label>
-						<input type="int"  name="tension" class="form-control" <?php echo 'value="' . $_POST['capacite'] . '"'; ?> />
+						<label for="capacite"  class="font-weight-bold">Capacité (Ah) : </label>
+						<input type="int"  name="capacite" class="form-control" <?php echo 'value="' . $_POST['capacite'] . '"'; ?> />
 					</div>
 
 					<div class="form-group">
@@ -138,8 +138,8 @@ else
 					</div>
 
 					<div class="form-group">
-						<label for="capacite"  class="font-weight-bold">Charge (Ah) : </label>
-						<input type="int"  name="capacite" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
+						<label for="charge"  class="font-weight-bold">Charge (Ah) : </label>
+						<input type="int"  name="charge" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
 					</div>
 					
 					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
