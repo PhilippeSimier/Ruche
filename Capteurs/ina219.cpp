@@ -123,13 +123,21 @@ float ina219::obtenirCourant_A(){
     @brief  calcul du courant moyen sur n echantillons prélevés toutes les 10ms
 */
 float ina219::obtenirCourantMoyen_A(int nb){
-  float som = 0.0;
-  int i;
-  for(i=0; i < nb; i++){
-     som +=  ina219::obtenirCourant_A();
-     usleep(1000*10);
+    float som = 0.0;
+    vector<float> valeur;
+
+    for(int i=0; i < nb; i++){
+        valeur.push_back(ina219::obtenirCourant_A());
+        usleep(1000*10);
     }
-  return som / i;
+    // Tri des valeurs grâce à la fonction std::sort
+    sort (valeur.begin(), valeur.end());
+    // Somme des valeurs sans les deux extrèmes
+    for (int i=2; i < (nb-2) ; i++)
+    {
+        som += valeur.at(i);
+    }
+    return som / (nb - 4);
 }
 
 /*!
@@ -154,17 +162,24 @@ float ina219::map(float x, float in_min, float in_max, float out_min, float out_
 
 }
 
+/*!
+    @brief  Gets the current stat of charge
+    12.86 -> 100%
+    12.22 -> 50%
+*/
+
+
+
 float ina219::obtenirSOC(){
-     // Rm is the resistance of the metallic path through the cell including the terminals,
-     // electrodes and inter-connections.
-     // Ra is the resistance of the electrochemical path including the electrolyte and the separator.
-     // The internal resistance of a galvanic cell is temperature dependent
-     // here I take Ra+Rm = 1.5 Ohm at 25 °C
-     float ResistanceInt = 1.5;
-     float fem = ina219::obtenirTension_V() - (ResistanceInt * ina219::obtenirCourant_A());
-     float soc = ina219::map(fem, 11.9, 13.6, 10, 100);
-     if (soc > 100) soc = 100;
-     if (soc < 0)   soc = 0;
+
+     float u = ina219::obtenirTension_V();
+     float i = ina219::obtenirCourantMoyen_A(10);
+     float soc = -1.0;
+     if ( i < 0.0 ){
+     	soc = ina219::map(u, 12.22, 12.86, 50, 100);
+        if (soc > 100) soc = 100;
+        if (soc < 0)   soc = 0;
+     }
      return soc;
 
 }

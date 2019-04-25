@@ -22,6 +22,9 @@
 #include <stdint.h>       // pour les types uint8_t etc
 #include <math.h>
 #include <unistd.h>
+#include <vector>
+#include <algorithm>
+#include <limits>       // std::numeric_limits
 
     #define ADRESSE_I2C_DEFAUT              0x40  // adresse I2C par défaut pour ina219
     //Adresse des Registres internes du composant
