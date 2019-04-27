@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     ostringstream trame;
     SimpleIni ini;
     float charge = 0.0;
+    float capacite;
     int t0,t1;
 
     // Lecture du fichier de battery.ini
@@ -62,6 +63,8 @@ int main(int argc, char *argv[])
     charge = ini.GetValue<float>("battery", "charge", 0.0 );
     // Dernier timestamp enregistré
     t0 = ini.GetValue<int>("battery", "time", 0 );
+    // Lecture de la capacité nominale
+    capacite = ini.GetValue<float>("battery", "capacite", 7.0 );
 
     if (argc != 2){
         return 1;
@@ -71,7 +74,7 @@ int main(int argc, char *argv[])
 	float u = batterie.obtenirTension_V();
     	float i = batterie.obtenirCourantMoyen_A(100);
     	float p = u*i;
-    	float soc = batterie.obtenirSOC();
+    	float soc;
 
         t1 = time(0);
         if ((t1-t0) < 3600)  // deltaT maxi 1 heure utile après un long arrêt
@@ -79,6 +82,10 @@ int main(int argc, char *argv[])
         if (charge < 0) {
 	    charge = 0;  // La charge ne peut pas être négative
         }
+        if (charge > capacite){
+	    charge = capacite;  // La charge est limitée à la capacité de la batterie
+        }
+        soc = (charge / capacite) * 100;
 
         ini.SetValue<float>("battery", "charge", charge);
         ini.SetValue<int>("battery", "time", t1);
