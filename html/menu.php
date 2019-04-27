@@ -157,7 +157,7 @@
 				var contenu = "<div>";
 				$.each( data.channel, function( key, val ) {
 					if (key.indexOf("field") != -1){
-						contenu += '<div class="form-check">'
+						contenu += '<div id = "choix" class="form-check">'
 						contenu += '<input class="form-check-input" type="checkbox" value="' + key.substring(5,6) + '" id="'+ key +'">';
 						contenu += '<label class="form-check-label" for="'+ key +'">';
 						contenu += val;
@@ -181,18 +181,26 @@
 		function afficherVue(event){
 			var channel_id = $(this).attr("id");
 			
-			var valeurs = [];
-			$(':checked').each(function() {
-				valeurs.push($(this).val());
+			var choix = [];
+			var anyBoxesChecked = false;
+			$('#choix  input[type="checkbox"]').each(function() {
+				if ($(this).is(":checked")) {
+					choix.push($(this).val());
+					anyBoxesChecked = true;
+				}
 			});
-			
-			console.log(valeurs); 
-			if (valeurs.length > 0)
-				var url = "/Ruche/thingSpeakView.php?channel=" + channel_id + '&fieldP=' + valeurs[0];
-			if (valeurs.length > 1)
-				url += '&fieldS=' + valeurs[1];
-			console.log(url);
-			window.location.href=url;
+			if (anyBoxesChecked == false) {
+				console.log("pas de choix");
+			} 
+
+			console.log("choix : " + choix); 
+			if (choix.length > 0){
+				var url = "/Ruche/thingSpeakView.php?channel=" + channel_id + '&fieldP=' + choix[0];
+				if (choix.length > 1)
+					url += '&fieldS=' + choix[1];
+				console.log(url);
+				window.location.href=url;
+			}	
 			
 		}	
 	
