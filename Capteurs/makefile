@@ -3,8 +3,8 @@ EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET env
 
 all: $(EXEC)
 # compilation du programme batteryJson
-batteryJson: batteryJson.cpp ina219.o i2c.o 
-	$(CXX) batteryJson.cpp ina219.o i2c.o -o batteryJson
+batteryJson: batteryJson.cpp ina219.o i2c.o SimpleIni.o 
+	$(CXX) batteryJson.cpp ina219.o i2c.o SimpleIni.o -o batteryJson
 
 # compilation du programme battery
 battery: battery.cpp ina219.o i2c.o SimpleIni.o
