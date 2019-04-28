@@ -164,8 +164,15 @@ float ina219::map(float x, float in_min, float in_max, float out_min, float out_
 
 /*!
     @brief  Gets the current stat of charge
+    la tension aux bornes d'une batterie diminue ou augmente
+    en fonction de son niveau de charge.
+    La tension sera maximale lorsque la batterie est totalement chargée
+    et minimal lorsqu’elle est vide.
     12.86 -> 100%
     12.22 -> 50%
+    Les batteries au plomb ont une courbe relativement linéaire,
+    ce qui permet une bonne estimation de l’état de charge : pour une tension mesurée,
+    il est possible d’estimer assez précisément la valeur du SoC associée.
 */
 
 

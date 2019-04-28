@@ -16,12 +16,27 @@
 
 #include <iostream>
 #include "ina219.h"
+#include "SimpleIni.h"
+
+#define BATTERY "/opt/Ruche/etc/battery.ini"
 
 using namespace std;
 
 int main()
 {
     ina219 *capteur;
+    float charge;
+    float capacite;
+    SimpleIni ini;
+
+    // Lecture du fichier de battery.ini
+    if(!ini.Load(BATTERY)){
+	return 2;
+    }
+    // dernière capacité en Ah enregistrée
+    charge = ini.GetValue<float>("battery", "charge", 0.0 );
+    // Lecture de la capacité nominale
+    capacite = ini.GetValue<float>("battery", "capacite", 7.0 );
 
     capteur = new ina219(0x40);   // déclaration d'un capteur de type ina219 à l'adresse par défaut 0x40
 
@@ -29,7 +44,7 @@ int main()
     	float u = capteur->obtenirTension_V();
     	float i = capteur->obtenirCourantMoyen_A(500);
     	float p = u*i;
-    	float soc = capteur->obtenirSOC();
+    	float soc = (charge / capacite) * 100;
 
     	cout << "Content-type: application/json" << endl << endl;
 
