@@ -8,7 +8,7 @@
   | type                    |  Plomb   | Nickel NiMH |  LiFePo4   |     NMC    |
   |-------------------------|----------|-------------|------------|------------|
   | tension   V             |   12     |     12      |    12.8    |  14.4      |
-  | Energie Massique        | 40 Wh/kg |  80 Wh/kg   | 120 Wh/kg  |  200 Wh/Kg | 
+  | Energie Massique        | 40 Wh/kg |  90 Wh/kg   | 110 Wh/kg  |  170 Wh/Kg | 
   | Durée de vie à 100% DOD |   300    |     500     |    500     |  800       |
   | Durée de vie à 80% DOD  |   600    |     700     |    3000    |   2000     | 
   | Profondeur décharge     |   50%    |      80%    |    90%     |  90%       |
