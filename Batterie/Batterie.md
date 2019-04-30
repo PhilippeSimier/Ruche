@@ -4,16 +4,16 @@
   
   Le tableau ci-dessous vous donne un élément de comparaison entre une batterie: **Plomb**, **Lithium NMC** (Lithium Nickel Manganèse Cobalt) et **Lithium LFP** (Lithium Fer Phosphate). 
   
-  | type                    |  Plomb   |     LIFEPO4 |     NMC    |
-  |-------------------------|----------|-------------|------------|
-  | tension   V             |   12     |     12.8    |  14.4      |
-  | Energie Massique        | 40 Wh/kg | 120 Wh/kg   |  200 Wh/Kg | 
-  | Durée de vie à 100% DOD |   300    |     500     |  2000      |
-  | Durée de vie à 80% DOD  |   600    |     3000    |   800      | 
-  | Profondeur décharge     |   50%    |     90%     |  90%       |
-  | Rendement à C           |	60%    |     95%     |  95%       |
-  |	Indice de prix          |   100    |    400      |  320       |
-  | Temps de charge         |   8h     |      1h     |   2h       |
+  | type                    |  Plomb   | Nickel NiMH |  LIFEPO4   |     NMC    |
+  |-------------------------|----------|-------------|------------|------------|
+  | tension   V             |   12     |     12      |    12.8    |  14.4      |
+  | Energie Massique        | 40 Wh/kg |  80 Wh/kg   | 120 Wh/kg  |  200 Wh/Kg | 
+  | Durée de vie à 100% DOD |   300    |     500     |    500     |  800       |
+  | Durée de vie à 80% DOD  |   600    |     700     |    3000    |   2000     | 
+  | Profondeur décharge     |   50%    |      80%    |    90%     |  90%       |
+  | Rendement à C           |	  60%    |     66%     |    95%     |  95%       |
+  |	Indice de prix          |   23€    |     107€    |    110€    |  100€      |
+  | Temps de charge         |   8h     |     2h      |     1h     |   2h       |
 
 
  
