@@ -5,7 +5,7 @@
   
   Le tableau ci-dessous vous donne un élément de comparaison entre une batterie: **Plomb**, **Nickel**, **Lithium**  NMC (Lithium Nickel Manganèse Cobalt) et **LFP** (Lithium Fer Phosphate). 
   
-  | type                    |  Plomb   | Nickel NiMH |  LiFePo4   |     NMC    |
+  | type                    |  Plomb   | Nickel NiMH |  LiFePO4   |     NMC    |
   |-------------------------|----------|-------------|------------|------------|
   | tension   V             |   12     |     12      |    12.8    |  14.4      |
   | Energie Massique        | 40 Wh/kg |  90 Wh/kg   | 110 Wh/kg  |  170 Wh/Kg | 
@@ -18,7 +18,7 @@
 
 
  
-Les principaux avantages des batteries LiFePo4 sont : un gain de poids, une durée de vie augmentée sans entretien, des cycles de recharge et de décharge rapide avec un excellent rendement énergétique.
+Les principaux avantages des batteries LiFePO4 sont : un gain de poids, une durée de vie augmentée sans entretien, des cycles de recharge et de décharge rapide avec un excellent rendement énergétique.
 
 Contrairement aux batteries Plomb, les batteries Lithium peuvent être déchargées quasi totalement (de 90% à 100%) sans se dégrader.  En considérant une batterie de 100Ah, si une batterie au Plomb a une capacité utile comprise entre 30 à 50Ah, la batterie Lithium pourra fournir jusqu’à 100 Ah.
 
