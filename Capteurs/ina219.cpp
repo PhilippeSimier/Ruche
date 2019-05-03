@@ -128,7 +128,7 @@ float ina219::obtenirCourantMoyen_A(int nb){
 
     for(int i=0; i < nb; i++){
         valeur.push_back(ina219::obtenirCourant_A());
-        usleep(1000*10);
+        usleep(1000*1);  // attendre 1ms
     }
     // Tri des valeurs grâce à la fonction std::sort
     sort (valeur.begin(), valeur.end());
