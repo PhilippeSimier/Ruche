@@ -86,7 +86,7 @@ else
 
 		$(document).ready(function(){
 		   	$.getJSON("/cgi-bin/batteryJson", affiche); // affichage des données quand la page est dispo
-			setInterval(requete_ajax, 10000);  // appel de la fonction requete_ajax toutes les 10 secondes
+			setInterval(requete_ajax, 1000);  // appel de la fonction requete_ajax toutes les  secondes
 		   
 		});
 	</script>

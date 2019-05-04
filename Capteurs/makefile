@@ -129,6 +129,8 @@ install:
 	cp synchronisation /opt/Ruche/bin/synchronisation
 	cp weather /opt/Ruche/bin/weather
 	cp battery /opt/Ruche/bin/battery
+
+config:
 	cp ../configuration.ini /opt/Ruche/etc/configuration.ini
 	chmod 777 /opt/Ruche/etc/configuration.ini
 	cp ../battery.ini /opt/Ruche/etc/battery.ini

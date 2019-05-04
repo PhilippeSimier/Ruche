@@ -42,7 +42,7 @@ int main()
 
     if (!capteur->obtenirErreur()){
     	float u = capteur->obtenirTension_V();
-    	float i = capteur->obtenirCourantMoyen_A(500);
+    	float i = capteur->obtenirCourantMoyen_A(100);
     	float p = u*i;
     	float soc = (charge / capacite) * 100;
 
@@ -50,12 +50,12 @@ int main()
 
     	cout << "{" << endl;
 	cout << "\"OK\" : true," << endl;
-    	cout << "\"u\": " << fixed << setprecision (2) << u << "," << endl;
+    	cout << "\"u\": " << fixed << setprecision (3) << u << "," << endl;
     	cout << "\"uniteU\" : \"V\"," << endl;
 
     	if (i < -1 || i > 1){
 
-            cout << "\"i\":" << fixed << setprecision (2) << i << "," << endl;
+            cout << "\"i\":" << fixed << setprecision (3) << i << "," << endl;
             cout << "\"uniteI\" : \"A\"," << endl;
      	}
     	else{
