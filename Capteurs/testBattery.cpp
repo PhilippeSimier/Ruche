@@ -18,7 +18,7 @@ int main(){
     if (!capteur.obtenirErreur()){
     	capteur.fixerCalibration_16V();
     	while(1){
-	    usleep(10*1000); // Tempo 10 ms
+	    usleep(100*1000); // Tempo 10 ms
             tension = capteur.obtenirTension_V();
             courant = capteur.obtenirCourantMoyen_A(10);
 	    system("clear");

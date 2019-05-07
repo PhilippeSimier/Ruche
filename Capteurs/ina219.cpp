@@ -116,7 +116,7 @@ float ina219::obtenirCourant_A(){
     deviceI2C->WriteReg16(REG_CALIBRATION , rc);  // écriture du registre de calibration
     data = deviceI2C->ReadReg16(REG_CURRENT);
     data = ((data & 0x00FF) << 8) | ((data & 0xFF00) >> 8); // inversion msb lsb
-    return (float)data * 99E-6;   // 100 micro Ampere par bit
+    return (float)data * 100E-6;   // 100 micro Ampere par bit
 
 }
 /*!
