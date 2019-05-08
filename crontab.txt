@@ -26,5 +26,5 @@
 */30 * * * * /opt/Ruche/bin/battery 7--------------O | /opt/Ruche/bin/envoyerURL >> /var/log/Ruche/activity.log 2>&1
 5 */4 * * *  /opt/Ruche/bin/synchronisation >> /var/log/Ruche/activity.log 2>&1
 */30 * * * * /opt/Ruche/bin/thingSpeakGET B--------------X | gammu-smsd-inject TEXT 07-------6 -len 183
-
+@reboot /opt/Ruche/bin/coulombCounter
 

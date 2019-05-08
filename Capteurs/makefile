@@ -1,7 +1,11 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery batteryJson
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery batteryJson coulombCounter
 
 all: $(EXEC)
+# compilation du programme coulombCounter
+coulombCounter: coulombCounter.cpp ina219.o i2c.o SimpleIni.o
+	$(CXX) coulombCounter.cpp ina219.o i2c.o SimpleIni.o -o coulombCounter
+
 # compilation du programme batteryJson
 batteryJson: batteryJson.cpp ina219.o i2c.o SimpleIni.o 
 	$(CXX) batteryJson.cpp ina219.o i2c.o SimpleIni.o -o batteryJson
@@ -129,6 +133,7 @@ install:
 	cp synchronisation /opt/Ruche/bin/synchronisation
 	cp weather /opt/Ruche/bin/weather
 	cp battery /opt/Ruche/bin/battery
+	cp coulombCounter /opt/Ruche/bin/coulombCounter
 
 config:
 	cp ../configuration.ini /opt/Ruche/etc/configuration.ini
