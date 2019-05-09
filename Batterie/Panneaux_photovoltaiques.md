@@ -1,5 +1,9 @@
 ﻿# panneaux solaires photovoltaïques
 
+Le panneau solaire alimente la raspberry et charge la batterie de manière à ce qu'il ait assez d'énergie pour fonctionner pendant la période nocturne. Étant donné que la ruche connectée passe environ la moitié de son temps «dans le noir», elle doit s’appuyer sur l’énergie stockée dans la batterie embarquée pour fonctionner.
+
+La capacité d'une batterie à stocker de l'énergie et à fournir cette énergie au fil du temps est mesurée en terme de capacité de stockage de la batterie.  Cette grandeur se mesure  en coulomb ou ampères-heures.  Le programme coulombCounter surveille en permanence la quantité de courant circulant dans la batterie. 
+
 ## Conversion de l’énergie solaire
 
 La lumière est composée de photons, porteurs d’énergie, pouvant extraire des charges électriques des matériaux semi-conducteurs tels que le silicium. Ainsi les panneaux solaires  produisent du courant électrique quand ils sont exposés à la lumière, par cette conversion photovoltaïque.
