@@ -82,10 +82,12 @@ int main(int argc, char *argv[])
         if (charge < 0) {
 	    charge = 0;  // La charge ne peut pas être négative
         }
-        if (charge > capacite){
-	    charge = capacite;  // La charge est limitée à la capacité de la batterie
-        }
+
         soc = (charge / capacite) * 100;
+        if (soc > 100){
+	    soc = 100;       // Le SOC maxi est limité à 100%
+	}
+
 
         ini.SetValue<float>("battery", "charge", charge);
         ini.SetValue<int>("battery", "time", t1);
