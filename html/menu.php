@@ -172,6 +172,7 @@
 				console.log(title);
 				$("#ModalLongTitle").html( title );
 				$(".btn-afficher").attr("id", data.channel.id );  // On fixe l'attribut id du button avec l'id du canal
+				$(".btn-afficher").attr("name", data.channel.name );  // On fixe l'attribut name du button avec le nom du canal
 				$("#ModalCenter").modal('show');
 			});
 			
@@ -180,6 +181,7 @@
 		
 		function afficherVue(event){
 			var channel_id = $(this).attr("id");
+			var channel_name = $(this).attr("name");
 			
 			var choix = [];
 			var anyBoxesChecked = false;
@@ -194,13 +196,13 @@
 			} 
 
 			console.log("choix : " + choix); 
-			if (choix.length > 0){
-				var url = "/Ruche/thingSpeakView.php?channel=" + channel_id + '&fieldP=' + choix[0];
-				if (choix.length > 1)
-					url += '&fieldS=' + choix[1];
-				console.log(url);
-				window.location.href=url;
-			}	
+			var url = "/Ruche/thingSpeakView?channel=" + channel_id + '&name=' + channel_name;
+			for (i = 0; i < choix.length; i++){
+				url += '&field' + i + '=' + choix[i];	
+			}
+			console.log(url);
+			window.location.href=url;
+				
 			
 		}	
 	

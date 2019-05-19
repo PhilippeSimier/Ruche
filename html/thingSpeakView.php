@@ -26,10 +26,15 @@
 	// put your ThingSpeak Channel#, Channel Name, and API keys here.
     var channelKeys =[];
     channelKeys.push({channelNumber:<?php if (isset($_GET['channel'])) { echo $_GET['channel']; } else {echo $ini['ruche']['id'];} ?>, 
-	                  name:'Ruche',
+	                  name:'<?php if (isset($_GET['name'])) { echo $_GET['name']; } else { echo "thing"; }; ?>',
 					  key:'<?php if (isset($_GET['key'])) { echo $_GET['key']; }; ?>',
-                      fieldList:[<?php if (isset($_GET['fieldP'])) { echo "{field:".$_GET['fieldP'].",axis:'P'}"; } else { echo "{field:1,axis:'P'}"; }; 
-								       if (isset($_GET['fieldS'])) { echo ",{field:".$_GET['fieldS'].",axis:'O'}"; };  
+                      fieldList:[<?php if (isset($_GET['field0'])) { echo "{field:".$_GET['field0'].",axis:'P'}"; } else { echo "{field:1,axis:'P'}"; }; 
+								       if (isset($_GET['field1'])) { echo ",{field:".$_GET['field1'].",axis:'O'}"; };
+									   if (isset($_GET['field2'])) { echo ",{field:".$_GET['field2'].",axis:'O'}"; };
+									   if (isset($_GET['field4'])) { echo ",{field:".$_GET['field4'].",axis:'O'}"; };
+									   if (isset($_GET['field5'])) { echo ",{field:".$_GET['field5'].",axis:'O'}"; };
+									   if (isset($_GET['field6'])) { echo ",{field:".$_GET['field6'].",axis:'O'}"; };
+									   if (isset($_GET['field7'])) { echo ",{field:".$_GET['field7'].",axis:'O'}"; };
 							    ?>]});
 
     
@@ -205,7 +210,7 @@ $(document).ready(function()
 			selected: 1
 		},
         title: {
-			text: ''
+			text: '<?php if (isset($_GET['name'])) { echo $_GET['name']; } else { echo "thing"; }; ?>'
 		},
 		plotOptions: {
 			line: {

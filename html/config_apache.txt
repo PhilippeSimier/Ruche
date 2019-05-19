@@ -1,0 +1,9 @@
+Alias /Ruche /var/www/Ruche
+<Directory /var/www/Ruche>
+        #Options Indexes FollowSymLinks
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+        Require all granted
+</Directory>
