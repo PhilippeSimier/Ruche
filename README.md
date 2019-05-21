@@ -78,6 +78,11 @@ Vous devez définir les champs  comme sur la figure ci-dessous.
 
 À l'issue de cette opération, cliquez sur Enregistrer le canal.  Vous êtes maintenant prêt à télécharger les données de la ruche vers son canal correspondant.
 
+Recherchez la clé API correspondant à votre canal (Write API Key).
+À chaque canal correspondra une clé API unique, destinée à garantir le téléchargement des données au bon emplacement.
+
+Veuillez à mémoriser la clé API **Write API Key** . Vous l'utiliserez comme argument des tâches thingSpeak qui seront exécutées à interval régulier par le processus cron.
+
 ## Configuration **crontab**
 ajouter les tâches planifiées suivantes :
 
