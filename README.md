@@ -1,11 +1,16 @@
-﻿# The connected Beehive
-D’une installation facile et rapide, le système se positionne sous n’importe quelle ruche et délivre en temps réel un suivi précis des grandeurs mesurées, via des vues graphiques sur thing Speak ou sur votre site internet.
+﻿# The connected Beehive 
+D’une installation facile et rapide, le système se positionne sous n’importe quelle ruche et délivre en temps réel un suivi précis des grandeurs mesurées.  Si la connexion réseau est présente, les grandeurs mesurées sont stokées sur la plate forme Thing Speak,  dans le cas contraire, les mesures sont enregistrées localement dans une base de données. Les mesures peuvent être consultées via des vues graphiques sur un site WEB.
 
-En cas de besoin d’intervention, des alertes vous seront transmises par mail, sms, ou notification sur votre smartphone. Ce service est assurée par IFTTT (if this then that).
+**ThingSpeak** est une API et une application open source pour l'« Internet des objets », permettant de stocker et de collecter les données des objets connectés en passant par le protocole HTTP via Internet. Les données collectées peuvent être analysées avec des programmes MATLAB. On peut ainsi tracer des diagrammes de corrélation, effectuer des statistiques (calcul de moyenne mini maxi etc...
 
-## Câblage
+En cas de besoin d’intervention, des alertes vous seront transmises par mail ou sms sur votre smartphone. Ce service est assurée par la Gateway.
+
+
+
+## Câblage du Système de mesure
 Réaliser le câblage suivant sur la carte **snir-hat**
 ![schema cablage HX711](/html/images/snirHat.png)
+ 
 ## Prérequis Installation
 
 sous strectch Les paquets suivants doivent être installés 
@@ -24,6 +29,7 @@ si vous êtes sous **Jessy** installer le paquet suivant
 Configuration de Apache
 
  1. Activer le module cgi
+ 2. Activer le module rewrite
  2. ajouter www-data au groupe video et i2c
  
 Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les packages requis et configurer Apache. 
