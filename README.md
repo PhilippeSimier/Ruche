@@ -3,7 +3,7 @@ D’une installation facile et rapide, le système se positionne sous n’import
 
 **ThingSpeak** est une API et une application open source pour l'« Internet des objets », permettant de stocker et de collecter les données des objets connectés en passant par le protocole HTTP via Internet. Les données collectées peuvent être analysées avec des programmes MATLAB. On peut ainsi tracer des diagrammes de corrélation, effectuer des statistiques (calcul de moyenne mini maxi etc...
 
-En cas de besoin d’intervention, des alertes vous seront transmises par mail ou sms sur votre smartphone. Ce service est assurée par la Gateway.
+En cas de besoin d’intervention, des alertes sont transmises par mail ou sms sur  smartphone. Ce service est assurée par une API sur la Gateway.
 
 
 
@@ -50,15 +50,34 @@ Vous pouvez  en tant que **root** utiliser le script shell **mysql_data_setup** 
 /home/pi/Ruche# ./Raspbian_OS_Setup/mysql_Data_setup
 ```
  
-## Compilation  
+## Compilation & installation 
 
- **make  all** et **make install**
+ **make  all** 
 ```bash
 ~/Ruche $ cd Capteurs
 ~/Ruche/Capteurs $ make all
 ~/Ruche/Capteurs $ make install
 ~/Ruche/Capteurs $ make clean
 ```
+Installation des exécutables
+
+**make install**
+
+Installation des fichiers de configurations
+
+**make config**
+
+## Thing Speak
+
+Pour pouvoir télécharger les données sur ThingSpeak à des fins d'analyse et de traitement, vous devez créer un compte.
+
+Une fois le compte créé, vous devez créer un nouveau canal en lui donnant un nom.
+Les champs reflètent les données que vous allez télécharger.  
+Vous devez définir les champs  comme sur la figure ci-dessous. 
+![Canaux Thing Speak](/Canal_Thing_Speak.png)
+
+À l'issue de cette opération, cliquez sur Enregistrer le canal.  Vous êtes maintenant prêt à télécharger les données de la ruche vers son canal correspondant.
+
 ## Configuration **crontab**
 ajouter les tâches planifiées suivantes :
 
