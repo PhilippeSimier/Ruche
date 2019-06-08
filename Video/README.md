@@ -93,12 +93,12 @@ function affiche(){
 		    console.log("rafraichissement : " + img.src);	
 		}
 		
-        $(document).ready(function(){
+ $(document).ready(function(){
 				
-				affiche();
-				setInterval(affiche, 3002);       // appel de la fonction requete_ajax toutes les 3 secondes et 2 milliemes
-		});
-    </script>
+   	affiche();
+	setInterval(affiche, 3002);       // appel de la fonction affiche toutes les 3 secondes et 2 milliemes
+});
+</script>
 ```
 
 ### Changelog
