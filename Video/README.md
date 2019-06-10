@@ -1,6 +1,6 @@
 ﻿# Webcam
 
-Une caméra est installée pour surveiller le flux entrant et sortant des abeilles. L'idée est simple. Nous allons capturer des images toutes les **3 secondes** et les partager via une interface Web ce qui nous permettra de voir à distance  virevolter les abeilles . Pour la capture, nous utiliserons l'utilitaire  de console **raspistill**  fourni avec RASPBIAN.  
+Une caméra est installée pour surveiller le flux entrant et sortant des abeilles. L'idée est simple. Nous allons capturer des images toutes les **3 secondes** et les partager via une interface Web ce qui nous permettra de voir à distance  virevolter les abeilles. La méthode consiste à capturer des images à intervalles régulier avec la commande **raspistill**, puis à les diffuser grâce au serveur web Apache.
 
 ### 1 Configuration d'une partition mémoire en RAM 
 
