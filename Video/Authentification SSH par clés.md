@@ -64,13 +64,19 @@ password:
 NB2 : Il est à noter que les clés sont valables pour une machine et un utilisateur particulier.
 
 ## Tests
+Vérification de la clé sur le serveur
+```bash
+root@dmz:~/.ssh# more authorized_keys
+```
+Maintenant que notre clé publique est présente sur le serveur et que nous possédons dans notre répertoire .ssh sa clé privée associée, nous allons pouvoir nous connecter au serveur juste en saisissant la commande suivante :
+
 Connexion sur 172.18.58.9 en tant que root à partir de pi3PSR
 ```bash
 root@pi3PSR:~#  ssh -i /root/.ssh/id_rsa 172.18.58.9
 ```
-Copie de fichiers :
+Copie d'un fichier :
 ```bash
- root@pi3PSR:~# /var/tmp/ram_drive/scp cam.jpg root@172.18.58.9:/var/www/Ruche/video
+root@pi3PSR:~# scp /var/tmp/ram_drive/cam.jpg root@172.18.58.9:/var/www/Ruche/video
 ```
 ### Changelog
 
