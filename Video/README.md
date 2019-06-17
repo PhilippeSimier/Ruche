@@ -51,16 +51,18 @@ Pour ne pas demandé le mot de passe le serveur WEB  DMZ doit connaître la clé
 #!/bin/bash
 
 OUTPUT=/var/tmp/ram_drive/cam.jpg
+OPTIONS='-t 1000 -w 1296 -h 972 -q 10 --exif none'
 
 for i in $(seq 1 20)
 do
-  raspistill -a 4 -a "%d %B %Y %X" -ae 32,0xFF,0x000080 -t 1000 -w 1296 -h 972 -o "${OUTPUT}"
-  scp "${OUTPUT}" root@172.18.58.9:/var/www/Ruche/video
+  raspistill -a 4 -a "%d %B %Y %X" -ae 32,0xFF,0x000080 $OPTIONS -o $OUTPUT
+  scp $OUTPUT root@172.18.58.9:/var/www/Ruche/video
   if [ $i != "20" ]
     then
       sleep 1
   fi
 done
+
 ``` 
 
 ### Page Web
