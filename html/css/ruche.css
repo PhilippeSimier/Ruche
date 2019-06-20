@@ -28,6 +28,20 @@ body {
 
 }
 
+/* Link the series colors to axis colors */
+
+.highcharts-axis.highcharts-color-0 .highcharts-axis-line {
+	stroke: #7cb5ec;
+}
+
+.highcharts-axis.highcharts-color-0 text {
+	fill: #7cb5ec;
+}
+
+.highcharts-yaxis .highcharts-axis-line {
+	stroke-width: 1px;
+}
+
 #customPopup 
 {
     position: fixed;
@@ -93,6 +107,9 @@ body {
 #pied a {
 	color:#FFFFFF;
 }
+
+
+
 
 
 
