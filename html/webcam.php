@@ -47,11 +47,13 @@
 		    console.log("rafraichissement : " + img.src);	
 		}
 		
-        $(document).ready(function(){
-				
-				affiche();
-				setInterval(affiche, 2002);       // appel de la fonction requete_ajax toutes les 2 secondes et 2 milliemes
-        });
+		function main(){
+			affiche();
+		    setInterval(affiche, 2002);       // appel de la fonction requete_ajax toutes les 2 secondes et 2 milliemes
+			
+		}
+		
+        $(document).ready(main);
     </script>
 
  </head>

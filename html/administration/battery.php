@@ -11,11 +11,12 @@ if( !empty($_POST['envoyer'])){
 
     //  lecture du fichier de configuration
     $array  = parse_ini_file(BATTERY, true);
-    //  Modification des valeurs pour la section [balance]
+    //  Modification des valeurs pour la section [battery]
     $array['battery'] = array ('capacite'  => $_POST['capacite'],
                                'charge' => $_POST['charge'],
 							   'type'  => $_POST['type'],
-							   'time' => $_POST['time']
+							   'time' => $_POST['time'],
+							   'rendement' => $_POST['rendement']
                                );
 
     //  Ecriture du fichier de configuration modifié
@@ -29,11 +30,11 @@ if( !empty($_POST['envoyer'])){
 else
 {
    $ini  = parse_ini_file(BATTERY, true);
-   $_POST['capacite'] = $ini['battery']['capacite'];
-   $_POST['charge']  = $ini['battery']['charge'];
-   $_POST['type']     = $ini['battery']['type'];
-   $_POST['time']     = $ini['battery']['time'];   
-  
+   $_POST['capacite']  = $ini['battery']['capacite'];
+   $_POST['charge']    = $ini['battery']['charge'];
+   $_POST['type']      = $ini['battery']['type'];
+   $_POST['time']      = $ini['battery']['time'];   
+   $_POST['rendement'] = $ini['battery']['rendement'];   
 }
 
 ?>
@@ -118,6 +119,7 @@ else
 					    <div class="col-sm-6"><h3>Taux de charge :</h3></div>
 						<div class="col-sm-6"><h3><span id="soc"></span></h3></div>
 					</div>
+					
 			</div>
 	    </div>
 		
@@ -140,6 +142,11 @@ else
 					<div class="form-group">
 						<label for="charge"  class="font-weight-bold">Charge (Ah) : </label>
 						<input type="int"  name="charge" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
+					</div>
+					
+					<div class="form-group">
+						<label for="charge"  class="font-weight-bold">Rendement (%) : </label>
+						<input type="int"  name="rendement" class="form-control" <?php echo 'value="' . $_POST['rendement'] . '"'; ?> />
 					</div>
 					
 					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
