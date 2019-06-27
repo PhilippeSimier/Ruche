@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     float charge = 0.0;
     float i = 0.0;
     int t0,t1;
+    int rendement;
 
     while(1){
         // Lecture du fichier de coulomb.ini
@@ -39,14 +40,18 @@ int main(int argc, char *argv[])
         charge = ini.GetValue<float>("battery", "charge", 0.0 );
         // Dernier timestamp enregistré
         t0 = ini.GetValue<int>("battery", "time", 0 );
+        rendement = ini.GetValue<int>("battery", "rendement", 100 );
 
         if (!batterie.obtenirErreur()){
 
             i = batterie.obtenirCourantMoyen_A(100);
             t1 = time(0);
-            if ((t1-t0) < 3600)  // deltaT maxi 1 heure utile après un long arrêt
+            if ((t1-t0) < 3600){  // deltaT maxi 1 heure utile après un long arrêt
+                if ( i < 0)
                 charge += i * (t1 - t0)/3600;
-
+		else
+                charge += i * (t1 - t0)/3600 * (rendement/100.0);
+            }
             ini.SetValue<float>("battery", "charge", charge);
             ini.SetValue<int>("battery", "time", t1);
 
