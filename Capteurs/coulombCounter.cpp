@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
     SimpleIni ini;
     float charge = 0.0;
     float i = 0.0;
+    float u = 0.0;
+    float capacite = 7.5;
+
     int t0,t1;
     int rendement;
 
@@ -52,6 +55,12 @@ int main(int argc, char *argv[])
 		else
                 charge += i * (t1 - t0)/3600 * (rendement/100.0);
             }
+
+            u = batterie.obtenirTension_V();
+            if (u > 14.60 && charge > capacite)  // la charge est complète lorsque la tension est supérieur à 14.6
+                charge = capacite;
+
+
             ini.SetValue<float>("battery", "charge", charge);
             ini.SetValue<int>("battery", "time", t1);
 
