@@ -36,8 +36,9 @@
 					  </tr>
 					</thead>
 					<tbody>
-						<?php
-							$file = '/var/log/Ruche/activity.log';
+					<?php
+						$file = '/var/log/Ruche/activity.log';
+						if (file_exists($file)) {     
 						 
 							$file_contents = array_reverse(file($file));
 							$nb = 1;
@@ -51,8 +52,8 @@
 								}
 								echo "</tr>\n";
 							}
-							
-						?>
+						}	
+					?>
 					</tbody>
 				</table>	
 				</div>
