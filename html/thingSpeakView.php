@@ -8,7 +8,9 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-	<!-- Bootstrap CSS version 4.1.1 -->
+    <title><?php if (isset($_GET['name'])) { echo $_GET['name']; } else { echo "Thing"; }; ?></title>  
+	
+	  <!-- Bootstrap CSS version 4.1.1 -->
     <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="/Ruche/scripts/bootstrap.min.js"></script> 
@@ -419,7 +421,6 @@ function loadChannelHistory(sentChannelIndex,channelNumber,key,sentFieldList,sen
 }
 
     </script>
-    <title>Graphiques</title>
 </head>
 <body>
 	<?php require_once 'menu.php'; ?>
