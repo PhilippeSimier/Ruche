@@ -12,7 +12,8 @@ sudo apt-get -y upgrade
 echo "3. Installing required software packages..."
 sudo apt-get -y install apache2
 sudo apt-get -y install php
-sudo apt-get -y install mysql-server
+sudo apt-get -y install mariadb-client
+sudo apt-get -y install mariadb-server
 sudo apt-get -y install php-mysql
 sudo apt-get -y install phpmyadmin
 sudo apt-get -y install i2c-tools
