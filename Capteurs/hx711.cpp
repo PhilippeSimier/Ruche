@@ -101,13 +101,9 @@ float hx711::obtenirPoids(int nb)
     // Tri des valeurs grâce à la fonction std::sort
     sort (valeur.begin(), valeur.end());
 
-    // Somme des valeurs sans les deux extrèmes
-    for (int i=2; i < (nb-2) ; i++)
-    {
-        som += valeur.at(i);
-    }
+    // valeurBrute prend la mediane de la série
+    valeurBrute = valeur.at(nb/2);
 
-    valeurBrute = som / (nb-4);
     return (float)(valeurBrute - offset)/scale;
 
 }
