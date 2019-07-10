@@ -68,10 +68,22 @@ else
 
 	<script type="text/javascript">
 		var  enable = true;
+		var  min = +Infinity;
+		var  max = -Infinity;
+		
 		function affiche( data ) {               // fonction pour afficher les données reçues
 				//console.log(data);                   // affichage de data dans la console
 			if (enable && data.success){
 				$('#Weight').text(data.Weight + ' ' + data.unite);
+				if ( data.Weight > max ){
+					max = data.Weight;
+					console.log("max : " + max); 
+				}
+				if ( data.Weight < min ){
+					min = data.Weight;
+					console.log("min : " + min); 
+				}
+				$('#minMax').text(min + ' < valeur < ' + max);
 			}
 		}
 
@@ -147,6 +159,7 @@ else
 	    <div class="col-md-6">
             <div class="popin">
                 <h1 class="h1"><span id="Weight"></span></h1>
+				<h5 class="h5"><span id="minMax"></span></h5>
             </div>
 			<div class="popin">
 			<button class="btn btn-primary" value="zero" name="zero" id="zero">  Remise à zéro </button>
@@ -198,7 +211,10 @@ else
 						<div class="form-check-inline">	
 							<input class="form-check-input" type="radio" id="2" <?php if (isset($_POST['precision']) && $_POST['precision']=='2') echo 'checked="checked"' ?> name="precision"  value="2" />
 							<label class="form-check-label" for="2"> 1/100 </label>
-							<!-- <label for="unite">Précision : </label> <input type="int"  name="precision" class="form-control" <?php echo 'value="' . $_POST['precision'] . '"'; ?> /> -->
+						</div>
+						<div class="form-check-inline">	
+							<input class="form-check-input" type="radio" id="3" <?php if (isset($_POST['precision']) && $_POST['precision']=='3') echo 'checked="checked"' ?> name="precision"  value="3" />
+							<label class="form-check-label" for="2"> 1/1000 </label>
 						</div>
 					</div>
 					<div class="form-group">

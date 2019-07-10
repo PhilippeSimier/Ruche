@@ -40,23 +40,25 @@ int main()
     balance.configurerGain(gain);
 
     /** début de la procédure de tarage
-	10 mesures du poids sont effectuées
-        Les plus grande et plus petite valeurs sont retirées
-        puis la moyenne est calculée avec les 8 mesures restantes
+	21 mesures du poids sont effectuées
+        seul la médiane de la série est conservée comme offset
     */
-    int x1, max, min, som, offset;
-    som = balance.obtenirValeur();
+    int x,offset;
+    int nb = 21;
+    vector<int> valeur;
 
-    min = som;
-    max = som;
-    for(int i=1 ; i<10 ; i++)
+    // Lecture de nb valeurs
+    for (int i=0; i < nb; i++)
     {
-        x1 = balance.obtenirValeur();
-        som += x1;
-        if (x1 > max) max = x1;
-        if (x1 < min) min = x1;
+        valeur.push_back( balance.obtenirValeur());
     }
-    offset = (som - max - min)/ 8;
+
+    // Tri des valeurs grâce à la fonction std::sort
+    sort (valeur.begin(), valeur.end());
+
+    // offset prend la mediane de la série
+    offset = valeur.at(nb/2);
+
     cout << "\"offset\":" << offset << "," << endl;
     ini.SetValue<int>("balance", "offset", offset);
 
