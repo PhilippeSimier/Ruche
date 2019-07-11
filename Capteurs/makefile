@@ -7,7 +7,7 @@ coulombCounter: coulombCounter.cpp ina219.o i2c.o SimpleIni.o
 	$(CXX) coulombCounter.cpp ina219.o i2c.o SimpleIni.o -o coulombCounter
 
 # compilation du programme batteryJson
-batteryJson: batteryJson.cpp ina219.o i2c.o SimpleIni.o 
+batteryJson: batteryJson.cpp ina219.o i2c.o SimpleIni.o
 	$(CXX) batteryJson.cpp ina219.o i2c.o SimpleIni.o -o batteryJson
 
 # compilation du programme battery
@@ -31,22 +31,22 @@ thingSpeakGET: thingSpeakGET.cpp  SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2
 	$(CXX) thingSpeakGET.cpp  SimpleIni.o hx711.o bme280.o bh1750.o spi.o i2c.o  -o thingSpeakGET
 
 # compilation du programme bddLog
-bddLog: bddLog.cpp SimpleIni.o hx711.o spi.o  bh1750.o bme280.o i2c.o 
+bddLog: bddLog.cpp SimpleIni.o hx711.o spi.o  bh1750.o bme280.o i2c.o
 	$(CXX) bddLog.cpp SimpleIni.o hx711.o spi.o  bme280.o bh1750.o i2c.o -lmysqlcppconn -o bddLog
 
-# compilation du programme etalonnage 
+# compilation du programme etalonnage balance
 etalonnage: etalonnage.cpp SimpleIni.o hx711.o
 	$(CXX) etalonnage.cpp SimpleIni.o hx711.o spi.o -o etalonnage
 
-# compilation du programme tarage
+# compilation du programme tarage balance
 tarage: tarage.cpp SimpleIni.o hx711.o
 	$(CXX) tarage.cpp SimpleIni.o hx711.o spi.o -o tarage
 
-# compilation du programme tarageCGI
+# compilation du programme tarageCGI balance
 tarageCGI: tarageCGI.cpp SimpleIni.o hx711.o
 	$(CXX) tarageCGI.cpp SimpleIni.o hx711.o spi.o -o tarageCGI
 
-# compilation du programme scaleCGI
+# compilation du programme scaleCGI balance
 scaleCGI: scaleCGI.cpp SimpleIni.o hx711.o
 	$(CXX) scaleCGI.cpp SimpleIni.o hx711.o spi.o -o scaleCGI
 
@@ -61,7 +61,7 @@ testBalance: testBalance.cpp SimpleIni.o hx711.o
 
 # compilation de la classe  rest
 rest.o: rest.cpp rest.h
-	$(CXX) -c rest.cpp -o rest.o 
+	$(CXX) -c rest.cpp -o rest.o
 
 # compilation de la classe SimpleIni
 SimpleIni.o: SimpleIni.cpp SimpleIni.h
@@ -140,6 +140,10 @@ config:
 	chmod 777 /opt/Ruche/etc/configuration.ini
 	cp ../battery.ini /opt/Ruche/etc/battery.ini
 	chmod 777 /opt/Ruche/etc/battery.ini
+
+apache:
+	cp ../Raspbian_OS_Setup/apache2.conf /etc/apache2/apache2.conf
+	systemctl restart apache2
 
 uninstall:
 	rm /usr/lib/cgi-bin/balanceJson
