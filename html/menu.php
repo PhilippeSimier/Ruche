@@ -23,73 +23,13 @@
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
         
 		<ul class="navbar-nav mr-auto">
-			  
-						
-			<!-- Dropdown Mesures-->
-			<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					Data visualization
-				  </a>
-				  <div class="dropdown-menu">
-					<?php
-								$url = "https://api.thingspeak.com/channels.json?api_key=" . $ini['thingSpeak']['userkey'] . "&tag=" . $ini['thingSpeak']['tag'];
-								$curl = curl_init();
-
-								curl_setopt_array($curl, array(
-									  CURLOPT_URL => $url,
-									  CURLOPT_RETURNTRANSFER => true,
-									  CURLOPT_ENCODING => "",
-									  CURLOPT_MAXREDIRS => 10,
-									  CURLOPT_TIMEOUT => 30,
-									  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-									  CURLOPT_CUSTOMREQUEST => "GET",
-									  CURLOPT_HTTPHEADER => array(
-										"cache-control: no-cache"
-									  ),
-								));
-
-								$response = curl_exec($curl);
-								$err = curl_error($curl);
-
-								curl_close($curl);
-
-								if ($err) {
-									echo "cURL Error #:" . $err;
-								} else {
-									$channels = json_decode($response);
-									
-									$count = count($channels);
-									for ($i = 0; $i < $count; $i++) {
-										echo '<a class="dropdown-item channels" href="https://api.thingspeak.com/channels/' . $channels[$i]->{'id'} . '/feed.json?results=0" target="_blank" >' . $channels[$i]->{'name'} . "</a>\n";
-									}
-								}
-					?>
-			
-				  </div>
-			</li>
-			
-			<!-- Dropdown Analyses-->
-			<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					 Data analysis
-				  </a>
-				  <div class="dropdown-menu">
-				    <?php 
-					if (isset($ini['matlab']['id1'])) 
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id1'] . '">' . $ini['matlab']['name1'] . '</a>';
-				    if (isset($ini['matlab']['id2']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
-					if (isset($ini['matlab']['id3']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
-					if (isset($ini['matlab']['id4']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id4'] . '">' . $ini['matlab']['name4'] . '</a>';
-					?>
-				  </div>
-			</li>
 			
 			<li class="nav-item">
-				<a class="nav-link" href="/Ruche/activity" id="nav-sign-in">Activity</a>
-			</li>		
+				<a class="nav-link" href="/Ruche/accueil" id="nav-sign-in">Browse Sites</a>
+			</li>					
+			<li class="nav-item">
+				<a class="nav-link" href="/Ruche/webcam" id="nav-sign-in">Webcam</a>
+			</li>	
         </ul>
 		
 		<!-- Menu à droite -->
@@ -201,8 +141,9 @@
 				url += '&field' + i + '=' + choix[i];	
 			}
 			console.log(url);
-			window.location.href=url;
-				
+			//window.location.href=url;
+			window.open(url,'_blank');	
+			$("#ModalCenter").modal('hide');
 			
 		}	
 	
