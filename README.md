@@ -93,9 +93,10 @@ ajouter les tâches planifiées suivantes :
 ```bash
 /home/pi/Ruche# crontab -e
 
-*/30 * * * * /home/pi/Ruche/Capteurs/bddLog >> /home/pi/Ruche/activity.log 2>&1
-*/30 * * * * /home/pi/Ruche/Capteurs/thingSpeak >> /home/pi/Ruche/activity.log 2>&1
-5 */4 * * * /home/pi/Ruche/Capteurs/synchronisation >> /home/pi/Ruche/activity.log 2>&1
+*/30 * * * * /opt/Ruche/bin/bddLog >> /var/log/Ruche/activity.log 2>&1
+*/30 * * * * /opt/Ruche/bin/thingSpeakGET XXXXXXXXXXXXX | /opt/Ruche/bin/envoyerURL >> /var/log/Ruche/activity.log 2>&1
+*/30 * * * * /opt/Ruche/bin/weather XXXXXXXXXXXX | /opt/Ruche/bin/envoyerURL >> /var/log/Ruche/activity.log 2>&1
+
 
 ```
 ## Configuration et Etalonnage de la **balance**

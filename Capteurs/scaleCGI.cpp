@@ -58,19 +58,22 @@ int main()
         return -1;
     }
 
-    int x, max, min, som;
-    som = balance.obtenirValeur();
-    max = som;
-    min = som;
-    for(int i=1 ; i<10 ; i++)
-    {
-        x = balance.obtenirValeur();
-        som += x;
-        if (x > max) max = x;
-        if (x < min) min = x;
+    int x;
+    int nb = 21;
+    vector<int> valeur;
 
+    // Lecture de nb valeurs
+    for (int i=0; i < nb; i++)
+    {
+        valeur.push_back( balance.obtenirValeur());
     }
-    x = (som - max - min)/8 ;
+
+    // Tri des valeurs grâce à la fonction std::sort
+    sort (valeur.begin(), valeur.end());
+
+    // valeurBrute prend la mediane de la série
+    x = valeur.at(nb/2);
+
     scale = (float)(x - offset)/poids;
 
     ini.SetValue<float>("balance", "scale", scale);

@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
     balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
     balance.fixerSlope( ini.GetValue<float>("balance", "slope", 0.0 ));
     balance.fixerTempRef( ini.GetValue<float>("balance", "tempRef", 25.0 ));
+    int precision = ini.GetValue<int>("balance", "precision", 2);
 
     // Configuration du capteur de pression
     if (presenceBME){
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
     string key(argv[1]);
     trame << "https://api.thingspeak.com/update?";
     trame << "api_key=" << key;
-    trame << "&field1=" << fixed << setprecision (2) << balance.obtenirPoids();
+    trame << "&field1=" << fixed << setprecision (precision) << balance.obtenirPoids();
 
     if (presenceBME){
         trame << "&field2=" << fixed << setprecision (2) << temperature;
@@ -102,7 +103,7 @@ int main(int argc, char *argv[])
 	trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
     }
     trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
-    trame << "&field7=" << fixed << setprecision (2) << balance.obtenirPoidsCorrige(temperature);
+    trame << "&field7=" << fixed << setprecision (precision) << balance.obtenirPoidsCorrige(temperature);
     trame << "&created_at=" << ObtenirDateHeure();
 
     cout << trame.str() << endl;
