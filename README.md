@@ -3,28 +3,26 @@ D’une installation facile et rapide, le système se positionne sous n’import
 
 **ThingSpeak** est une API et une application open source pour l'« Internet des objets », permettant de stocker et de collecter les données des objets connectés en passant par le protocole HTTP via Internet. Les données collectées peuvent être analysées avec des programmes MATLAB. On peut ainsi tracer des diagrammes de corrélation, effectuer des statistiques (calcul de moyenne mini maxi etc...
 
-En cas de besoin d’intervention, des alertes sont transmises par mail ou sms sur  smartphone. Ce service est assurée par une API sur la Gateway.
+En cas de besoin d’intervention, des alertes sont transmises par  sms sur  smartphone. Ce service est assurée par une API sur la Gateway.
 
 
 
-## Câblage du Système de mesure
+## Câblage d'une balance connectée
 Réaliser le câblage suivant sur la carte **snir-hat**
 ![schema cablage HX711](/html/images/snirHat.png)
  
 ## Prérequis Installation
 
-sous strectch Les paquets suivants doivent être installés 
+Sous **raspbian lite muster** Les paquets suivants doivent être installés 
 
- 1. apache2
- 2. mysql
+ 1. git
+ 2. apache2
+ 2. mariadb
  3. php
  4. php7.0-curl
  4. phpmyadmin
  5. libcurl4-openssl-dev
  6. libmysqlcppconn-dev
-
-si vous êtes sous **Jessy** installer le paquet suivant
- - php5-curl
 
 Configuration de Apache
 
@@ -34,9 +32,11 @@ Configuration de Apache
  
 Vous pouvez utiliser le script shell **RaspbianOSsetup.sh** pour installer les packages requis et configurer Apache. 
 ```bash
-~ $ git clone https://github.com/PhilippeSimier/Ruche.git
-~ $ cd Ruche/
-~/Ruche $ ./Raspbian_OS_Setup/RaspbianOSsetup.sh
+~ $ sudo su
+/home/pi# apt install git
+/home/pi# git clone https://github.com/PhilippeSimier/Ruche.git
+/home/pi# cd Ruche/
+/home/pi/Ruche#  ./Raspbian_OS_Setup/RaspbianOSsetup.sh
 ```
 ## Création de la base de données data
 
