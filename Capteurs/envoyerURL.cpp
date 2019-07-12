@@ -33,10 +33,12 @@ string ObtenirDateHeureBis()
     locale::global(locale("fr_FR.utf8"));
     time_t t = time(0);
     char mbstr[100];
+    string retour;
     if (strftime(mbstr, sizeof(mbstr), "%F %T", localtime(&t))) {
         string ss(mbstr);
-        return ss;
+        retour = ss;
     }
+    return retour;
 }
 
 

@@ -38,13 +38,15 @@ string ObtenirDateHeure()
     time_t t = time(0);
     char Fchar[100];
     char Tchar[100];
+    string dateHeure;
     if (strftime(Fchar, sizeof(Fchar), "%F", gmtime(&t))) {
         if (strftime(Tchar, sizeof(Tchar), "%T", gmtime(&t))) {
             string F(Fchar);
             string T(Tchar);
-            return F + "%20" + T;
+            dateHeure = F + "%20" + T;
         }
     }
+    return dateHeure;
 }
 
 

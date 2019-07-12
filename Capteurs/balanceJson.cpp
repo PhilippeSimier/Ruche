@@ -53,7 +53,7 @@ int main()
     balance.configurerGain( ini.GetValue<int>("balance", "gain", 128));
 
     cout << "\"success\": true ," << endl;
-    cout << "\"Weight\": \"" << fixed << setprecision (precision) <<  balance.obtenirPoids(21) << "\","<< endl;
+    cout << "\"Weight\": \"" << fixed << setprecision (precision) <<  balance.obtenirPoids() << "\","<< endl;
     cout <<  "\"unite\": " << "\"" << ini.GetValue<string>("balance", "unite", "Kg") << "\"" << endl;
     cout << "}" << endl;
 }

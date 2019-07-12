@@ -57,30 +57,32 @@
 
     unsigned char i2c::Read(){
         union i2c_smbus_data data ;
-
+        unsigned char valeur = 0x00;
         if (i2c_smbus_access (I2C_SMBUS_READ, 0, I2C_SMBUS_BYTE, &data))
             error = true ;
         else
-            return data.byte & 0xFF ;
-
+            valeur = data.byte & 0xFF ;
+        return valeur;
     }
 
     unsigned char i2c::ReadReg8 (int reg){
-         union i2c_smbus_data data;
-
+        union i2c_smbus_data data;
+        unsigned char valeur = 0x00;
         if (i2c_smbus_access (I2C_SMBUS_READ, reg, I2C_SMBUS_BYTE_DATA, &data))
             error = true ;
         else
-            return data.byte & 0xFF ;
+            valeur = data.byte & 0xFF ;
+        return valeur;
     }
 
     unsigned short i2c::ReadReg16 (int reg){
         union i2c_smbus_data data;
-
+        unsigned short valeur = 0x0000;
         if (i2c_smbus_access (I2C_SMBUS_READ, reg, I2C_SMBUS_WORD_DATA, &data))
             error = true ;
         else
-            return data.word & 0xFFFF ;
+            valeur = data.word & 0xFFFF ;
+        return valeur;
     }
 
     unsigned char i2c::Write (int data){
@@ -100,7 +102,6 @@
 
         data.word = value ;
         return i2c_smbus_access (I2C_SMBUS_WRITE, reg, I2C_SMBUS_WORD_DATA, &data) ;
-
     }
 
     int i2c::WriteBlockData (int reg, int length, int *values){

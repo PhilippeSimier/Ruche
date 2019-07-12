@@ -37,13 +37,15 @@ string ObtenirDateHeure()
     time_t t = time(0);
     char Fchar[100];
     char Tchar[100];
+    string retour;
     if (strftime(Fchar, sizeof(Fchar), "%F", gmtime(&t))) {
         if (strftime(Tchar, sizeof(Tchar), "%T", gmtime(&t))) {
             string F(Fchar);
             string T(Tchar);
-            return F + "%20" + T;
+            retour = F + "%20" + T;
         }
     }
+    return retour;
 }
 
 int main(int argc, char *argv[])
