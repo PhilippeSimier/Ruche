@@ -68,22 +68,13 @@ else
 
 	<script type="text/javascript">
 		var  enable = true;
-		var  min = +Infinity;
-		var  max = -Infinity;
+		
 		
 		function affiche( data ) {               // fonction pour afficher les données reçues
-				//console.log(data);                   // affichage de data dans la console
+			console.log(data);                   // affichage de data dans la console
 			if (enable && data.success){
 				$('#Weight').text(data.Weight + ' ' + data.unite);
-				if ( data.Weight > max ){
-					max = data.Weight;
-					console.log("max : " + max); 
-				}
-				if ( data.Weight < min ){
-					min = data.Weight;
-					console.log("min : " + min); 
-				}
-				$('#minMax').text(min + ' < valeur < ' + max);
+				$('#precision').text('Incertitude : ± ' + data.dispersion + ' g');
 			}
 		}
 
@@ -159,7 +150,7 @@ else
 	    <div class="col-md-6">
             <div class="popin">
                 <h1 class="h1"><span id="Weight"></span></h1>
-				<h5 class="h5"><span id="minMax"></span></h5>
+				<h5 class="h5"><span id="precision"></span></h5>
             </div>
 			<div class="popin">
 			<button class="btn btn-primary" value="zero" name="zero" id="zero">  Remise à zéro </button>
