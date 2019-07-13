@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <math.h>       /* sqrt */
 
 #include "hx711.h"
 #include "SimpleIni.h"
@@ -25,6 +26,7 @@ int main()
     SimpleIni ini;
     float xn;
     float xn_1 = 0.0;
+    float variance = 0.0;
     char  stable;
     float scale;
     int   offset;
@@ -52,7 +54,8 @@ int main()
     balance.fixerTempRef(tempRef);
     while(1)
     {
-	xn = balance.obtenirPoidsCorrige(25.0);
+	xn = balance.obtenirPoids(20.0);
+        variance = balance.obtenirVariance();
         system("clear");
 
 	// calcul de la dérivée
@@ -61,6 +64,6 @@ int main()
         else stable = ' ';
         xn_1 = xn;
 
-        cout << stable << " " << xn << fixed << setprecision (precision) << " " << unite << endl;
+        cout << stable << " " << xn << fixed << setprecision (precision) << " " << unite << " : " << sqrt(variance) * 1000 /scale  << endl;
     }
 }

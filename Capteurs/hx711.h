@@ -55,8 +55,8 @@ private:
     unsigned char bufferEmission[7];
     float   moyenne;
     float   variance;
-    float   calculerMoyenne(const std::vector<float> &t);
-    float   calculerVariance(const std::vector<float> &t);
+    float   calculerMoyenne(const std::vector<int> &t);
+    float   calculerVariance(const std::vector<int> &t);
 };
 
 #endif // HX711_H_INCLUDED

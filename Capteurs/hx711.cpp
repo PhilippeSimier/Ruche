@@ -2,8 +2,9 @@
  *  @file     hx711.cpp
  *  @author   Philippe SIMIER (Touchard Wahington le Mans)
  *  @license  BSD (see license.txt)
- *  @date     6 juin 2018
+ *  @date     6 juin 2018 & 13 Juillet 2019
  *  @brief    Classe pour le composant HX711
+ *  @version  2.0
 */
 
 #include "hx711.h"
@@ -81,7 +82,8 @@ int hx711::obtenirValeur()
 /**
  * @brief hx711::obtenirPoids()
  *
- * @details Permet d'obtenir la valeur du poids en unité de mesure
+ * @details Permet d'obtenir la valeur du poids en unité de mesure (médiane de la série)
+ * @input   nb nombre de valeur de la série de mesures (par défaut 11)
  * @return float la valeur du poids
  */
 
@@ -104,9 +106,13 @@ float hx711::obtenirPoids(int nb)
     // valeurBrute prend la mediane de la série
     valeurBrute = valeur.at(nb/2);
 
-    return (float)(valeurBrute - offset)/scale;
+   // Calcul de la variance de la série
+    variance = calculerVariance(valeur);
 
+    return (float)(valeurBrute - offset)/scale;
 }
+
+
 
 /**
  * @brief hx711::effectuerTarage()
@@ -157,6 +163,18 @@ int hx711::obtenirOffset()
 	return offset;
 }
 
+/**
+ * @brief hx711::obtenirOffset()
+ *
+ * @details Permet d'obtenir la valeur de la variance
+ * Cette valeur est obtenue après une mesure du poids
+ * Elle permet de quantifier la dispersion des mesures
+ */
+
+float hx711::obtenirVariance()
+{
+	return variance;
+}
 
 /**
  * @brief hx711::configurerGain()
@@ -219,7 +237,31 @@ float hx711::obtenirPoidsCorrige(float temp)
     return poidsCorrige;
 }
 
+float hx711::calculerMoyenne(const std::vector<int> &t)
+{
+    float k=0;
+    unsigned int nb = t.size();
+    for(unsigned int i=0 ; i<nb ; i++)
+    {
+        k = k+t[i];
+    }
 
+    k = k/nb;
+    return k;
+}
 
+float hx711::calculerVariance(const std::vector<int> &t)
+{
+    float u;
+    u = calculerMoyenne(t);
 
+    float k = 0;
+    for(unsigned int i=0 ; i<t.size() ; i++)
+    {
+        k = k + (t[i]-u)*(t[i]-u);
+    }
+
+    k = k/t.size();
+    return k;
+}
 
