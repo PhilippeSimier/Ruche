@@ -16,6 +16,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <math.h>       /* sqrt */
 
 #include "hx711.h"
 #include "SimpleIni.h"
@@ -48,12 +49,20 @@ int main()
     precision = ini.GetValue<int>("balance", "precision", 1);
 
     // Configuration de la balance
-    balance.fixerEchelle( ini.GetValue<float>("balance", "scale", 1.0 ));
+    float scale =  ini.GetValue<float>("balance", "scale", 1.0 );
+    balance.fixerEchelle( scale);
     balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
     balance.configurerGain( ini.GetValue<int>("balance", "gain", 128));
 
+    // Lecture du poids et de la variance
+    float weight = balance.obtenirPoids();
+    float variance = balance.obtenirVariance();
+
+
+    // Envoi des données au format JSON
     cout << "\"success\": true ," << endl;
-    cout << "\"Weight\": \"" << fixed << setprecision (precision) <<  balance.obtenirPoids() << "\","<< endl;
-    cout <<  "\"unite\": " << "\"" << ini.GetValue<string>("balance", "unite", "Kg") << "\"" << endl;
+    cout << "\"Weight\": \"" << fixed << setprecision (precision) <<  weight << "\","<< endl;
+    cout << "\"unite\": " << "\"" << ini.GetValue<string>("balance", "unite", "Kg") << "\"," << endl;
+    cout << "\"dispersion\": \"" << fixed << setprecision (0) << sqrt(variance) * 1000 /scale << "\""<< endl;
     cout << "}" << endl;
 }
