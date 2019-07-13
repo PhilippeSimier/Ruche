@@ -40,6 +40,9 @@ public:
     void fixerTempRef(float _tempRef);
     // Méthode pour obtenir le poids corrigé en fct de la températue
     float obtenirPoidsCorrige(float temp);
+    // Méthode pour obtenir la moyenne et la variance de la dernière série
+    float obtenirMoyenne();
+    float obtenirVariance();
 
 private:
 
@@ -50,7 +53,10 @@ private:
     float   tempRef;
     float   slope;
     unsigned char bufferEmission[7];
-
+    float   moyenne;
+    float   variance;
+    float   calculerMoyenne(const std::vector<float> &t);
+    float   calculerVariance(const std::vector<float> &t);
 };
 
 #endif // HX711_H_INCLUDED
