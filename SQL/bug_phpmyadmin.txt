@@ -1,0 +1,15 @@
+le message d'erreur est
+
+Warning in ./libraries/sql.lib.php#601
+count(): Parameter must be an array or an object that implements Countable
+
+et la solution est là : https://stackoverflow.com/a/49483740/3175946
+
+remplacer
+
+(count($analyzed_sql_results['select_expr'] == 1)
+par
+
+(count($analyzed_sql_results['select_expr']) == 1
+
+dans /usr/share/phpmyadmin/libraries/sql.lib.php (ligne 613)
