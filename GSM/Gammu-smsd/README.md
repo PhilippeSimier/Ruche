@@ -188,10 +188,51 @@ IMEI: 863071014745125
 
 ```
 
+## Modem GSM non reconnu
+
+Des problèmes d'émissions et de réceptions de messages ont été constatés. Après recherche et étude des logs, il s'est avéré que Gammu  avait perdu la connexion avec le modem gsm. le point de montage USB de notre modem **/dev/ttyUSB0** n'existait plus.
+Le problème est que Linux fait varier ce point de montage à chaque démarrage et redémarrage même si le port USB où le modem est connecté reste inchangé. Le point de montage peut alors avoir la valeur « ttyUSB1 », « ttyUSB2 », « ttyUSB3 »....
+Pour résoudre ce problème, une règle de montage des périphériques USB a été ajoutée au gestionnaire de périphérique « udev » qui est présent dans le noyau Linux dont dispose Raspbian.
+
+Nous devons fixer le chemin afin qu'il ne change pas si d'autres périphériques sont connectés, nous choisissons **e169**. Il faut bien comprendre que nous allons ajouter un second chemin fixe en plus du premier qui lui restera dynamique, nous ne le remplaçons pas.
+
+Première étape : Récupérez l'ID avec :  **lsusb | grep -i huawei**
+ 
+```bash
+root@raspberrypi3:/etc/udev# lsusb | grep -i huawei
+Bus 001 Device 005: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
+
+```
+Les 2 champs qui nous intéressent sont ceux après "ID" :
+
+ - **12d1 = idVendor**
+ - **1001 = idProduct**
+
+
+**Deuxième étape Fixons le chemin :**
+```bash
+root@raspberrypi3:~# cd /etc/udev/rules.d/
+root@raspberrypi3:/etc/udev/rules.d# nano usb-modem.rules 
+```
+Ajouter la règle suivante dans le fichier:
+
+```
+KERNEL=="ttyUSB*",ATTRS{idVendor}=="12d1",ATTRS{idProduct}=="1001",SYMLINK+="e169"
+```
+Cette ligne indique au système que l'appareil correspondant au idVendor et idProduct du modem monté sur n'importe quel ttyUSB devra être accessible sous le nom e169. Ainsi, le modem gsm sera toujours monté dans le répertoire /dev/e169, réglant ainsi toutes nos erreurs de déconnexions.
+
+**Troisième étape : Vérification** 
+
+```
+root@raspberrypi3:/home/pi# ls -l /dev/e*
+lrwxrwxrwx 1 root root 7 juil. 30 12:55 /dev/e169 -> ttyUSB0
+
+```
 
 ## Changelog
 
- **30/09/2018 :** Ajout du README . 
+ **30/09/2018 :** Ajout du README .
+ **30/07/2019 :** Ajout résolution de la déconnexion du modem  
  
  
 > **Notes :**
@@ -204,6 +245,7 @@ IMEI: 863071014745125
 
 Génération des badges : https://shields.io/
 Génération de ce fichier : https://stackedit.io/editor#
+
 
 
 
