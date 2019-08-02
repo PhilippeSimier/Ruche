@@ -216,6 +216,7 @@ root@raspberrypi3:/etc/udev/rules.d# nano usb-modem.rules
 ```
 Ajouter la règle suivante dans le fichier:
 
+la règle est faite d'un ensemble de clefs de correspondances et de clefs d'assignation, séparées par des virgules. Les clefs de correspondances sont les conditions utilisées pour identifier le périphérique sur lequel la règle agit. Quand toute la série de ces clefs de correspondance correspond bien au périphérique, alors la règle est appliquée et les actions des clefs d'assignation sont appliquées.
 ```
 KERNEL=="ttyUSB*",ATTRS{idVendor}=="12d1",ATTRS{idProduct}=="1001",SYMLINK+="e169"
 ```
@@ -226,6 +227,16 @@ Cette ligne indique au système que l'appareil correspondant au idVendor et idPr
 ```
 root@raspberrypi3:/home/pi# ls -l /dev/e*
 lrwxrwxrwx 1 root root 7 juil. 30 12:55 /dev/e169 -> ttyUSB0
+
+```
+**Quatrième étape : Modification du fichiers de configuration /etc/gammu-smsdrc** 
+
+```
+[gammu]
+
+port = /dev/e169
+connection = at
+....
 
 ```
 
