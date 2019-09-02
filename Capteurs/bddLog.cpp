@@ -34,7 +34,7 @@ using namespace sql;
  * @brief ObtenirDateHeureBis   Compatible g++ version < 5
  * @return std::string
  * @details retourne une chaine de caratères représentant la date courante
- *          au format Année-mois-jour heure:minute:seconde
+ *          UTC au format Année-mois-jour heure:minute:seconde
  */
 
 
@@ -44,7 +44,7 @@ string ObtenirDateHeureBis()
     time_t t = time(0);
     char mbstr[100];
     string retour;
-    if (strftime(mbstr, sizeof(mbstr), "%F %T", localtime(&t))) {
+    if (strftime(mbstr, sizeof(mbstr), "%F %T", gmtime(&t))) {
         string ss(mbstr);
         retour = ss;
     }
@@ -130,7 +130,7 @@ int main() {
 
         float temperature = capteur1.obtenirTemperatureEnC();
         // préparation de la requête
-        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel) VALUES(?,?,?,?,?,?,?,?)");
+        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel,date) VALUES(?,?,?,?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
         pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );
@@ -140,6 +140,7 @@ int main() {
         pstmt->setDouble( 6, capteur1.obtenirPointDeRosee() );
         pstmt->setDouble( 7, balance.obtenirPoidsCorrige(temperature) );
         pstmt->setInt( 8, ini.GetValue<int>("ruche", "id", 0));
+        pstmt->setString( 9, ObtenirDateHeureBis());
         // Exécution de la requête
         nbLigne = pstmt->executeUpdate();
 
