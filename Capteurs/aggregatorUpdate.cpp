@@ -7,7 +7,7 @@
     @version  v1.1 - First release
     @detail
               Compilation  : g++  aggregatorUpdate.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o aggregatorUpdate
-              Execution    : ./aggregatorUpdate  write_api_key | envoyerURL
+              Execution    : ./aggregatorUpdate 3RPCCIIT1JJHM25A | ./envoyerURL
 */
 
 #include <iostream>
@@ -22,6 +22,7 @@
 #include "SimpleIni.h"
 
 #define CONFIGURATION "/opt/Ruche/etc/configuration.ini"
+#define DMZ "http://touchardinforeseau.servehttp.com/Ruche/api/update?"
 
 using namespace std;
 
@@ -94,7 +95,8 @@ int main(int argc, char *argv[])
     }
 
     string key(argv[1]);
-    trame << "https://philippes.ddns.net/Ruche/api/update?";
+    //trame << "https://philippes.ddns.net/Ruche/api/update?";
+    trame << DMZ;
     trame << "api_key=" << key;
     trame << "&field1=" << fixed << setprecision (precision) << balance.obtenirPoids();
 

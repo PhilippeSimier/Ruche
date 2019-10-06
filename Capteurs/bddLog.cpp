@@ -59,6 +59,9 @@ int main() {
     sql::Driver     *driver;
     sql::Connection *con;
     sql::PreparedStatement *pstmt;
+    sql::Statement*  stmt;
+    sql::ResultSet*  res;
+
     hx711 balance;
     bme280 capteur1(0x77);
     bh1750 capteur2(0x23);
@@ -112,7 +115,9 @@ int main() {
             con = driver->connect(connexion_locale);
             // Check de la connexion
                cout << ObtenirDateHeureBis() << " BDD locale : ";
-
+	    //
+            stmt = con->createStatement();
+            res = stmt->executeQuery("SET @@session.time_zone = '+00:00'");
 
         }
         catch (sql::SQLException &e)
@@ -128,7 +133,9 @@ int main() {
         }
     }
 
+
         float temperature = capteur1.obtenirTemperatureEnC();
+
         // préparation de la requête
         string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel,date) VALUES(?,?,?,?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);

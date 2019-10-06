@@ -15,6 +15,7 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
+#include <math.h>       /* sqrt */
 
 #include "hx711.h"
 #include "bme280.h"
@@ -74,7 +75,8 @@ int main(int argc, char *argv[])
     }
 
     // Configuration de la balance
-    balance.fixerEchelle( ini.GetValue<float>("balance", "scale", 1.0 ));
+    float scale =  ini.GetValue<float>("balance", "scale", 1.0 );
+    balance.fixerEchelle( scale);
     balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
     balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
     balance.fixerSlope( ini.GetValue<float>("balance", "slope", 0.0 ));
@@ -105,7 +107,7 @@ int main(int argc, char *argv[])
 	trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
     }
     trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
-    trame << "&field7=" << fixed << setprecision (precision) << balance.obtenirPoidsCorrige(temperature);
+    trame << "&field7=" << fixed << setprecision (precision) << sqrt(balance.obtenirVariance())*1000/scale;
     trame << "&created_at=" << ObtenirDateHeure();
 
     cout << trame.str() << endl;
