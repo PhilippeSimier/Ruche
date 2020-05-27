@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
             }
 
             u = batterie.obtenirTension_V();
-            if (u > 14.60 && charge > capacite)  // la charge est complète lorsque la tension est supérieur à 14.6
+            if (charge > capacite)  // la charge est complète lorsque la tension est supérieur à 14.6
                 charge = capacite;
 
 

@@ -13,7 +13,7 @@ Réaliser le câblage suivant sur la carte **snir-hat**
  
 ## Prérequis Installation
 
-Sous **raspbian lite muster** Les paquets suivants doivent être installés 
+Sous **raspbian lite Buster** Les paquets suivants doivent être installés 
 
  1. git
  2. apache2

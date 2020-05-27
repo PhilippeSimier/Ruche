@@ -34,7 +34,7 @@ using namespace sql;
  * @brief ObtenirDateHeureBis   Compatible g++ version < 5
  * @return std::string
  * @details retourne une chaine de caratères représentant la date courante
- *          au format Année-mois-jour heure:minute:seconde
+ *          UTC au format Année-mois-jour heure:minute:seconde
  */
 
 
@@ -44,7 +44,7 @@ string ObtenirDateHeureBis()
     time_t t = time(0);
     char mbstr[100];
     string retour;
-    if (strftime(mbstr, sizeof(mbstr), "%F %T", localtime(&t))) {
+    if (strftime(mbstr, sizeof(mbstr), "%F %T", gmtime(&t))) {
         string ss(mbstr);
         retour = ss;
     }
@@ -59,6 +59,9 @@ int main() {
     sql::Driver     *driver;
     sql::Connection *con;
     sql::PreparedStatement *pstmt;
+    sql::Statement*  stmt;
+    sql::ResultSet*  res;
+
     hx711 balance;
     bme280 capteur1(0x77);
     bh1750 capteur2(0x23);
@@ -112,7 +115,9 @@ int main() {
             con = driver->connect(connexion_locale);
             // Check de la connexion
                cout << ObtenirDateHeureBis() << " BDD locale : ";
-
+	    //
+            stmt = con->createStatement();
+            res = stmt->executeQuery("SET @@session.time_zone = '+00:00'");
 
         }
         catch (sql::SQLException &e)
@@ -128,9 +133,11 @@ int main() {
         }
     }
 
+
         float temperature = capteur1.obtenirTemperatureEnC();
+
         // préparation de la requête
-        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel) VALUES(?,?,?,?,?,?,?,?)");
+        string sql("INSERT INTO feeds(field1,field2,field3,field4,field5,field6,field7,id_channel,date) VALUES(?,?,?,?,?,?,?,?,?)");
         pstmt = con->prepareStatement(sql);
         pstmt->setDouble( 1, balance.obtenirPoids() );
         pstmt->setDouble( 2, capteur1.obtenirTemperatureEnC() );
@@ -140,6 +147,7 @@ int main() {
         pstmt->setDouble( 6, capteur1.obtenirPointDeRosee() );
         pstmt->setDouble( 7, balance.obtenirPoidsCorrige(temperature) );
         pstmt->setInt( 8, ini.GetValue<int>("ruche", "id", 0));
+        pstmt->setString( 9, ObtenirDateHeureBis());
         // Exécution de la requête
         nbLigne = pstmt->executeUpdate();
 

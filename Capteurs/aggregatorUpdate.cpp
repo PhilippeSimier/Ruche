@@ -1,13 +1,13 @@
 /*!
-    @file     thingSpeakGET.cpp
+    @file     aggregatorUpdate.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour construire l'url (Update channel data with HTTP GET) API thingSpeak
-    @date     15 Octobre 2018
+    @date     24 Aout 2019
     @version  v1.1 - First release
-    @detail   Prérequis    : apt-get gammu gammu-smsd
-              Compilation  : g++  thingSpeakGET.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o thingSpeakGET
-              Execution    : ./thingSpeakGET  write_api_key | envoyerURL
+    @detail
+              Compilation  : g++  aggregatorUpdate.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o aggregatorUpdate
+              Execution    : ./aggregatorUpdate 3RPCCIIT1JJHM25A | ./envoyerURL
 */
 
 #include <iostream>
@@ -15,7 +15,6 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
-#include <math.h>       /* sqrt */
 
 #include "hx711.h"
 #include "bme280.h"
@@ -23,14 +22,15 @@
 #include "SimpleIni.h"
 
 #define CONFIGURATION "/opt/Ruche/etc/configuration.ini"
+#define DMZ "http://touchardinforeseau.servehttp.com/Ruche/api/update?"
 
 using namespace std;
 
 /**
  * @brief ObtenirDateHeure
  * @return std::string
- * @details retourne une chaine de caratères représentant la date courante
- *          au format Année-mois-jour heure:minute:seconde
+ * @details retourne une chaine de caratères représentant la date heure courante
+ *          UTC au format Année-mois-jour heure:minute:seconde
  */
 
 string ObtenirDateHeure()
@@ -75,8 +75,7 @@ int main(int argc, char *argv[])
     }
 
     // Configuration de la balance
-    float scale =  ini.GetValue<float>("balance", "scale", 1.0 );
-    balance.fixerEchelle( scale);
+    balance.fixerEchelle( ini.GetValue<float>("balance", "scale", 1.0 ));
     balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
     balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
     balance.fixerSlope( ini.GetValue<float>("balance", "slope", 0.0 ));
@@ -96,7 +95,8 @@ int main(int argc, char *argv[])
     }
 
     string key(argv[1]);
-    trame << "https://api.thingspeak.com/update?";
+    //trame << "https://philippes.ddns.net/Ruche/api/update?";
+    trame << DMZ;
     trame << "api_key=" << key;
     trame << "&field1=" << fixed << setprecision (precision) << balance.obtenirPoids();
 
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 	trame << "&field6=" << fixed << setprecision (2) << capteur.obtenirPointDeRosee();
     }
     trame << "&field5=" << fixed << setprecision (2) << capteur2.obtenirLuminosite_Lux();
-    trame << "&field7=" << fixed << setprecision (precision) << sqrt(balance.obtenirVariance())*1000/scale;
+    trame << "&field7=" << fixed << setprecision (precision) << balance.obtenirPoidsCorrige(temperature);
     trame << "&created_at=" << ObtenirDateHeure();
 
     cout << trame.str() << endl;
