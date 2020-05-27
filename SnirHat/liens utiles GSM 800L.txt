@@ -1,0 +1,43 @@
+Pour getRSSI () , ce sont les numéros de retour possibles:
+
+0 - -115 dBm
+1 - -111 dBm 31 - -52 dBm 2 à 30 - -110 dBm à -54 dBm
+
+
+dBm est l'abréviation de décibel par milliwatt et est une unité commune pour la force du signal. -115 dbm est la valeur d'intensité de signal la plus faible et signifie généralement que le SIM800L est dans un angle mort du réseau. -111 dBm est également un mauvais chiffre pour la réception du signal. J'ai pu me connecter à un réseau à -70 dBm. Voici une liste pratique des niveaux dBm et ce qu'ils signifient:
+
+ État RSSI
+-109 Marginal
+-107 Marginal
+-105 Marginal
+-103 Marginal
+-101 Marginal
+-99 Marginal
+-97 Marginal
+-95 Marginal
+-93 OK
+-91 OK
+-89 OK
+-87 OK
+-85 OK
+-83 Bon
+-81 Bon
+-79 Bon
+-77 Bon
+-75 Bon
+-73 Excellent
+-71 Excellent
+-69 Excellent
+-67 Excellent
+-65 Excellent
+-63 Excellent
+-61 Excellent
+-59 Excellent
+-57 Excellent
+-55 Excellent
+-53 Excellent
+
+Si vous comparez cela aux smartphones, marginal est une barre, OK est deux barres, bon est trois barres et excellent est quatre barres.
+
+
+https://letmeknow.fr/shop/fr/blog/98-tuto-module-gsm-sim800l-recevoir-des-donnees-http   

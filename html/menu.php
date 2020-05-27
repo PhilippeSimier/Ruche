@@ -8,12 +8,32 @@
 <?php 
     require_once('definition.inc.php');
     $ini  = parse_ini_file(CONFIGURATION, true);
+	
+	require_once('api/Str.php');
+	use Aggregator\Support\Str;
+	
+	$racine = './';
+	$repertoire = array('administration' , 'support' );  // les répertoires de premier niveau du site
+	if  (Str::contains($_SERVER['PHP_SELF'], $repertoire)){
+		$racine = '../';
+	}
+	$repertoire = array('administration/support' );      // les répertoires de second niveau du site
+    if  (Str::contains($_SERVER['PHP_SELF'], $repertoire)){
+		$racine = '../../';
+	}
 ?>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href="/Ruche/">
-			<img alt="Beehive logo" height="30" id="nav-Beehive-logo" src="/Ruche/images/beehive_logo.png" style="padding: 0 8px; ">
+		<a class="navbar-brand" href="<?php echo $racine ?>">
+			<img alt="Beehive logo" height="30" id="nav-Beehive-logo" src="<?php echo $racine ?>images/beehive_logo.png" style="padding: 0 8px; ">
 		</a>
+		<span class="navbar-text">
+		<?php 
+			$date = date("d-m-Y");
+			$heure = date("H:i");
+			echo "$date - $heure";
+		?>
+		</span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -22,74 +42,10 @@
 		
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
         
-		<ul class="navbar-nav mr-auto">
-			  
-						
-			<!-- Dropdown Mesures-->
-			<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					Data visualization
-				  </a>
-				  <div class="dropdown-menu">
-					<?php
-								$url = "https://api.thingspeak.com/channels.json?api_key=" . $ini['thingSpeak']['userkey'] . "&tag=" . $ini['thingSpeak']['tag'];
-								$curl = curl_init();
-
-								curl_setopt_array($curl, array(
-									  CURLOPT_URL => $url,
-									  CURLOPT_RETURNTRANSFER => true,
-									  CURLOPT_ENCODING => "",
-									  CURLOPT_MAXREDIRS => 10,
-									  CURLOPT_TIMEOUT => 30,
-									  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-									  CURLOPT_CUSTOMREQUEST => "GET",
-									  CURLOPT_HTTPHEADER => array(
-										"cache-control: no-cache"
-									  ),
-								));
-
-								$response = curl_exec($curl);
-								$err = curl_error($curl);
-
-								curl_close($curl);
-
-								if ($err) {
-									echo "cURL Error #:" . $err;
-								} else {
-									$channels = json_decode($response);
-									
-									$count = count($channels);
-									for ($i = 0; $i < $count; $i++) {
-										echo '<a class="dropdown-item channels" href="https://api.thingspeak.com/channels/' . $channels[$i]->{'id'} . '/feed.json?results=0" target="_blank" >' . $channels[$i]->{'name'} . "</a>\n";
-									}
-								}
-					?>
-			
-				  </div>
-			</li>
-			
-			<!-- Dropdown Analyses-->
-			<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					 Data analysis
-				  </a>
-				  <div class="dropdown-menu">
-				    <?php 
-					if (isset($ini['matlab']['id1'])) 
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id1'] . '">' . $ini['matlab']['name1'] . '</a>';
-				    if (isset($ini['matlab']['id2']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id2'] . '">' . $ini['matlab']['name2'] . '</a>';
-					if (isset($ini['matlab']['id3']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id3'] . '">' . $ini['matlab']['name3'] . '</a>';
-					if (isset($ini['matlab']['id4']))
-					    echo '<a class="dropdown-item" href="/Ruche/MatlabVisualization?id=' . $ini['matlab']['id4'] . '">' . $ini['matlab']['name4'] . '</a>';
-					?>
-				  </div>
-			</li>
-			
-			<li class="nav-item">
-				<a class="nav-link" href="/Ruche/activity" id="nav-sign-in">Activity</a>
-			</li>		
+		<ul class="navbar-nav mr-auto">		
+			<!--<li class="nav-item">
+				<a class="nav-link" href="<?php echo $racine ?>activity.php" id="nav-sign-in">Activity</a>
+			</li>-->		
         </ul>
 		
 		<!-- Menu à droite -->
@@ -98,25 +54,25 @@
 				
 				<?php 
 				if (!isset($_SESSION['login']))
-					echo '<a class="nav-link" href="/Ruche/administration/" id="nav-sign-in">Sign In</a>';
+					echo "<a class='nav-link' href='{$racine}administration/' id='nav-sign-in'>Sign In</a>\n";
 				else{
-					echo '<li class="nav-item dropdown">';
+					echo "<li class='nav-item dropdown'>";
 					
-					echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">';
-						echo '<img alt="Avatar" height="30" id="nav-avatar-logo" src="/Ruche/images/icon-avatar.svg" style="padding: 0 10px; ">';
+					echo "<a class='nav-link dropdown-toggle' href='#' id='navbardrop' data-toggle='dropdown'>\n";
+						echo "<img alt='Avatar' height='30' id='nav-avatar-logo' src='{$racine}images/icon-avatar.svg' style='padding: 0 10px; '>\n";
 						echo $_SESSION['login']; 
-					echo '</a>';
-					echo '<div class="dropdown-menu">';
-					echo '<a class="dropdown-item" href="/Ruche/administration/ruche">Beehive</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/balance">Scale</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/baseDeDonnees">Database</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/thingSpeakConf">Thing Speak</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/formulaireSMS">GSM</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/battery">Battery</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/infoSystem">System info</a>';
-					echo '<a class="dropdown-item" href="/Ruche/administration/signout" id="nav-sign-in">Sign Out</a>';
-					echo '</div>';
-					echo '</li>';
+					echo "</a>\n";
+					echo "<div class='dropdown-menu'>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/ruche.php'>Beehive</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/balance.php'>Scale</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/baseDeDonnees.php'>Database</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/aggregatorConf.php'>Aggregator</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/formulaireSMS.php'>GSM</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/battery.php'>Battery</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/infoSystem.php'>System info</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/signout.php' id='nav-sign-in'>Sign Out</a>\n";
+					echo "</div>\n";
+					echo "</li>\n";
 				}	
 				?>
 			</li>
@@ -146,69 +102,4 @@
 		  </div>
 		</div>
 		
-	<script>
-	    function afficheModal(event){
-			
-			var url = $(this).attr("href");
-			console.log(url);
-			
-			$.getJSON( url , function( data, status, error ) {
-				console.log(data.channel);
-				var contenu = "<div>";
-				$.each( data.channel, function( key, val ) {
-					if (key.indexOf("field") != -1){
-						contenu += '<div id = "choix" class="form-check">'
-						contenu += '<input class="form-check-input" type="checkbox" value="' + key.substring(5,6) + '" id="'+ key +'">';
-						contenu += '<label class="form-check-label" for="'+ key +'">';
-						contenu += val;
-						contenu += '</label>';
-						contenu += '</div>';
-					}	
-				});
-				contenu += "</div>";
-				
-				$("#modal-contenu").html( contenu );
-				var title = data.channel.id + " : " + data.channel.name; 
-				console.log(title);
-				$("#ModalLongTitle").html( title );
-				$(".btn-afficher").attr("id", data.channel.id );  // On fixe l'attribut id du button avec l'id du canal
-				$(".btn-afficher").attr("name", data.channel.name );  // On fixe l'attribut name du button avec le nom du canal
-				$("#ModalCenter").modal('show');
-			});
-			
-			event.preventDefault();   // bloque l'action par défaut sur le lien cliqué
-		}
-		
-		function afficherVue(event){
-			var channel_id = $(this).attr("id");
-			var channel_name = $(this).attr("name");
-			
-			var choix = [];
-			var anyBoxesChecked = false;
-			$('#choix  input[type="checkbox"]').each(function() {
-				if ($(this).is(":checked")) {
-					choix.push($(this).val());
-					anyBoxesChecked = true;
-				}
-			});
-			if (anyBoxesChecked == false) {
-				console.log("pas de choix");
-			} 
-
-			console.log("choix : " + choix); 
-			var url = "/Ruche/thingSpeakView?channel=" + channel_id + '&name=' + channel_name;
-			for (i = 0; i < choix.length; i++){
-				url += '&field' + i + '=' + choix[i];	
-			}
-			console.log(url);
-			window.location.href=url;
-				
-			
-		}	
 	
-	    $(document).ready(function(){
-
-			$(".channels").click(afficheModal);
-			$(".btn-afficher").click(afficherVue);
-		});
-    </script>	

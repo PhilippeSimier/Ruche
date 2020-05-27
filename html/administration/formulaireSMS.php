@@ -8,7 +8,7 @@ require_once('../definition.inc.php');
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Envoyer un SMS</title>
+        <title>Send a SMS</title>
         <meta charset="UTF-8">
         
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,34 +16,36 @@ require_once('../definition.inc.php');
 		<link rel="stylesheet" href="../css/ruche.css" />
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="../scripts/jquery.min.js"></script>
 		<script src="../scripts/bootstrap.min.js"></script>
 		
         
         <script type="text/javascript">
             
-            function afficheLevel( data ) {               // fonction pour afficher le niveau du signal réseau
-                console.log(data.level);             
-                $('#level').text(data.level);
+            function afficheData( data ) {               // fonction pour afficher le niveau du signal réseau
+                console.log(data);             
+                $('#NetworkSignal').text(data.NetworkSignal);
+				$('#IMEI').text(data.IMEI);
+				$('#IMSI').text(data.IMSI);
+				$('#Sent').text(data.Sent);
+				$('#Received').text(data.Received);
+				$('#Failed').text(data.Failed);
             }
 			
             
             $(document).ready(function(){
-                // Requete AJAX pour afficher le niveau du signal
-				$.getJSON("getLevelSignal.php", afficheLevel);
-				
+                // Requete AJAX pour afficher le monitor GSM
+				$.getJSON("getLevelSignal.php", afficheData);
+
 				// A function to run if the request fails.
 				$.ajaxSetup({
 					error: function (x, status, error) {
 						
-						//window.alert("message : " + error);
 						$( "#modal-contenu" ).html( "<p>Sorry error : <em>" + error + "</em></p>" );
 						$('#ModalCenter').modal('show');
 					}
 				});
-                
-				
-								
+							
 				$( "#formSMS" ).submit(function( event ) {
 					//alert( "Handler for .submit() called." );
 					var form_data = $(this).serialize();
@@ -94,19 +96,18 @@ require_once('../definition.inc.php');
 						<hr>
 						<form class="form-horizontal" method="post"  id="formSMS" action="sendSMS.php">
 							<div class="form-group">
-								<label for="key" class="font-weight-bold">Key : </label>
-								<input type="text" id="key" name="key" size="26" placeholder="Enter Key here" required /><br />
+								<input type="hidden"  name="key"  value="azerty"  />
 							</div>
 							<div class="form-group">
 								<label for="number" class="font-weight-bold">Number : </label>
-								<input type="text" id="number" name="number" size="10" placeholder="Number" required pattern="\d+" /><br />
+								<input type="number" id="number" name="number" size="10" placeholder="Number" required pattern="\d+" /><br />
 							</div>
 							<div class="form-group">    
 								<label for="message" class="font-weight-bold">Message : </label>
 								<textarea class="form-control" rows="5" id="message" name="message" maxlength="160" required></textarea>
 							</div>
 							<br />
-							<button  type="submit" class="btn btn-primary" value="soumettre" id="b2" > Envoyer</button>
+							<button  type="submit" class="btn btn-primary" value="soumettre" id="b2" > Send</button>
 						</form>
 						<br />
 						
@@ -116,9 +117,15 @@ require_once('../definition.inc.php');
 				
 				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="popin">
-						<h2>Level Network Signal</h2>
-						<hr>
-						<span id="level"></span>
+						<h2>Monitor GSM</h2>
+						<ul>
+						<li> Network Signal : <span id="NetworkSignal"></span></li>
+						<li> IMEI :           <span id="IMEI"></span></li>
+						<li> IMSI :           <span id="IMSI"></span></li>
+						<li> Sent : <span id="Sent"></span></li>
+						<li> Received : <span id="Received"></span></li>
+						<li> Failed : <span id="Failed"></span></li>
+						</ul>
 					</div>	
 				</div>
 			</div> 

@@ -14,19 +14,22 @@
         );
         header('HTTP/1.1 ' . $httpStatus . ' ' . $message);
         header('content-type:application/json');
-	echo json_encode($data);
+	    echo json_encode($data);
     
     }
 
-    $ligne  = "gammu-smsd-monitor -n 1 -d 1 | grep NetworkSignal";
+    $ligne  = "gammu-smsd-monitor -n 1 -d 1 ";
     exec($ligne, $output, $return);
+	
+	
     
     if($return===0){
-        $result = explode(" ", $output[0]);
-        $data = array(
-                'status' => "200 OK",
-                'level' => $result[1]
-            );
+		$data = array('status' => '200 OK');
+		for ($i = 3; $i < 10; $i++){
+			$result = explode(":", $output[$i]);
+			$data[$result[0]] = trim($result[1]);
+        }        
+        
 
         header('HTTP/1.1 200 OK');
         header('content-type:application/json');

@@ -1,6 +1,5 @@
 <?php
 
-
 include "authentification/authcheck.php" ;
 
 require_once('../ini/ini.php');
@@ -23,7 +22,6 @@ if( !empty($_POST['envoyer'])){
     $ini = new ini (BATTERY);
     $ini->ajouter_array($array);
     $ini->ecrire(true);
-
 }
 
 // -------------- sinon lecture du fichier de configuration section battery -----------------------------
@@ -47,12 +45,12 @@ else
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Battery</title>
-    <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/Ruche/css/ruche.css" />
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/ruche.css" />
 	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="/Ruche/scripts/bootstrap.min.js"></script>     
+	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/bootstrap.min.js"></script>     
     
 
     <style type="text/css">
@@ -60,7 +58,6 @@ else
 		.h1 {
 			font-size: 80px;
 		}
-
 	</style>
 
 	<script type="text/javascript">
@@ -73,7 +70,6 @@ else
 				$('#puissance').text(data.p   + " " + data.uniteP);
 				$('#soc').text(      data.soc + " " + data.uniteSOC);
 			}
-
 		}
 
 		function requete_ajax(){
@@ -81,8 +77,7 @@ else
 			$.getJSON(
 				"/cgi-bin/batteryJson", // Le fichier cible côté serveur. data au format Json
 				affiche
-			);
-			
+			);			
 		}
 
 		$(document).ready(function(){
@@ -90,12 +85,13 @@ else
 			setInterval(requete_ajax, 1000);  // appel de la fonction requete_ajax toutes les  secondes
 		   
 		});
+		
 	</script>
 
 </head>
 <body>
 	<?php require_once '../menu.php'; ?>
-	<div class="container" style="padding-top: 65px;" >
+	<div class="container" style="padding-top: 63px;" >
 	
 	
 	
@@ -104,19 +100,19 @@ else
 	    <div class="col-md-6">
 			<div class="popin">
 					<div class="row">
-					    <div class="col-sm-6"><h3>Tension :</h3></div>
+					    <div class="col-sm-6"><h3>Voltage :</h3></div>
 						<div class="col-sm-6"><h3><span id="tension"></span></h3></div>
 					</div>
 					<div class="row">
-					    <div class="col-sm-6"><h3>Courant :</h3></div>
+					    <div class="col-sm-6"><h3>Current :</h3></div>
 						<div class="col-sm-6"><h3><span id="courant"></span></h3></div>
 					</div>
 					<div class="row">
-					    <div class="col-sm-6"><h3>Puissance :</h3></div>
+					    <div class="col-sm-6"><h3>Power :</h3></div>
 						<div class="col-sm-6"><h3><span id="puissance"></span></h3></div>
 					</div>
 					<div class="row">
-					    <div class="col-sm-6"><h3>Taux de charge :</h3></div>
+					    <div class="col-sm-6"><h3>State of charge :</h3></div>
 						<div class="col-sm-6"><h3><span id="soc"></span></h3></div>
 					</div>
 					
@@ -130,8 +126,8 @@ else
 					<input type='hidden' name='time' <?php echo 'value="' . $_POST['time'] . '"'; ?> />	
 
 					<div class="form-group">
-						<label for="capacite"  class="font-weight-bold">Capacité (Ah) : </label>
-						<input type="int"  name="capacite" class="form-control" <?php echo 'value="' . $_POST['capacite'] . '"'; ?> />
+						<label for="capacite"  class="font-weight-bold">Capacity (Ah) : </label>
+						<input type="number" step="0.1" name="capacite" class="form-control" <?php echo 'value="' . $_POST['capacite'] . '"'; ?> />
 					</div>
 
 					<div class="form-group">
@@ -141,15 +137,15 @@ else
 
 					<div class="form-group">
 						<label for="charge"  class="font-weight-bold">Charge (Ah) : </label>
-						<input type="int"  name="charge" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
+						<input type="number" step="0.01" name="charge" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
 					</div>
 					
 					<div class="form-group">
-						<label for="charge"  class="font-weight-bold">Rendement (%) : </label>
-						<input type="int"  name="rendement" class="form-control" <?php echo 'value="' . $_POST['rendement'] . '"'; ?> />
+						<label for="charge"  class="font-weight-bold">Efficiency (%) : </label>
+						<input type="number" step="0.1" name="rendement" class="form-control" <?php echo 'value="' . $_POST['rendement'] . '"'; ?> />
 					</div>
 					
-					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>
+					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Apply</button>
 				</form>	
 		
 			</div>

@@ -35,7 +35,7 @@ require_once('../definition.inc.php');
     <link rel="stylesheet" href="../css/ruche.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="../scripts/jquery.min.js"></script>
 	<script src="../scripts/bootstrap.min.js"></script>
 
 
@@ -58,9 +58,6 @@ require_once('../definition.inc.php');
 						$output = shell_exec('uname -r');
 						echo "<p>Version : $output</p>";
 
-						//echo '<p>version du firmware du GPU<br />';
-						//$output = shell_exec('vcgencmd vcos version');
-						//echo "<pre>$output</pre>";
 
 					?>
 				</div>
@@ -99,19 +96,7 @@ require_once('../definition.inc.php');
 					?>
 
 				</div>
-				<div class="popin">
-				<h2>Camera</h2>
-					<?php
-
-						$output = shell_exec('vcgencmd get_camera');
-						echo "<p><pre>$output</pre><p/>";
-						echo "<h4>Codecs</h4>";
-						$output = shell_exec('for codec in H264 MPG2 WVC1 MPG4 MJPG WMV9 ; do echo  "$codec:\t$(vcgencmd codec_enabled $codec)" ; done');
-						echo "<p><pre>$output</pre></p>";
-
-					?>
-
-				</div>
+				
 			</div>
 
 		</div>

@@ -55,7 +55,7 @@
     }
 
     // Contrôle du numéro de téléphone
-    if (strlen($number)<8 || !is_numeric($number)){
+    if (strlen($number)<10 || !is_numeric($number)){
         erreur(403, "Bad Request", "The request cannot be fulfilled due to bad number.");
         return;
     }

@@ -51,11 +51,11 @@ else
 
     <title>Conf. Balance</title>
     <!-- Bootstrap CSS version 4.1.1 -->
-    <link rel="stylesheet" href="/Ruche/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/Ruche/css/ruche.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/ruche.css" />
 	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="/Ruche/scripts/bootstrap.min.js"></script>     
+	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/bootstrap.min.js"></script>     
     
 
     <style type="text/css">
@@ -165,12 +165,12 @@ else
 
 					<div class="form-group">
 						<label for="scale"  class="font-weight-bold">Scale : </label>
-						<input type="int"  name="scale" class="form-control" <?php echo 'value="' . $_POST['scale'] . '"'; ?> />
+						<input type="number" step="0.1" name="scale" class="form-control" <?php echo 'value="' . $_POST['scale'] . '"'; ?> />
 					</div>
 
 					<div class="form-group">
 						<label for="offset"  class="font-weight-bold">Offset : </label>
-						<input id="offset" type="int"  name="offset" class="form-control" <?php echo 'value="' . $_POST['offset'] . '"'; ?> />
+						<input id="offset" type="number" step="1" name="offset" class="form-control" <?php echo 'value="' . $_POST['offset'] . '"'; ?> />
 					</div>
 
 					<div class="form-group">
@@ -187,7 +187,7 @@ else
 
 					<div class="form-group">
 						<label for="unite"  class="font-weight-bold">Unite : </label>
-						<input type="int"  name="unite" class="form-control" <?php echo 'value="' . $_POST['unite'] . '"'; ?> />
+						<input type="text"  name="unite" class="form-control" <?php echo 'value="' . $_POST['unite'] . '"'; ?> />
 					</div>
 					<div class="form-group">
 						<label for="Precision"  class="font-weight-bold">Division : </label>
@@ -210,11 +210,11 @@ else
 					</div>
 					<div class="form-group">
 						<label for="slope"  class="font-weight-bold">Slope : </label>
-						<input type="text"  name="slope" class="form-control" <?php echo 'value="' . $_POST['slope'] . '"'; ?> />
+						<input type="number" step="0.01" name="slope" class="form-control" <?php echo 'value="' . $_POST['slope'] . '"'; ?> />
 					</div>
 					<div class="form-group">
 						<label for="tempRef"  class="font-weight-bold">Temperature Reference : </label>
-						<input type="text"  name="tempRef" class="form-control" <?php echo 'value="' . $_POST['tempRef'] . '"'; ?> />
+						<input type="number" step="0.1" name="tempRef" class="form-control" <?php echo 'value="' . $_POST['tempRef'] . '"'; ?> />
 					</div>
 
 					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Appliquer</button>

@@ -3,7 +3,7 @@ session_start();
 
 if(!isset($_SESSION['last_access']) || !isset($_SESSION['ipaddr']) || !isset($_SESSION['login']))
 {
-  header("Location: /Ruche/index.php?retour=" . $_SERVER['SCRIPT_NAME'] );
+  header("Location: /index.php?retour=" . $_SERVER['SCRIPT_NAME'] );
   die();
 }
 
