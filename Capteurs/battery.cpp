@@ -3,8 +3,8 @@
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour forger l'url des information batterie pour thingspeak
-    @date     06 Avril 2019
-    @version  v1.1 - First release
+    @date     05 Mai 2020
+    @version  v2.0 - second release
     @detail   Compilation  : g++  battery.cpp SimpleIni.cpp i2c.cpp  ina219.cpp -o battery
               Execution    : ./battery your_write_api_key | envoyerURL
 */
@@ -21,7 +21,7 @@ using namespace std;
 #include "SimpleIni.h"
 
 #define BATTERY "/opt/Ruche/etc/battery.ini"
-
+#define CONFIGURATION "/opt/Ruche/etc/configuration.ini"
 
 
 /**
@@ -42,7 +42,7 @@ string ObtenirDateHeure()
         if (strftime(Tchar, sizeof(Tchar), "%T", gmtime(&t))) {
             string F(Fchar);
             string T(Tchar);
-            retour = F + "%20" + T;
+            retour = F + "+" + T;
         }
     }
     return retour;
@@ -52,25 +52,38 @@ int main(int argc, char *argv[])
 {
     ina219 batterie;
     ostringstream trame;
-    SimpleIni ini;
+    SimpleIni batIni;
+    SimpleIni confIni;
     float charge = 0.0;
     float capacite;
     int t0,t1;
 
     // Lecture du fichier de battery.ini
-    if(!ini.Load(BATTERY)){
+    if(!batIni.Load(BATTERY)){
 	return 2;
     }
     // dernière capacité en Ah enregistrée
-    charge = ini.GetValue<float>("battery", "charge", 0.0 );
+    charge = batIni.GetValue<float>("battery", "charge", 0.0 );
     // Dernier timestamp enregistré
-    t0 = ini.GetValue<int>("battery", "time", 0 );
+    t0 = batIni.GetValue<int>("battery", "time", 0 );
     // Lecture de la capacité nominale
-    capacite = ini.GetValue<float>("battery", "capacite", 7.0 );
+    capacite = batIni.GetValue<float>("battery", "capacite", 7.0 );
+
+    // Lecture du fichier de configuration.ini
+    if(!confIni.Load(CONFIGURATION)){
+	return 3;
+    }
 
     if (argc != 2){
         return 1;
     }
+    // Lecture de la clé API canal Battery
+    string key = confIni.GetValue<string>("Aggregator","batteryKey","ABC");
+    // Lecture URL serveur aggregator
+    // le premier argument contient la clé de l'URL
+    string keyUrl(argv[1]);
+    string server = confIni.GetValue<string>("Aggregator", keyUrl, "https://api/thingspeak.com");
+
     if (!batterie.obtenirErreur()){
 
 	float u = batterie.obtenirTension_V();
@@ -91,26 +104,23 @@ int main(int argc, char *argv[])
 	}
 
 
-        ini.SetValue<float>("battery", "charge", charge);
-        ini.SetValue<int>("battery", "time", t1);
-
-
-        // le premier argument contient la clé de l'api
-        string key(argv[1]);
-        trame << "https://api.thingspeak.com/update?";
+        batIni.SetValue<float>("battery", "charge", charge);
+        batIni.SetValue<int>("battery", "time", t1);
+        trame << server;
+        trame << "/update?";
         trame << "api_key=" << key;
         trame << "&field1=" << fixed << setprecision (2) << u;
-        trame << "&field2=" << fixed << setprecision (3) << i;
+        trame << "&field2=" << fixed << setprecision (2) << i;
         trame << "&field3=" << fixed << setprecision (2) << p;
         trame << "&field4=" << fixed << setprecision (2) << soc;
-        trame << "&field5=" << fixed << setprecision (5) << charge;
+        trame << "&field5=" << fixed << setprecision (2) << charge;
 
         trame << "&created_at=" << ObtenirDateHeure();
 
         cout << trame.str() << endl;
     }
 
-    if(!ini.SaveAs(BATTERY))
+    if(!batIni.SaveAs(BATTERY))
     {
         return -1;
     }

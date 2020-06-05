@@ -4,24 +4,32 @@ include "authentification/authcheck.php" ;
 
 require_once('../ini/ini.php');
 require_once('../definition.inc.php');
+require_once('../api/Form.php');
+
+use Aggregator\Support\Form;
 
 //------------si des données  sont reçues on les enregistrent dans le fichier battery.ini ---------
 if( !empty($_POST['envoyer'])){
+	// verification des types des variables envoyés
+	
+	$capacite = filter_input(INPUT_POST, 'capacite', FILTER_VALIDATE_FLOAT);
+	if ($capacite !== null){
+		//  lecture du fichier de configuration
+		$array  = parse_ini_file(BATTERY, true);
+		//  Modification des valeurs pour la section [battery]
+		$array['battery'] = array ('capacite'  => $capacite,
+								   'charge' => $_POST['charge'],
+								   'type'  => $_POST['type'],
+								   'time' => $_POST['time'],
+								   'current' => $_POST['current'],
+								   'rendement' => $_POST['rendement']
+								   );
 
-    //  lecture du fichier de configuration
-    $array  = parse_ini_file(BATTERY, true);
-    //  Modification des valeurs pour la section [battery]
-    $array['battery'] = array ('capacite'  => $_POST['capacite'],
-                               'charge' => $_POST['charge'],
-							   'type'  => $_POST['type'],
-							   'time' => $_POST['time'],
-							   'rendement' => $_POST['rendement']
-                               );
-
-    //  Ecriture du fichier de configuration modifié
-    $ini = new ini (BATTERY);
-    $ini->ajouter_array($array);
-    $ini->ecrire(true);
+		//  Ecriture du fichier de configuration modifié
+		$ini = new ini (BATTERY);
+		$ini->ajouter_array($array);
+		$ini->ecrire(true);
+	}
 }
 
 // -------------- sinon lecture du fichier de configuration section battery -----------------------------
@@ -31,7 +39,8 @@ else
    $_POST['capacite']  = $ini['battery']['capacite'];
    $_POST['charge']    = $ini['battery']['charge'];
    $_POST['type']      = $ini['battery']['type'];
-   $_POST['time']      = $ini['battery']['time'];   
+   $_POST['time']      = $ini['battery']['time']; 
+   $_POST['current']   = $ini['battery']['current'];
    $_POST['rendement'] = $ini['battery']['rendement'];   
 }
 
@@ -123,28 +132,19 @@ else
             <div class="popin">
             <h2>Battery</h2>
 		        <form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" name="configuration" >
-					<input type='hidden' name='time' <?php echo 'value="' . $_POST['time'] . '"'; ?> />	
-
-					<div class="form-group">
-						<label for="capacite"  class="font-weight-bold">Capacity (Ah) : </label>
-						<input type="number" step="0.1" name="capacite" class="form-control" <?php echo 'value="' . $_POST['capacite'] . '"'; ?> />
-					</div>
-
-					<div class="form-group">
-						<label for="type"  class="font-weight-bold">Type : </label>
-						<input id="type" type="text"  name="type" class="form-control" <?php echo 'value="' . $_POST['type'] . '"'; ?> />
-					</div>
-
-					<div class="form-group">
-						<label for="charge"  class="font-weight-bold">Charge (Ah) : </label>
-						<input type="number" step="0.01" name="charge" class="form-control" <?php echo 'value="' . $_POST['charge'] . '"'; ?> />
-					</div>
 					
-					<div class="form-group">
-						<label for="charge"  class="font-weight-bold">Efficiency (%) : </label>
-						<input type="number" step="0.1" name="rendement" class="form-control" <?php echo 'value="' . $_POST['rendement'] . '"'; ?> />
-					</div>
-					
+					<?php 
+						echo Form::hidden('time', $_POST['time']);
+						echo Form::hidden('current', $_POST['current']);
+						$optionsNumber = array( 'class' => 'form-control', 'step' => "0.1");
+						echo Form::input( 'number', 'capacite', $_POST['capacite'], $optionsNumber, "Capacity (Ah)");
+						$optionsText = array( 'class' => 'form-control');
+						echo Form::input( 'text', 'type', $_POST['type'], $optionsText);
+					    $optionsNumber = array( 'class' => 'form-control', 'step' => "0.01");
+						echo Form::input( 'number', 'charge', $_POST['charge'], $optionsNumber, "Charge (Ah)");
+						$optionsNumber = array( 'class' => 'form-control', 'step' => "0.1");
+						echo Form::input( 'number', 'rendement', $_POST['rendement'], $optionsNumber, "Efficiency (%)");					
+					?>					
 					<button type="submit" class="btn btn-primary" value="Valider" name="envoyer" > Apply</button>
 				</form>	
 		
