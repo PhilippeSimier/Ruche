@@ -1,13 +1,13 @@
 /*!
-    @file     thingSpeakGET.cpp
+    @file     mesures.cpp
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour construire l'url (Update channel data with HTTP GET) API thingSpeak
-    @date     15 Octobre 2018
-    @version  v1.1 - First release
-    @detail   Prérequis    : apt-get gammu gammu-smsd
-              Compilation  : g++  thingSpeakGET.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o thingSpeakGET
-              Execution    : ./thingSpeakGET  write_api_key | envoyerURL
+    @date     05 Mai 2020
+    @version  v2.0 - Second release
+    @detail   Compilation  : g++  mesures.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o mesures
+              Execution    : ./mesures server1 | envoyerURL
+                           : ou ./mesures server2 | envoyerURL
 */
 
 #include <iostream>
@@ -44,7 +44,7 @@ string ObtenirDateHeure()
         if (strftime(Tchar, sizeof(Tchar), "%T", gmtime(&t))) {
             string F(Fchar);
             string T(Tchar);
-            dateHeure = F + "%20" + T;
+            dateHeure = F + "+" + T;
         }
     }
     return dateHeure;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     hx711 balance;
     bme280 capteur(0x77);
     bh1750 capteur2(0x23);
-    SimpleIni ini;
+    SimpleIni confIni;
     ostringstream trame;
     float temperature = 20.0;
     bool presenceBME = !capteur.obtenirErreur();
@@ -68,24 +68,24 @@ int main(int argc, char *argv[])
     }
 
     // Lecture du fichier de configuration
-    if(!ini.Load(CONFIGURATION))
+    if(!confIni.Load(CONFIGURATION))
     {
         cout << "\"error\":\"Impossible d'ouvrir le fichier configuration.ini\"" << endl;
         return -1;
     }
 
     // Configuration de la balance
-    float scale =  ini.GetValue<float>("balance", "scale", 1.0 );
+    float scale =  confIni.GetValue<float>("balance", "scale", 1.0 );
     balance.fixerEchelle( scale);
-    balance.fixerOffset( ini.GetValue<int>("balance", "offset", 0));
-    balance.configurerGain(  ini.GetValue<int>("balance", "gain", 128));
-    balance.fixerSlope( ini.GetValue<float>("balance", "slope", 0.0 ));
-    balance.fixerTempRef( ini.GetValue<float>("balance", "tempRef", 25.0 ));
-    int precision = ini.GetValue<int>("balance", "precision", 2);
+    balance.fixerOffset( confIni.GetValue<int>("balance", "offset", 0));
+    balance.configurerGain( confIni.GetValue<int>("balance", "gain", 128));
+    balance.fixerSlope( confIni.GetValue<float>("balance", "slope", 0.0 ));
+    balance.fixerTempRef( confIni.GetValue<float>("balance", "tempRef", 25.0 ));
+    int precision = confIni.GetValue<int>("balance", "precision", 2);
 
     // Configuration du capteur de pression
     if (presenceBME){
-        capteur.donnerAltitude( ini.GetValue<float>("ruche", "altitude", 0.0 ));
+        capteur.donnerAltitude( confIni.GetValue<float>("ruche", "altitude", 0.0 ));
         temperature = capteur.obtenirTemperatureEnC();
     }
 
@@ -95,8 +95,15 @@ int main(int argc, char *argv[])
         capteur2.configurer(BH1750_ONE_TIME_HIGH_RES_MODE);
     }
 
-    string key(argv[1]);
-    trame << "https://api.thingspeak.com/update?";
+    // Lecture de la clé API canal mesures
+    string key = confIni.GetValue<string>("Aggregator","mesuresKey","ABC");
+    // Lecture URL serveur aggregator
+    // le premier argument contient la clé de l'URL
+    string keyUrl(argv[1]);
+    string server = confIni.GetValue<string>("Aggregator", keyUrl, "https://api/thingspeak.com");
+
+    trame << server;
+    trame << "/update?";
     trame << "api_key=" << key;
     trame << "&field1=" << fixed << setprecision (precision) << balance.obtenirPoids();
 
