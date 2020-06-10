@@ -4,9 +4,9 @@
     @license  BSD (see license.txt)
     @brief    Programme pour forger l'url des information batterie pour thingspeak
     @date     05 Mai 2020
-    @version  v2.0 - second release
+    @version  v2.0 - second release Méthode Trapèze
     @detail   Compilation  : g++  battery.cpp SimpleIni.cpp i2c.cpp  ina219.cpp -o battery
-              Execution    : ./battery your_write_api_key | envoyerURL
+              Execution    : ./battery server1 | envoyerURL
 */
 
 #include <iostream>
@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
     SimpleIni confIni;
     float charge = 0.0;
     float capacite;
+    float i0 = 0.0;
     int t0,t1;
 
     // Lecture du fichier de battery.ini
@@ -66,6 +67,8 @@ int main(int argc, char *argv[])
     charge = batIni.GetValue<float>("battery", "charge", 0.0 );
     // Dernier timestamp enregistré
     t0 = batIni.GetValue<int>("battery", "time", 0 );
+    // Dernière valeur du courant enregistré
+    i0 = batIni.GetValue<float>("battery", "current", 0.0 );
     // Lecture de la capacité nominale
     capacite = batIni.GetValue<float>("battery", "capacite", 7.0 );
 
@@ -87,13 +90,13 @@ int main(int argc, char *argv[])
     if (!batterie.obtenirErreur()){
 
 	float u = batterie.obtenirTension_V();
-    	float i = batterie.obtenirCourantMoyen_A(100);
-    	float p = u*i;
+    	float i1 = batterie.obtenirCourantMoyen_A(100);
+    	float p = u*i1;
     	float soc;
 
         t1 = time(0);
         if ((t1-t0) < 3600)  // deltaT maxi 1 heure utile après un long arrêt
-        	charge += i * (t1 - t0)/3600;
+            charge += (i1 + i0) * (t1 - t0) / 7200;
         if (charge < 0) {
 	    charge = 0;  // La charge ne peut pas être négative
         }
@@ -106,11 +109,12 @@ int main(int argc, char *argv[])
 
         batIni.SetValue<float>("battery", "charge", charge);
         batIni.SetValue<int>("battery", "time", t1);
+        batIni.SetValue<float>("battery", "current", i1);
         trame << server;
         trame << "/update?";
         trame << "api_key=" << key;
         trame << "&field1=" << fixed << setprecision (2) << u;
-        trame << "&field2=" << fixed << setprecision (2) << i;
+        trame << "&field2=" << fixed << setprecision (2) << i1;
         trame << "&field3=" << fixed << setprecision (2) << p;
         trame << "&field4=" << fixed << setprecision (2) << soc;
         trame << "&field5=" << fixed << setprecision (2) << charge;
