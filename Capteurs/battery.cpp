@@ -7,6 +7,7 @@
     @version  v2.0 - second release Méthode Trapèze
     @detail   Compilation  : g++  battery.cpp SimpleIni.cpp i2c.cpp  ina219.cpp -o battery
               Execution    : ./battery server1 | envoyerURL
+	      ou	   : ./battery server2 | envoyerURL
 */
 
 #include <iostream>
@@ -83,8 +84,15 @@ int main(int argc, char *argv[])
     // Lecture de la clé API canal Battery
     string key = confIni.GetValue<string>("Aggregator","batteryKey","ABC");
     // Lecture URL serveur aggregator
-    // le premier argument contient la clé de l'URL
+    // le premier argument contient la clé de l'URL (server1 ou server2)
     string keyUrl(argv[1]);
+
+    if(keyUrl == "server1"){
+	sleep(1);
+    }else{
+        sleep(2);
+    }
+
     string server = confIni.GetValue<string>("Aggregator", keyUrl, "https://api/thingspeak.com");
 
     if (!batterie.obtenirErreur()){
