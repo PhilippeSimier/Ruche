@@ -63,8 +63,8 @@ int main()
             stable = '*';
         else stable = ' ';
         xn_1 = xn;
-
-	cout << "Valeur brut : "<< balance.obtenirValeur() << endl;
+        cout << "Valeur brut : "<< hex << balance.obtenirValeur() << endl;
+	cout << "Valeur brut : "<< dec << balance.obtenirValeur() << endl;
         cout << stable << " " << fixed << setprecision (precision) << xn << " " << unite;
         cout << " Précision : " << setprecision (1) << sqrt(variance) * 1000 /scale  << " g" << endl;
     }
