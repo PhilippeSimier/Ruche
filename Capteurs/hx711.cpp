@@ -71,11 +71,10 @@ int hx711::obtenirValeur()
 	    }
 	}
 
-	if (valeur > 0x7ffff)
+	// Gestion des valeurs négatives 
+	if (valeur > 0x7fffff)
 	    valeur = valeur | 0xfff00000;
-	else
-	    valeur = valeur & 0x007ffff;
-	//cout << valeur << endl; a décommenter en mode debug
+
 	return valeur;
 }
 
