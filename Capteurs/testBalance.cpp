@@ -2,7 +2,7 @@
  *  @file     testBalance.cpp
  *  @author   Philippe SIMIER (Touchard Wahington le Mans)
  *  @license  BSD (see license.txt)
- *  @date     15 avril 2018
+ *  @date     8 Juillet  2020
  *  @brief    programme pour tester le fct de la balance
  *            compilation: g++ testBalance.cpp hx711.cpp SimpleIni.cpp spi.c -o testBalance
 */

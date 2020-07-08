@@ -71,8 +71,8 @@ int hx711::obtenirValeur()
 	    }
 	}
 
-	// Gestion des valeurs négatives 
-	if (valeur > 0x7fffff)
+	// Gestion des valeurs négatives
+	if (valeur > 0xf00000)
 	    valeur = valeur | 0xfff00000;
 
 	return valeur;
