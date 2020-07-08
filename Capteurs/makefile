@@ -1,10 +1,7 @@
 CXX = g++
-EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery batteryJson coulombCounter
+EXEC = etalonnage tarage tarageCGI scaleCGI balanceJson bddLog thingSpeakGET envoyerURL synchronisation testBalance weather battery batteryJson
 
 all: $(EXEC)
-# compilation du programme coulombCounter
-coulombCounter: coulombCounter.cpp ina219.o i2c.o SimpleIni.o
-	$(CXX) coulombCounter.cpp ina219.o i2c.o SimpleIni.o -o coulombCounter
 
 # compilation du programme batteryJson
 batteryJson: batteryJson.cpp ina219.o i2c.o SimpleIni.o
@@ -18,17 +15,9 @@ battery: battery.cpp ina219.o i2c.o SimpleIni.o
 weather: weather.cpp rest.o
 	$(CXX) weather.cpp rest.o -lcurl -o weather
 
-# compilation du programme synchronisation
-synchronisation: synchronisation.cpp SimpleIni.o
-	$(CXX) synchronisation.cpp -lmysqlcppconn SimpleIni.o -o synchronisation 
-
 # compilation du programme envoyerURL
 envoyerURL:   envoyerURL.cpp rest.o
 	$(CXX) envoyerURL.cpp rest.o -lcurl -o envoyerURL
-
-# compilation du programme thingSpeakGET
-thingSpeakGET: thingSpeakGET.cpp  SimpleIni.o hx711.o bh1750.o spi.o bme280.o i2c.o
-	$(CXX) thingSpeakGET.cpp  SimpleIni.o hx711.o bme280.o bh1750.o spi.o i2c.o  -o thingSpeakGET
 
 # compilation du programme bddLog
 bddLog: bddLog.cpp SimpleIni.o hx711.o spi.o  bh1750.o bme280.o i2c.o
@@ -128,7 +117,7 @@ install:
 	mkdir -p /opt/Ruche/etc
 	mkdir -p /var/log/Ruche
 	cp bddLog /opt/Ruche/bin/bddLog
-	cp thingSpeakGET /opt/Ruche/bin/thingSpeakGET
+#	cp thingSpeakGET /opt/Ruche/bin/thingSpeakGET
 	cp envoyerURL /opt/Ruche/bin/envoyerURL
 	cp synchronisation /opt/Ruche/bin/synchronisation
 	cp weather /opt/Ruche/bin/weather
