@@ -3,11 +3,12 @@
     @author   Philippe SIMIER (Touchard Wahington le Mans)
     @license  BSD (see license.txt)
     @brief    Programme pour forger l'url des information batterie pour thingspeak
-    @date     05 Mai 2020
-    @version  v2.0 - second release Méthode Trapèze
+    @date     11 Juillet 2020
+    @version  v2.1 - second release Méthode Trapèze
     @detail   Compilation  : g++  battery.cpp SimpleIni.cpp i2c.cpp  ina219.cpp -o battery
               Execution    : ./battery server1 | envoyerURL
-	      ou	   : ./battery server2 | envoyerURL
+	          ou           : ./battery server2 | envoyerURL
+			  installation : cp battery /opt/Ruche/bin/battery
 */
 
 #include <iostream>
@@ -97,7 +98,7 @@ int main(int argc, char *argv[])
 
     if (!batterie.obtenirErreur()){
 
-	float u = batterie.obtenirTension_V();
+	    float u = batterie.obtenirTension_V();
     	float i1 = batterie.obtenirCourantMoyen_A(100);
     	float p = u*i1;
     	float soc;
@@ -111,8 +112,9 @@ int main(int argc, char *argv[])
 
         soc = (charge / capacite) * 100;
         if (soc > 100){
-	    soc = 100;       // Le SOC maxi est limité à 100%
-	}
+	        soc = 100;       // Le SOC maxi est limité à 100%
+			charge = capacite; // La charge ne peut pas dépasser la capacité
+	    }
 
 
         batIni.SetValue<float>("battery", "charge", charge);
