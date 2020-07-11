@@ -8,6 +8,7 @@
     @detail   Compilation  : g++  mesures.cpp SimpleIni.cpp i2c.cpp  bme280.cpp hx711.cpp bh1750.cpp spi.c -o mesures
               Execution    : ./mesures server1 | envoyerURL
                            : ou ./mesures server2 | envoyerURL
+	     Installation  : cp mesures /opt/Ruche/bin/mesures
 */
 
 #include <iostream>
