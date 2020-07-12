@@ -24,12 +24,34 @@ require_once('../definition.inc.php');
             
             function afficheData( data ) {               // fonction pour afficher le niveau du signal réseau
                 console.log(data);             
-                $('#NetworkSignal').text(data.NetworkSignal);
+                
 				$('#IMEI').text(data.IMEI);
 				$('#IMSI').text(data.IMSI);
 				$('#Sent').text(data.Sent);
 				$('#Received').text(data.Received);
 				$('#Failed').text(data.Failed);
+				
+				if ( data.NetworkSignal <= 18 ) {
+				    $('#NetworkSignal').css("color", "red");
+					$('#NetworkSignal').text(data.NetworkSignal + "% Poor");
+				}
+				
+				
+				if ( data.NetworkSignal > 18 ) {
+				    $('#NetworkSignal').css("color", "orange");
+					$('#NetworkSignal').text(data.NetworkSignal + "% Fair");
+				}
+				
+				if ( data.NetworkSignal > 42 ) {
+				    $('#NetworkSignal').css("color", "yellowgreen");
+					$('#NetworkSignal').text(data.NetworkSignal + "% Good");
+				}
+				
+				if ( data.NetworkSignal > 60 ) {
+				    $('#NetworkSignal').css("color", "green");
+					$('#NetworkSignal').text(data.NetworkSignal + "% Excellent");
+				}	
+				
             }
 			
             
@@ -119,7 +141,7 @@ require_once('../definition.inc.php');
 					<div class="popin">
 						<h2>Monitor GSM</h2>
 						<ul>
-						<li> Network Signal : <span id="NetworkSignal"></span></li>
+						<li> Network Signal : <span id="NetworkSignal" style="font-size: x-large; font-weight: bold;"></span></li>
 						<li> IMEI :           <span id="IMEI"></span></li>
 						<li> IMSI :           <span id="IMSI"></span></li>
 						<li> Sent : <span id="Sent"></span></li>
