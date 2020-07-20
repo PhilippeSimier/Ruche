@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include "serie.h"
 
 using namespace std;
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     int fdSerie;
     char message[100];
     char device[]="/dev/ttyS0";
+    ostringstream trame;
 
     float temp = 35.67;
     short field1 = (short)(temp * 10);
@@ -29,11 +31,14 @@ int main(int argc, char *argv[])
     fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, 9600, NOECHO);
 
-    cout << setfill ('0');
-    cout << "AT$SF=";
-    cout << hex << setw(4) << field1 << endl;
+    trame << setfill ('0');
+    trame << "AT$SF=";
+    trame << hex << setw(4) << field1 <<  setw(4) << field1;
+    trame << setw(4) << field1 <<  setw(4) << field1;
+    trame << setw(4) << field1 <<  setw(4) << field1 << '\n';
 
-    envoyerMessage(fdSerie,"AT$SF=0400\n");
+    cout << trame.str() << endl;
+    envoyerMessage(fdSerie,trame.str().c_str());
     recevoirMessage(fdSerie, message, '\n');
     printf("%s", message);
 
