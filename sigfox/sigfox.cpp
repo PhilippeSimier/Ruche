@@ -27,15 +27,18 @@ int main(int argc, char *argv[])
 
     float temp = 35.67;
     short field1 = (short)(temp * 10);
+    float humidity = 50.12;
+    short field2 = (short)(humidity * 10);
+
 
     fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, 9600, NOECHO);
 
     trame << setfill ('0');
     trame << "AT$SF=";
-    trame << hex << setw(4) << field1 <<  setw(4) << field1;
-    trame << setw(4) << field1 <<  setw(4) << field1;
-    trame << setw(4) << field1 <<  setw(4) << field1 << '\n';
+    trame << hex << setw(4) << field1 <<  setw(4) << field2;
+    trame << setw(4) << field1 <<  setw(4) << field2;
+    trame << setw(4) << field1 <<  setw(4) << field2 << '\n';
 
     cout << trame.str() << endl;
     envoyerMessage(fdSerie,trame.str().c_str());

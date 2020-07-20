@@ -13,7 +13,6 @@ int ouvrirPort(const char *device){
       Un seul processus peut détenir un verrou exclusif sur un fichier
       donné à un moment donné. */
     if ( flock( fd , LOCK_EX | LOCK_NB) == 0 ) {
-    	printf ("Verrouillage effectué  \n");
         return fd;
     }
     else{
