@@ -24,12 +24,25 @@ int main(int argc, char *argv[])
     char message[100];
     char device[]="/dev/ttyS0";
     ostringstream trame;
+    short type = 1;
 
-    float temp = 35.67;
-    short field1 = (short)(temp * 10);
-    float humidity = 50.12;
-    short field2 = (short)(humidity * 10);
+    float poids = 39.67;
+    short field1 = (short)(poids * 10);
 
+    float temperature = 50.12;
+    short field2 = (short)(temperature * 10);
+
+    float pression = 1024.8;
+    short field3 = (short)(pression * 10);
+
+    float humidite = 65.2;
+    short  field4 = (short)humidite;
+
+    float eclairement = 48214.3;
+    short field5 = (short)eclairement;
+
+    float dewPoint = 20.3;
+    short field6 = (short)(dewPoint * 10);
 
     fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, 9600, NOECHO);
@@ -37,10 +50,11 @@ int main(int argc, char *argv[])
     trame << setfill ('0');
     trame << "AT$SF=";
     trame << hex << setw(4) << field1 <<  setw(4) << field2;
-    trame << setw(4) << field1 <<  setw(4) << field2;
-    trame << setw(4) << field1 <<  setw(4) << field2 << '\n';
+    trame << setw(4) << field3 <<  setw(2) << field4;
+    trame << setw(4) << field5 <<  setw(4) << field6 << setw(2) << type << '\n';
 
     cout << trame.str() << endl;
+
     envoyerMessage(fdSerie,trame.str().c_str());
     recevoirMessage(fdSerie, message, '\n');
     printf("%s", message);
