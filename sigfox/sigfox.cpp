@@ -12,7 +12,9 @@
 
 using namespace std;
 
-
+/* Le constructeur
+   Ouvre le port série et le configure à 9600bauds
+*/
 Sigfox::Sigfox(const string _device, const bool _debug):
     device(_device),
     debug(_debug)
@@ -21,11 +23,17 @@ Sigfox::Sigfox(const string _device, const bool _debug):
     configurerSerie(fdSerie, 9600, NOECHO);
 }
 
+/* Le destructeur
+   Ferme le port série
+*/
 Sigfox::~Sigfox()
 {
     fermerPort(fdSerie);
 }
 
+/* Méthode pour envoyer n octets en mémoire
+   retourne "OK" lorsque le message est envoyé
+*/
 string Sigfox::envoyer(const void* data, uint8_t size)
 {
     ostringstream trameHexa;
@@ -49,3 +57,42 @@ string Sigfox::envoyer(const void* data, uint8_t size)
     string retour(message);
     return retour;
 }
+
+/*
+  Méthode pour tester la présence de l'emetteur Sigfox
+  @return "OK" si le composant est présent
+*/
+string Sigfox::tester(void)
+{
+    string commande = "AT\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    return retour;
+}
+
+/*
+  Méthode pour obtenir l'identifiant de l'emetteur Sigfox
+  @return un string l'identifiant
+*/
+string Sigfox::obtenirID(void)
+{
+    string commande = "AT$I=10\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    return retour;
+}
+/*
+  Méthode pour obtenir le PAC number de l'emetteur Sigfox
+  @return un string contenant le PAC number
+*/
+string Sigfox::obtenirPAC(void)
+{
+    string commande = "AT$I=11\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    return retour;
+}
+

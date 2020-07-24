@@ -31,13 +31,19 @@ int main(int argc, char *argv[])
 
     trame t;
     Sigfox device("/dev/ttyS0", true);
+    // test du fct composant
+    cout << "test : " << device.tester() << endl;
+    // Affichage de l'identifiant
+    cout << "Sigfox ID : " << device.obtenirID() << endl;
+    // Affichage du PAC number
+    cout << "PAC : " << device.obtenirPAC() << endl;
 
-    t.field1 = 12500;
-    t.field2 = 5010;
-    t.field3 = 10248;
-    t.field4 = 65;
+    t.field1 = 12501;
+    t.field2 = 5011;
+    t.field3 = 10249;
+    t.field4 = 64;
     t.field5 = 48214;
-    t.field6 = 2030;
+    t.field6 = 2031;
     t.type   = 1;
 
     cout << device.envoyer((void*)&t,12) << endl;
