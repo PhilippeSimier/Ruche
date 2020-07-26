@@ -35,6 +35,15 @@ typedef struct {
     unsigned char  type;
 } trame;
 
+/* field1::int:16:little-endian
+   field2::int:16:little-endian
+   field3::int:16:little-endian
+   field5::uint:16:little-endian
+   field6::int:16:little-endian
+   field4::uint:8
+   type::uint:8
+*/
+
 using namespace std;
 
 
