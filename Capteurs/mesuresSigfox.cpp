@@ -29,7 +29,7 @@ typedef struct {
     short field1;
     short field2;
     short field3;
-    short field5;
+    unsigned short field5;
     short field6;
     unsigned char  field4;
     unsigned char  type;
