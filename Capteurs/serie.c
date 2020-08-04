@@ -111,8 +111,6 @@ void configurerSerie (const int fd, const int baud,  typeEcho echo ){
     tcsetattr(fd, TCSANOW, &term);
 }
 
-
-
 int recevoirMessage(const int fd, char *message, const char fin ){
     int erreur = 0;
     char charactere_recu;
@@ -132,6 +130,8 @@ int recevoirMessage(const int fd, char *message, const char fin ){
     *message = '\0';   // fin de chaine de caractère
     return nb;
 }
+
+
 
 /* fonction pour lire toutes les données restantes du périphérique
    elle les renvoie sous forme de tableau d'octets.

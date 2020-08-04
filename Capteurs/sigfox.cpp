@@ -2,7 +2,7 @@
     @file       sigfox.cpp
     @authors    Philippe SIMIER (Touchard Wahington le Mans)
     @licence    BSD (see license.txt)
-    @brief      Classe pour communiquer sur sigfox
+    @brief      Classe pour communiquer avec le transmetteur sigfox BRKWS01
     @version    v1.0 - First release
 */
 
@@ -68,6 +68,7 @@ string Sigfox::tester(void)
     envoyerMessage(fdSerie,commande.c_str());
     recevoirMessage(fdSerie, message, '\n');
     string retour(message);
+    retour = retour.substr(0, retour.length()-2);
     return retour;
 }
 
@@ -81,6 +82,7 @@ string Sigfox::obtenirID(void)
     envoyerMessage(fdSerie,commande.c_str());
     recevoirMessage(fdSerie, message, '\n');
     string retour(message);
+    retour = retour.substr(0, retour.length()-2);
     return retour;
 }
 /*
@@ -93,6 +95,7 @@ string Sigfox::obtenirPAC(void)
     envoyerMessage(fdSerie,commande.c_str());
     recevoirMessage(fdSerie, message, '\n');
     string retour(message);
+    retour = retour.substr(0, retour.length()-2);
     return retour;
 }
 
