@@ -11,7 +11,8 @@
 0 0 * * * rm /var/spool/gammu/sent/* >/dev/null 2>&1
 #*/30 * * * * /opt/Ruche/bin/mesures server2 | /opt/Ruche/bin/envoyerURL
 #*/30 * * * * /opt/Ruche/bin/mesures server1 | /opt/Ruche/bin/envoyerURL
-15,45 * * * * /opt/Ruche/bin/mesures server1 | gammu-smsd-inject TEXT 0768563198 -len 187 >/dev/null 2>&1
-16,46 * * * * /opt/Ruche/bin/mesures server2 | gammu-smsd-inject TEXT 0768563198 -len 182 >/dev/null 2>&1
-
+#15,45 * * * * /opt/Ruche/bin/mesures server1 | gammu-smsd-inject TEXT 0768563198 -len 187 >/dev/null 2>&1
+#16,46 * * * * /opt/Ruche/bin/mesures server2 | gammu-smsd-inject TEXT 0768563198 -len 182 >/dev/null 2>&1
+15,45 * * * * /opt/Ruche/bin/batterySigfox >/dev/null 2>&1
+*/30 * * * * /opt/Ruche/bin/mesuresSigfox >/dev/null 2>&1
 
