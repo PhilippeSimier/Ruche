@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
         t.field1 = (short)(u * 100);
         t.field2 = (short)(i1 * 100);
         t.field3 = (short)(p * 100);
-        t.field4 = (char)(soc);
+        t.field4 = (unsigned char)(soc * 2);
         t.field5 = (unsigned short)(charge * 1000);
         t.field6 = 0;
     }else{

@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     if (presenceBME){
         t.field2 = (short)(capteur.obtenirTemperatureEnC() * 100);
         t.field3 = (short)(capteur.obtenirPression0() * 10);
-        t.field4 = (char) capteur.obtenirHumidite();
+        t.field4 = (char) capteur.obtenirHumidite() * 2;
         t.field6 = (short)(capteur.obtenirPointDeRosee() * 100);
     }else{
         t.field2 = 0;
