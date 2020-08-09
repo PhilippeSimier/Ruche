@@ -68,6 +68,7 @@
 					echo "<a class='dropdown-item' href='{$racine}administration/baseDeDonnees.php'>Database</a>\n";
 					echo "<a class='dropdown-item' href='{$racine}administration/aggregatorConf.php'>Aggregator</a>\n";
 					echo "<a class='dropdown-item' href='{$racine}administration/formulaireSMS.php'>GSM</a>\n";
+					echo "<a class='dropdown-item' href='{$racine}administration/SigfoxMonitor.php'>Sigfox</a>\n";
 					echo "<a class='dropdown-item' href='{$racine}administration/battery.php'>Battery</a>\n";
 					echo "<a class='dropdown-item' href='{$racine}administration/infoSystem.php'>System info</a>\n";
 					echo "<a class='dropdown-item' href='{$racine}administration/signout.php' id='nav-sign-in'>Sign Out</a>\n";
