@@ -85,6 +85,7 @@ string Sigfox::obtenirID(void)
     retour = retour.substr(0, retour.length()-2);
     return retour;
 }
+
 /*
   Méthode pour obtenir le PAC number de l'emetteur Sigfox
   @return un string contenant le PAC number
@@ -97,5 +98,69 @@ string Sigfox::obtenirPAC(void)
     string retour(message);
     retour = retour.substr(0, retour.length()-2);
     return retour;
+}
+
+/*
+  Méthode pour obtenir la fréquence d'émission en MHz
+  @return un float la frequence d'émission
+*/
+
+float Sigfox::obtenirFreqEmi(void){
+    string commande = "AT$IF?\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    retour = retour.substr(0, retour.length()-2);
+    return stof(retour)/1e6;
+}
+
+/*
+  Méthode pour obtenir la fréquence de reception en MHz
+  @return un float la frequence de reception
+*/
+
+float Sigfox::obtenirFreqRec(void){
+    string commande = "AT$DR?\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    retour = retour.substr(0, retour.length()-2);
+    return stof(retour)/1e6;
+}
+
+/*
+  Méthode pour obtenir la température du composant
+  @return un float la température en °C
+*/
+
+float Sigfox::obtenirTemp(void){
+    string commande = "AT$T?\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    retour = retour.substr(0, retour.length()-2);
+    return stof(retour)/10;
+}
+
+/*
+    Return current voltage and voltage measured during the last
+    transmission in V.
+*/
+
+void Sigfox::obtenirTension(float &tension0, float &tension1){
+
+    string commande = "AT$V?\n";
+    envoyerMessage(fdSerie,commande.c_str());
+    // lecture de la tension courante
+    recevoirMessage(fdSerie, message, '\n');
+    string retour(message);
+    retour = retour.substr(0, retour.length()-2);
+    tension0 = stof(retour)/1e3;
+
+    // lecture de la tension au cours de la dernière emission
+    recevoirMessage(fdSerie, message, '\n');
+    string retour1(message);
+    retour1 = retour1.substr(0, retour1.length()-2);
+    tension1 = stof(retour1)/1e3;
 }
 

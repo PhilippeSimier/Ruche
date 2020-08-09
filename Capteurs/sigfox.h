@@ -1,8 +1,10 @@
 /**
-  * @file sigfox.h
-  * @author Philippe SIMIER Touchard Washington
-  * @date 23 juillet 2020
-  * @details Communication avec le réseau Sigfox avec les commandes AT
+  * @file    sigfox.h
+  * @author  Philippe SIMIER SNIR Touchard Washington
+  * @date    23 juillet 2020
+  * @details Communication avec le transmetteur BRKWS01
+  *          sur le réseau Sigfox (commandes AT)
+  *
   *
   */
 
@@ -28,7 +30,10 @@ class Sigfox
     string   tester(void);
     string   obtenirID(void);
     string   obtenirPAC(void);
-    uint16_t obtenirTemp(void);
+    float    obtenirFreqEmi(void);
+    float    obtenirFreqRec(void);
+    float    obtenirTemp(void);
+    void     obtenirTension(float &tension0, float &tension1);
 
     string   envoyer(const void* data, uint8_t size);
 
