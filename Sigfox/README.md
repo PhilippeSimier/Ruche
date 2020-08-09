@@ -85,7 +85,8 @@ to do
  - **obtenirTemp** Permet d'obtenir la température interne du transmetteur connecté.
  - **envoyer** Envoie un message codé en hexa sur le réseau Sigfox. Un message Sigfox est composé au maximum de 12 octets. Cette méthode attend la fin de l'émission. Elle renvoie  un string OK. Le fait de recevoir la réponse OK ne confirme pas la réception du message par une ou plusieurs stations de base sigfox. 
 
-[le code exemple](https://github.com/PhilippeSimier/Ruche/blob/master/sigfox/main.cpp) 
+[le code exemple](https://github.com/PhilippeSimier/Ruche/blob/master/Sigfox/main.cpp)
+
 
 # Changelog
 
