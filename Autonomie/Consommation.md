@@ -4,11 +4,34 @@ Limiter la consommation d’un Raspberry pi en gardant un niveau de performance 
 
 ##  Désactiver la carte son embarquée:
 
+Vérifier la présence de la carte son avec la commande **aplay -l**
+
+    root@oize:/etc/modprobe.d# aplay -l
+    **** Liste des Périphériques Matériels PLAYBACK ****
+    carte 0: Headphones [bcm2835 Headphones], périphérique 0: bcm2835 Headphones [bcm2835 Headphones]
+      Sous-périphériques: 8/8
+      Sous-périphérique #0: subdevice #0
+      Sous-périphérique #1: subdevice #1
+      Sous-périphérique #2: subdevice #2
+      Sous-périphérique #3: subdevice #3
+      Sous-périphérique #4: subdevice #4
+      Sous-périphérique #5: subdevice #5
+      Sous-périphérique #6: subdevice #6
+      Sous-périphérique #7: subdevice #7
+      
+Créez un fichier **alsa-blacklist.conf** à l'aide de nano et enregistrez-le dans /etc/modprobe.d
+
     sudo nano /etc/modprobe.d/alsa-blacklist.conf
 
 Ajouter la ligne suivante :
 
     blacklist snd_bcm2835
+Redémarrer **reboot**
+Vérifier l'absence de la prise en compte
+
+    root@oize:/home/pi# aplay -l
+    aplay: device_list:272: aucune carte son n'a été trouvée...
+
 
 ## Faire fonctionner le raspberry à une cadence un peu moins élevée:
 
@@ -51,6 +74,10 @@ Mettez la commande dans /etc/rc.local.  L'exécution de la commande a lieu aprè
 Ajouter la ligne suivante
 
     cpufreq-set -g conservative
+Connaitre la fréquence du CPU
+
+    vcgencmd measure_clock arm 
+
 
 ## Changelog
 
