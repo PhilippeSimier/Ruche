@@ -78,8 +78,9 @@ Ajouter la ligne suivante
     cpufreq-set -g conservative
 Connaitre la fréquence du CPU
 
-    vcgencmd measure_clock arm 
-
+    vcgencmd measure_clock arm
+    
+vsgencmd est un utilitaire de ligne de commande qui peut obtenir diverses informations du GPU VideoCore sur le Raspberry Pi. La plupart des informations disponibles ne sont utiles qu'aux ingénieurs de Raspberry Pi, mais il existe un certain nombre d'options très utiles disponibles pour les utilisateurs finaux.
 
 ## Changelog
 
