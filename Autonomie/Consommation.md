@@ -52,7 +52,7 @@ Ajouter les lignes suivantes :
 
 ## Désactiver la sortie HDMI:
 
-tvservice -o désactive tout le pipeline d'affichage, y compris les horloges, le matériel vidéo Scaler, Pixel Valve, récupère les couches d'affichage de sdram, etc.
+**tvservice -o** désactive tout le pipeline d'affichage, y compris les horloges, le matériel vidéo Scaler, Pixel Valve, récupère les couches d'affichage de sdram, etc. il devrait être constaté une réduction de 17 mA du courant d'alimentation.
 
     sudo nano /etc/rc.local
 Ajouter la ligne suivante :
