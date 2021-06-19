@@ -69,7 +69,21 @@ Dans l’onglet “**DEVICE TYPE**” du site SigFox, cliquer sur le nom de la c
 Pour créer un nouveau callback cliquer sur le bouton new (en haut à droite)
 Choisir l'option **Custom callback**
 
-to do
+### Configuration d'un DATA UPLINK
+
+![Data UpLink](/Sigfox/Callback_ruche.PNG)
+**Custom payload config :**
+Ce champ permet de décoder la trame reçue et de la transmettre au serveur Aggregator. 
+```
+field1::int:16:little-endian field2::int:16:little-endian field3::int:16:little-endian  field5::uint:16:little-endian field6::int:16:little-endian field4::uint:8 type::uint:8
+```
+Les données sont renvoyées au serveur Aggregator via  la méthode POST.
+```
+id={device}&time={time}&data={data}&seqNumber={seqNumber}&field1={customData#field1}&field2={customData#field2}&field3={customData#field3}&field4={customData#field4}&field5={customData#field5}&field6={customData#field6}&type={customData#type}
+
+```
+
+
 
 ## Diagramme de classe Sigfox
 
