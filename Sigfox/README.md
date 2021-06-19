@@ -83,6 +83,32 @@ id={device}&time={time}&data={data}&seqNumber={seqNumber}&field1={customData#fie
 
 ```
 
+### Configuration d'un service data_advanced
+
+Le service data advanced permet de d'envoyer des informations sur la qualité de la transmission (lqi) et sur la localisation. Ces informations sont codées au format JSON.
+ 
+![Data UpLink](/Sigfox/service data_advanced.PNG)
+
+```
+{
+  "device" : "{device}",
+  "time" : "{time}",
+  "data" : "{data}",
+  "seqNumber" : "{seqNumber}",
+  "lqi" : "{lqi}",
+  "operatorName" : "{operatorName}",
+  "countryCode": {countryCode},
+  "computedLocation" : {computedLocation} 
+}
+```
+### Configuration du service status
+
+Un message de service est envoyé une fois par jour par le modem **sigfox**. Ce message contient la température et la tension d'alimentation. 
+![Data UpLink](/Sigfox/service_status.PNG)
+```
+id={device}&time={time}&seqNumber={seqNumber}&field1={temp}&field2={batt}&type=3&data=Message status
+```
+
 
 
 ## Diagramme de classe Sigfox
