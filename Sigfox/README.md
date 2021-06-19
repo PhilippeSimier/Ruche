@@ -127,6 +127,18 @@ id={device}&time={time}&seqNumber={seqNumber}&field1={temp}&field2={batt}&type=3
 
 [le code exemple](https://github.com/PhilippeSimier/Ruche/blob/master/Sigfox/main.cpp)
 
+## Emission des données 
+
+Deux programmes permettent d'envoyer les données vers l'aggrégator 
+
+ - **mesuresSigfox.cpp** pour le suivi des grandeurs relatives à la ruche
+ - **batterySigfox.cpp** pour le suivi de la batterie.
+ ### Configuration du crontab 
+ Le crontab est configuré pour envoyer toute les demi-heures.
+ ```
+ */30 * * * * /opt/Ruche/bin/mesuresSigfox >/dev/null 2>&1
+15,45 * * * * /opt/Ruche/bin/batterySigfox >/dev/null 2>&1
+ ```
 
 # Changelog
 
