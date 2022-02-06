@@ -7,7 +7,7 @@
     \details  Renvoie les valeurs mesurées par le capteur ina219 au format JSON
               Les différentes valeures sont envoyées sur la sortie standard
 	      avec une précison de deux chiffres après la virgule.
-    Compilation  : g++ batteryJson.cpp ina219.cpp i2c.cpp -o batteryJson
+    Compilation  : g++ batteryJson.cpp SimpleIni.cpp ina219.cpp i2c.cpp -o batteryJson
     Installation : sudo chown root batteryJson
                    sudo chmod +s batteryJson
                    sudo mv batteryJson /usr/lib/cgi-bin/batteryJson
@@ -42,7 +42,7 @@ int main()
 
     if (!capteur->obtenirErreur()){
     	float u = capteur->obtenirTension_V();
-    	float i = capteur->obtenirCourantMoyen_A(100);
+    	float i = capteur->obtenirCourantMoyen_A(500);
     	float p = u*i;
     	float soc = (charge / capacite) * 100;
 

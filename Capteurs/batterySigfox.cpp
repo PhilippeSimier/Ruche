@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     if (!batterie.obtenirErreur()){
 
         float u = batterie.obtenirTension_V();
-    	float i1 = batterie.obtenirCourantMoyen_A(100);
+    	float i1 = batterie.obtenirCourantMoyen_A(500);
     	float p = u*i1;
     	float soc;
 
